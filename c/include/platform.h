@@ -131,5 +131,6 @@ void setLabelOp(GObject gobj, string str);
 double getFontAscentOp(GObject gobj);
 double getFontDescentOp(GObject gobj);
 GDimension getGLabelSizeOp(GObject gobj);
+void pauseOp(double milliseconds);
 
 #endif
