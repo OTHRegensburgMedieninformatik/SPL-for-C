@@ -21,6 +21,10 @@ The Windows version needs MSYS (http://www.mingw.org/wiki/MSYS) in order for mak
     make
     make install
 
+### Compiling and running examples
+You need to copy the compiled jar file from build/lib to c/examples.
+From there run make to compile the examples.
+
 ## TODO
 
 * Bug fixes
