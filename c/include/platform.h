@@ -133,4 +133,6 @@ double getFontDescentOp(GObject gobj);
 GDimension getGLabelSizeOp(GObject gobj);
 void pauseOp(double milliseconds);
 
+static void startJavaBackendProcess();
+
 #endif

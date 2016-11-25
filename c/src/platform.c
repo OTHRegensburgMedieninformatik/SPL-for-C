@@ -77,11 +77,11 @@ static HashMap timerTable;
 static HashMap windowTable;
 static StringBuffer psb;
 
-#ifdef _MSC_VER
-static HANDLE rdFromJBE = NULL;
-static HANDLE wrFromJBE = NULL;
-static HANDLE rdToJBE = NULL;
-static HANDLE wrToJBE = NULL;
+#ifdef windows
+static HANDLE g_hChildStd_IN_Rd = NULL;
+static HANDLE g_hChildStd_IN_Wr = NULL; // this is where we write!
+static HANDLE g_hChildStd_OUT_Rd = NULL;
+static HANDLE g_hChildStd_OUT_Wr = NULL;
 #endif
 
 /* Private function prototypes */
@@ -159,7 +159,6 @@ static void initPipe() {
 }
 
 static void startJavaBackendProcess() {
-   // todo define, not here...
    TCHAR szCmdline[]=TEXT("java -jar spl.jar");
    PROCESS_INFORMATION piProcInfo; 
    STARTUPINFO siStartInfo;

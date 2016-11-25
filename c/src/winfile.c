@@ -34,6 +34,7 @@
 #include "filelib.h"
 #include "cslib.h"
 #include "strlib.h"
+#include <string.h>
 
 string getDirectoryPathSeparator(void) {
    return "\\";
