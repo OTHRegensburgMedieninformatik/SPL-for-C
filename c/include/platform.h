@@ -134,5 +134,6 @@ GDimension getGLabelSizeOp(GObject gobj);
 void pauseOp(double milliseconds);
 
 static void startJavaBackendProcess();
+void readMessageFromBuffer(char* message, int maxLength);
 
 #endif

@@ -131,7 +131,7 @@ extern string *getMainArgArray(void);
 
 static void initPipe() {
    SECURITY_ATTRIBUTES saAttr; 
-   printf("\n->Initializing pipe.\n");
+   //printf("\n->Initializing pipe.\n");
 
    // Set the bInheritHandle flag so pipe handles are inherited. 
    saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
@@ -142,7 +142,8 @@ static void initPipe() {
    if ( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &saAttr, 0) ) 
       error(TEXT("StdoutRd CreatePipe")); 
 
-   // Ensure the read handle to the pipe for STDOUT is not inherited.
+   
+   /// Ensure the read handle to the pipe for STDOUT is not inherited.
    if ( ! SetHandleInformation(g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) )
       error(TEXT("Stdout SetHandleInformation")); 
 
@@ -152,13 +153,14 @@ static void initPipe() {
 
    // Ensure the write handle to the pipe for STDIN is not inherited.  
    if ( ! SetHandleInformation(g_hChildStd_IN_Wr, HANDLE_FLAG_INHERIT, 0) )
-      error(TEXT("Stdin SetHandleInformation")); 
+      error(TEXT("Stdin SetHandleInformation"));  
  
    // Create the child process. 
    startJavaBackendProcess();
 }
 
 static void startJavaBackendProcess() {
+   // todo define, not here...
    TCHAR szCmdline[]=TEXT("java -jar spl.jar");
    PROCESS_INFORMATION piProcInfo; 
    STARTUPINFO siStartInfo;
@@ -203,11 +205,12 @@ static void startJavaBackendProcess() {
 }
 
 static void putPipe(string format, ...) {
-   //testing
-   printf("Starting to write to pipe");
+    //testing
+   //printf("Starting to write to pipe");
    DWORD dwWritten; 
    BOOL bSuccess = FALSE;
 
+   //patch
    string cmd, jbetrace;
    va_list args;
    int capacity;
@@ -222,26 +225,58 @@ static void putPipe(string format, ...) {
    cmd = getString(psb);
    int commandSize = strlen(cmd);
    //debug
-   printf("from platform.c put pipe: %s", cmd);
+   //printf("Sent to pipe: %s\n", cmd);
 
    jbetrace = getenv("JBETRACE");
    bSuccess = WriteFile(g_hChildStd_IN_Wr, cmd, commandSize, &dwWritten, NULL);
    bSuccess = WriteFile(g_hChildStd_IN_Wr, "\n", 1, &dwWritten, NULL);
 }
 
-static string getResult() {
-   DWORD dwRead;
-   int bufSize = 4096;
-   CHAR chBuf[bufSize]; 
-   BOOL bSuccess = FALSE;
-   HANDLE hParentStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-   for (;;) 
+static string getResult() {
+   int maxMessageLength = 300;
+
+   string result;
+   for(;;)
    { 
-      bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, bufSize, &dwRead, NULL);
-      printf("Message received: %s\n", chBuf);
-      if( ! bSuccess || dwRead == 0 ) break; 
-   } 
+      char message[200];
+      readMessageFromBuffer(message, maxMessageLength);
+
+      if (startsWith(message, "result:")) {
+         //printf("Result contains newLine char at: %d", findChar('\n', messageBuffer, 0));
+         result = substring(message, 7, stringLength(message));
+         //printf("Parsed result: %s", result);
+         return result;
+      } else if (startsWith(message, "event:")) {
+         //printf("Event contains newLine char at: %d", findChar('\n', messageBuffer, 0));
+         //result = substring(messageBuffer, 6, bufSize);
+         //printf("Parsed event: %s\n", message);
+         enqueue(eventQueue, parseEvent(message + 6));
+      }
+   }
+}
+
+void readMessageFromBuffer(char* message, int maxLength) {
+      DWORD dwRead;
+      int bufSize = 1;
+      char messageBuffer[bufSize]; 
+      BOOL bSuccess = FALSE;
+      HANDLE hParentStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+      int bufferPosition = 0;
+      char bufferedChar;
+      while(bufferPosition < maxLength) {
+         bSuccess = ReadFile(g_hChildStd_OUT_Rd, messageBuffer, bufSize, &dwRead, NULL);
+         bufferedChar = messageBuffer[0];
+         if (bufferedChar == '\n') {
+            break;
+         }
+         message[bufferPosition] = bufferedChar;
+         bufferPosition++;
+         if( !bSuccess || dwRead == 0 ) break; 
+      }
+      message[bufferPosition-1] = '\0';
+      //printf("Read message from buffer%s", message);
 }
 #else
 
@@ -867,7 +902,7 @@ double getFontAscentOp(GLabel label) {
 }
 
 double getFontDescentOp(GLabel label) {
-   putPipe("GLabel.getFontDescent(\"0x%lX\")", (long) label);
+   putPipe("GLabel.initDescent(\"0x%lX\")", (long) label);
    return getDouble();
 }
 
