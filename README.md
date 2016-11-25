@@ -4,6 +4,8 @@ This is OTH Regensburg's fork of the Harvard CS50 version Eric Roberts' Stanford
 
 ## Building
 To set the target platform, edit the Makefile and change like so:
+PLATFORM=unixlike #for Mac and Linux
+PLATFORM=windows #for windows
 
 ### MacOS
 
