@@ -23,7 +23,7 @@
 /* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /*************************************************************************/
 
-#ifdef _MSC_VER
+#ifdef windows
 #  include <windows.h>
 #  include <tchar.h>
 #  undef MOUSE_EVENT
@@ -32,7 +32,7 @@
 #  undef HELP_KEY
 #endif
 
-#if defined(__unix__) || defined(__STDC_HOSTED__)
+#if defined unixlike
 #  define pause unixpause
 #  include <sys/types.h>
 #  include <sys/stat.h>
@@ -123,69 +123,127 @@ string getId(void *ptr) {
    return copyString(str);
 }
 
-#ifdef _MSC_VER
+#ifdef windows
 
 /* Windows implementation of interface to Java back end */
 
-//////////////////////////////////////////////////////////////////////////
-// Note: As of August 7, 2013, this code has not been tested, because   //
-//       I don't currently have access to a Windows machine.  I will    //
-//       remedy that problem after I return to Stanford in the fall.    //
-//////////////////////////////////////////////////////////////////////////
+extern string *getMainArgArray(void);
 
 static void initPipe() {
-   HANDLE rdtmp, wrtmp;
-   SECURITY_ATTRIBUTES attr;
-   PROCESS_INFORMATION pInfo;
-   STARTUPINFOA sInfo;
+   SECURITY_ATTRIBUTES saAttr; 
+   printf("\n->Initializing pipe.\n");
 
-   attr.nLength = sizeof(SECURITY_ATTRIBUTES);
-   attr.bInheritHandle = true;
-   attr.lpSecurityDescriptor = NULL;
-   attr.bInheritHandle = TRUE;
-   if (!CreatePipe(&hrd, &wrFromJBE, &attr, 0)) {
-      error("Can't create wrFromJBE");
-   }
-   if (!CreatePipe(&hwr, &wrToJBE, &attr, 0)) {
-      error("Can't create wrToJBE");
-   }
-   if (!DuplicateHandle(GetCurrentProcess(), hrd,
-                        GetCurrentProcess(), &rdToJBE,
-                        0, FALSE, DUPLICATE_SAME_ACCESS)) {
-      error("Can't create rdToJBE");
-   }
-   if (!DuplicateHandle(GetCurrentProcess(), hwr
-                        GetCurrentProcess(), &wrFromJBE,
-                        0, FALSE, DUPLICATE_SAME_ACCESS)) {
-      error("Can't create wrFromJBE");
-   }
-   if (!CloseHandle(hwr)) error("Can't close temporary write channel");
-   if (!CloseHandle(hrd)) error("Can't close temporary read channel");
-   string cmd = "java -jar spl.jar " + programName;
-   int n = cmd.length();
-   char *cmdLine = new char[n + 1];
-   for (int i = 0; i < n; i++) {
-      cmdLine[i] = cmd[i];
-   }
-   cmdLine[n] = '\0';
-   memset(&pInfo, 0, sizeof(PROCESS_INFORMATION));
-   memset(&sInfo, 0, sizeof(STARTUPINFOA));
-   sInfo.cb = sizeof(STARTUPINFOA);
-   sInfo.dwFlags = STARTF_USESTDHANDLES;
-   sInfo.hStdInput = rdToJBE;
-   sInfo.hStdOutput = wrFromJBE;
-   sInfo.hStdError = wrFromJBE;
-   if (!CreateProcessA(NULL, cmdLine, NULL, NULL, true, 0,
-                       NULL, NULL, &sInfo, &pInfo)) {
-      DWORD err = GetLastError();
-      error("CreateProcess failed with error %ld", (long) err);
-   }
-   if (!CloseHandle(rdToJBE)) error("Can't close rdToJBE");
-   if (!CloseHandle(wrFromJBE)) error("Can't close wrFromJBE");
-   if (!CloseHandle(pInfo.hProcess)) error("Can't close hProcess");
-   if (!CloseHandle(pInfo.hThread)) error("Can't close hThread");
+   // Set the bInheritHandle flag so pipe handles are inherited. 
+   saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
+   saAttr.bInheritHandle = TRUE; 
+   saAttr.lpSecurityDescriptor = NULL; 
+
+   // Create a pipe for the child process's STDOUT. 
+   if ( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &saAttr, 0) ) 
+      error(TEXT("StdoutRd CreatePipe")); 
+
+   // Ensure the read handle to the pipe for STDOUT is not inherited.
+   if ( ! SetHandleInformation(g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) )
+      error(TEXT("Stdout SetHandleInformation")); 
+
+   // Create a pipe for the child process's STDIN. 
+   if (! CreatePipe(&g_hChildStd_IN_Rd, &g_hChildStd_IN_Wr, &saAttr, 0)) 
+      error(TEXT("Stdin CreatePipe")); 
+
+   // Ensure the write handle to the pipe for STDIN is not inherited.  
+   if ( ! SetHandleInformation(g_hChildStd_IN_Wr, HANDLE_FLAG_INHERIT, 0) )
+      error(TEXT("Stdin SetHandleInformation")); 
+ 
+   // Create the child process. 
+   startJavaBackendProcess();
 }
 
+static void startJavaBackendProcess() {
+   // todo define, not here...
+   TCHAR szCmdline[]=TEXT("java -jar spl.jar");
+   PROCESS_INFORMATION piProcInfo; 
+   STARTUPINFO siStartInfo;
+   BOOL bSuccess = FALSE; 
+ 
+   // Set up members of the PROCESS_INFORMATION structure. 
+   ZeroMemory( &piProcInfo, sizeof(PROCESS_INFORMATION) );
+ 
+   // Set up members of the STARTUPINFO structure. 
+   // This structure specifies the STDIN and STDOUT handles for redirection.
+   ZeroMemory( &siStartInfo, sizeof(STARTUPINFO) );
+   siStartInfo.cb = sizeof(STARTUPINFO); 
+   siStartInfo.hStdError = g_hChildStd_OUT_Wr;
+   siStartInfo.hStdOutput = g_hChildStd_OUT_Wr;
+   siStartInfo.hStdInput = g_hChildStd_IN_Rd;
+   siStartInfo.dwFlags |= STARTF_USESTDHANDLES;
+ 
+   // Create the child process. 
+   bSuccess = CreateProcess(NULL, 
+      szCmdline,     // command line 
+      NULL,          // process security attributes 
+      NULL,          // primary thread security attributes 
+      TRUE,          // handles are inherited 
+      0,             // creation flags 
+      NULL,          // use parent's environment 
+      NULL,          // use parent's current directory 
+      &siStartInfo,  // STARTUPINFO pointer 
+      &piProcInfo);  // receives PROCESS_INFORMATION 
+   
+   // If an error occurs, exit the application. 
+   if ( ! bSuccess ) 
+      error(TEXT("CreateProcess"));
+   else 
+   {
+      // Close handles to the child process and its primary thread.
+      // Some applications might keep these handles to monitor the status
+      // of the child process, for example. 
+
+      CloseHandle(piProcInfo.hProcess);
+      CloseHandle(piProcInfo.hThread);
+   }
+}
+
+static void putPipe(string format, ...) {
+   //testing
+   printf("Starting to write to pipe");
+   DWORD dwWritten; 
+   BOOL bSuccess = FALSE;
+
+   string cmd, jbetrace;
+   va_list args;
+   int capacity;
+
+   clearStringBuffer(psb);
+   va_start(args, format);
+   capacity = printfCapacity(format, args);
+   va_end(args);
+   va_start(args, format);
+   sbFormat(psb, capacity, format, args);
+   va_end(args);
+   cmd = getString(psb);
+   int commandSize = strlen(cmd);
+   //debug
+   printf("from platform.c put pipe: %s", cmd);
+
+   jbetrace = getenv("JBETRACE");
+   bSuccess = WriteFile(g_hChildStd_IN_Wr, cmd, commandSize, &dwWritten, NULL);
+   bSuccess = WriteFile(g_hChildStd_IN_Wr, "\n", 1, &dwWritten, NULL);
+}
+
+static string getResult() {
+   DWORD dwRead;
+   int bufSize = 4096;
+   CHAR chBuf[bufSize]; 
+   BOOL bSuccess = FALSE;
+   HANDLE hParentStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+   for (;;) 
+   { 
+      bSuccess = ReadFile(g_hChildStd_OUT_Rd, chBuf, bufSize, &dwRead, NULL);
+      printf("Message received: %s\n", chBuf);
+      if( ! bSuccess || dwRead == 0 ) break; 
+   } 
+}
 #else
 
 /* Linux/Mac implementation of interface to Java back end */
@@ -226,8 +284,6 @@ static void initPipe(void) {
       close(toJBE[0]);
    }
 }
-
-#endif
 
 static void putPipe(string format, ...) {
    string cmd, jbetrace;
@@ -270,6 +326,8 @@ static string getResult() {
       }
    }
 }
+
+#endif
 
 static void getStatus() {
    string result;

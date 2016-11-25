@@ -3,6 +3,10 @@
 
 SHELL=/bin/bash
 
+# Sets the target platform for SPL
+# Valid values for variable platform are unixlike and windows
+PLATFORM=unixlike
+
 BUILD = \
     build \
     build/classes \
@@ -44,6 +48,7 @@ OBJECTS = \
     build/obj/strlib.o \
     build/obj/tokenscanner.o \
     build/obj/unittest.o \
+    build/obj/winfile.o \
     build/obj/unixfile.o \
     build/obj/vector.o
 
@@ -79,42 +84,42 @@ build/obj/bst.o: c/src/bst.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h
            c/include/exception.h c/include/foreach.h c/include/generic.h \
            c/include/iterator.h c/include/itertype.h c/include/strlib.h \
            c/include/unittest.h
-	gcc -c -o build/obj/bst.o -Ic/include c/src/bst.c
+	gcc -D$(PLATFORM) -c -o build/obj/bst.o -Ic/include c/src/bst.c
 
 build/obj/charset.o: c/src/charset.c c/include/charset.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/foreach.h \
                c/include/generic.h c/include/iterator.h c/include/itertype.h \
                c/include/strlib.h c/include/unittest.h
-	gcc -c -o build/obj/charset.o -Ic/include c/src/charset.c
+	gcc -D$(PLATFORM) -c -o build/obj/charset.o -Ic/include c/src/charset.c
 
 build/obj/cmdscan.o: c/src/cmdscan.c c/include/cmdscan.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/generic.h \
                c/include/hashmap.h c/include/iterator.h c/include/itertype.h \
                c/include/private/tokenpatch.h c/include/simpio.h \
                c/include/strlib.h c/include/tokenscanner.h
-	gcc -c -o build/obj/cmdscan.o -Ic/include c/src/cmdscan.c
+	gcc -D$(PLATFORM) -c -o build/obj/cmdscan.o -Ic/include c/src/cmdscan.c
 
 build/obj/cmpfn.o: c/src/cmpfn.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
              c/include/strlib.h
-	gcc -c -o build/obj/cmpfn.o -Ic/include c/src/cmpfn.c
+	gcc -D$(PLATFORM) -c -o build/obj/cmpfn.o -Ic/include c/src/cmpfn.c
 
 build/obj/cslib.o: c/src/cslib.c c/include/cslib.h c/include/exception.h
-	gcc -c -o build/obj/cslib.o -Ic/include c/src/cslib.c
+	gcc -D$(PLATFORM) -c -o build/obj/cslib.o -Ic/include c/src/cslib.c
 
 build/obj/exception.o: c/src/exception.c c/include/cmpfn.h c/include/cslib.h \
                  c/include/exception.h c/include/generic.h c/include/strlib.h \
                  c/include/unittest.h
-	gcc -c -o build/obj/exception.o -Ic/include c/src/exception.c
+	gcc -D$(PLATFORM) -c -o build/obj/exception.o -Ic/include c/src/exception.c
 
 build/obj/filelib.o: c/src/filelib.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/filelib.h c/include/generic.h \
                c/include/iterator.h c/include/itertype.h c/include/strlib.h \
                c/include/unittest.h
-	gcc -c -o build/obj/filelib.o -Ic/include c/src/filelib.c
+	gcc -D$(PLATFORM) -c -o build/obj/filelib.o -Ic/include c/src/filelib.c
 
 build/obj/foreach.o: c/src/foreach.c c/include/cslib.h c/include/foreach.h \
                c/include/iterator.h
-	gcc -c -o build/obj/foreach.o -Ic/include c/src/foreach.c
+	gcc -D$(PLATFORM) -c -o build/obj/foreach.o -Ic/include c/src/foreach.c
 
 build/obj/generic.o: c/src/generic.c c/include/charset.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/generic.h \
@@ -123,7 +128,7 @@ build/obj/generic.o: c/src/generic.c c/include/charset.h c/include/cmpfn.h \
                c/include/iterator.h c/include/map.h c/include/pqueue.h \
                c/include/queue.h c/include/ref.h c/include/set.h c/include/stack.h \
                c/include/strbuf.h c/include/strlib.h c/include/vector.h
-	gcc -c -o build/obj/generic.o -Ic/include c/src/generic.c
+	gcc -D$(PLATFORM) -c -o build/obj/generic.o -Ic/include c/src/generic.c
 
 build/obj/gevents.o: c/src/gevents.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/generic.h c/include/gevents.h \
@@ -131,70 +136,70 @@ build/obj/gevents.o: c/src/gevents.c c/include/cmpfn.h c/include/cslib.h \
                c/include/gtypes.h c/include/gwindow.h c/include/hashmap.h \
                c/include/iterator.h c/include/platform.h c/include/sound.h \
                c/include/strlib.h c/include/unittest.h c/include/vector.h
-	gcc -c -o build/obj/gevents.o -Ic/include c/src/gevents.c
+	gcc -D$(PLATFORM) -c -o build/obj/gevents.o -Ic/include c/src/gevents.c
 
 build/obj/gmath.o: c/src/gmath.c c/include/gmath.h
-	gcc -c -o build/obj/gmath.o -Ic/include c/src/gmath.c
+	gcc -D$(PLATFORM) -c -o build/obj/gmath.o -Ic/include c/src/gmath.c
 
 build/obj/gobjects.o: c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                 c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                 c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
                 c/include/sound.h c/include/vector.h
-	gcc -c -o build/obj/gobjects.o -Ic/include c/src/gobjects.c
+	gcc -D$(PLATFORM) -c -o build/obj/gobjects.o -Ic/include c/src/gobjects.c
 
 build/obj/graph.o: c/src/graph.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/foreach.h c/include/generic.h \
              c/include/graph.h c/include/hashmap.h c/include/iterator.h \
              c/include/itertype.h c/include/set.h c/include/strlib.h \
              c/include/unittest.h
-	gcc -c -o build/obj/graph.o -Ic/include c/src/graph.c
+	gcc -D$(PLATFORM) -c -o build/obj/graph.o -Ic/include c/src/graph.c
 
 build/obj/gtimer.o: c/src/gtimer.c c/include/cmpfn.h c/include/cslib.h \
               c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
               c/include/gobjects.h c/include/gtimer.h c/include/gtypes.h \
               c/include/gwindow.h c/include/platform.h c/include/sound.h \
               c/include/vector.h
-	gcc -c -o build/obj/gtimer.o -Ic/include c/src/gtimer.c
+	gcc -D$(PLATFORM) -c -o build/obj/gtimer.o -Ic/include c/src/gtimer.c
 
 build/obj/gtypes.o: c/src/gtypes.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/gtypes.h \
               c/include/unittest.h
-	gcc -c -o build/obj/gtypes.o -Ic/include c/src/gtypes.c
+	gcc -D$(PLATFORM) -c -o build/obj/gtypes.o -Ic/include c/src/gtypes.c
 
 build/obj/gwindow.o: c/src/gwindow.c c/include/cmpfn.h c/include/cslib.h \
                c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
                c/include/sound.h c/include/vector.h
-	gcc -c -o build/obj/gwindow.o -Ic/include c/src/gwindow.c
+	gcc -D$(PLATFORM) -c -o build/obj/gwindow.o -Ic/include c/src/gwindow.c
 
 build/obj/hashmap.o: c/src/hashmap.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/foreach.h c/include/generic.h \
                c/include/hashmap.h c/include/iterator.h c/include/itertype.h \
                c/include/strlib.h c/include/unittest.h
-	gcc -c -o build/obj/hashmap.o -Ic/include c/src/hashmap.c
+	gcc -D$(PLATFORM) -c -o build/obj/hashmap.o -Ic/include c/src/hashmap.c
 
 build/obj/iterator.o: c/src/iterator.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/iterator.h c/include/itertype.h
-	gcc -c -o build/obj/iterator.o -Ic/include c/src/iterator.c
+	gcc -D$(PLATFORM) -c -o build/obj/iterator.o -Ic/include c/src/iterator.c
 
 build/obj/loadobj.o: c/src/loadobj.c c/include/cmpfn.h c/include/cslib.h \
                c/include/filelib.h c/include/generic.h c/include/iterator.h \
                c/include/loadobj.h c/include/strlib.h
-	gcc -c -o build/obj/loadobj.o -Ic/include c/src/loadobj.c
+	gcc -D$(PLATFORM) -c -o build/obj/loadobj.o -Ic/include c/src/loadobj.c
 
 build/obj/map.o: c/src/map.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
            c/include/exception.h c/include/foreach.h c/include/generic.h \
            c/include/iterator.h c/include/itertype.h c/include/map.h \
            c/include/strlib.h c/include/unittest.h
-	gcc -c -o build/obj/map.o -Ic/include c/src/map.c
+	gcc -D$(PLATFORM) -c -o build/obj/map.o -Ic/include c/src/map.c
 
 build/obj/options.o: c/src/options.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/generic.h c/include/hashmap.h \
                c/include/iterator.h c/include/options.h c/include/strlib.h \
                c/include/unittest.h c/include/vector.h
-	gcc -c -o build/obj/options.o -Ic/include c/src/options.c
+	gcc -D$(PLATFORM) -c -o build/obj/options.o -Ic/include c/src/options.c
 
 build/obj/platform.o: c/src/platform.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/filelib.h c/include/generic.h c/include/gevents.h \
@@ -204,79 +209,84 @@ build/obj/platform.o: c/src/platform.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/private/tokenpatch.h c/include/queue.h \
                 c/include/simpio.h c/include/sound.h c/include/strbuf.h \
                 c/include/strlib.h c/include/tokenscanner.h c/include/vector.h
-	gcc -c -o build/obj/platform.o -Ic/include c/src/platform.c
+	gcc -D$(PLATFORM) -c -o build/obj/platform.o -Ic/include c/src/platform.c
 
 build/obj/pqueue.o: c/src/pqueue.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/pqueue.h \
               c/include/unittest.h c/include/vector.h
-	gcc -c -o build/obj/pqueue.o -Ic/include c/src/pqueue.c
+	gcc -D$(PLATFORM) -c -o build/obj/pqueue.o -Ic/include c/src/pqueue.c
 
 build/obj/queue.o: c/src/queue.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/generic.h c/include/queue.h \
              c/include/unittest.h
-	gcc -c -o build/obj/queue.o -Ic/include c/src/queue.c
+	gcc -D$(PLATFORM) -c -o build/obj/queue.o -Ic/include c/src/queue.c
 
 build/obj/random.o: c/src/random.c c/include/cslib.h c/include/exception.h \
               c/include/private/randompatch.h c/include/random.h \
               c/include/unittest.h
-	gcc -c -o build/obj/random.o -Ic/include c/src/random.c
+	gcc -D$(PLATFORM) -c -o build/obj/random.o -Ic/include c/src/random.c
 
 build/obj/ref.o: c/src/ref.c c/include/cslib.h c/include/ref.h
-	gcc -c -o build/obj/ref.o -Ic/include c/src/ref.c
+	gcc -D$(PLATFORM) -c -o build/obj/ref.o -Ic/include c/src/ref.c
 
 build/obj/set.o: c/src/set.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
            c/include/exception.h c/include/foreach.h c/include/generic.h \
            c/include/iterator.h c/include/itertype.h c/include/map.h \
            c/include/set.h c/include/strlib.h c/include/unittest.h
-	gcc -c -o build/obj/set.o -Ic/include c/src/set.c
+	gcc -D$(PLATFORM) -c -o build/obj/set.o -Ic/include c/src/set.c
 
 build/obj/simpio.o: c/src/simpio.c c/include/cmpfn.h c/include/cslib.h \
               c/include/generic.h c/include/simpio.h c/include/strlib.h
-	gcc -c -o build/obj/simpio.o -Ic/include c/src/simpio.c
+	gcc -D$(PLATFORM) -c -o build/obj/simpio.o -Ic/include c/src/simpio.c
 
 build/obj/sound.o: c/src/sound.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
              c/include/gevents.h c/include/ginteractors.h c/include/gobjects.h \
              c/include/gtimer.h c/include/gtypes.h c/include/gwindow.h \
              c/include/platform.h c/include/sound.h c/include/vector.h
-	gcc -c -o build/obj/sound.o -Ic/include c/src/sound.c
+	gcc -D$(PLATFORM) -c -o build/obj/sound.o -Ic/include c/src/sound.c
 
 build/obj/stack.o: c/src/stack.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/generic.h c/include/stack.h \
              c/include/unittest.h
-	gcc -c -o build/obj/stack.o -Ic/include c/src/stack.c
+	gcc -D$(PLATFORM) -c -o build/obj/stack.o -Ic/include c/src/stack.c
 
 build/obj/strbuf.o: c/src/strbuf.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/strbuf.h \
               c/include/strlib.h c/include/unittest.h
-	gcc -c -o build/obj/strbuf.o -Ic/include c/src/strbuf.c
+	gcc -D$(PLATFORM) -c -o build/obj/strbuf.o -Ic/include c/src/strbuf.c
 
 build/obj/strlib.o: c/src/strlib.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/strlib.h \
               c/include/unittest.h
-	gcc -c -o build/obj/strlib.o -Ic/include c/src/strlib.c
+	gcc -D$(PLATFORM) -c -o build/obj/strlib.o -Ic/include c/src/strlib.c
 
 build/obj/tokenscanner.o: c/src/tokenscanner.c c/include/cmpfn.h c/include/cslib.h \
                     c/include/exception.h c/include/generic.h \
                     c/include/private/tokenpatch.h c/include/strbuf.h \
                     c/include/strlib.h c/include/tokenscanner.h \
                     c/include/unittest.h
-	gcc -c -o build/obj/tokenscanner.o -Ic/include c/src/tokenscanner.c
+	gcc -D$(PLATFORM) -c -o build/obj/tokenscanner.o -Ic/include c/src/tokenscanner.c
 
 build/obj/unittest.o: c/src/unittest.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/exception.h c/include/generic.h c/include/strlib.h \
                 c/include/unittest.h
-	gcc -c -o build/obj/unittest.o -Ic/include c/src/unittest.c
+	gcc -D$(PLATFORM) -c -o build/obj/unittest.o -Ic/include c/src/unittest.c
 
 build/obj/unixfile.o: c/src/unixfile.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/filelib.h c/include/generic.h c/include/iterator.h \
                 c/include/strlib.h c/include/vector.h
-	gcc -c -o build/obj/unixfile.o -Ic/include c/src/unixfile.c
+	gcc -D$(PLATFORM) -c -o build/obj/unixfile.o -Ic/include c/src/unixfile.c
+
+build/obj/winfile.o: c/src/unixfile.c c/include/cmpfn.h c/include/cslib.h \
+                c/include/filelib.h c/include/generic.h c/include/iterator.h \
+                c/include/strlib.h c/include/vector.h
+	gcc -D$(PLATFORM) -c -o build/obj/winfile.o -Ic/include c/src/winfile.c
 
 build/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/iterator.h \
               c/include/itertype.h c/include/strlib.h c/include/unittest.h \
               c/include/vector.h
-	gcc -c -o build/obj/vector.o -Ic/include c/src/vector.c
+	gcc -D$(PLATFORM) -c -o build/obj/vector.o -Ic/include c/src/vector.c
 
 
 # ***************************************************************

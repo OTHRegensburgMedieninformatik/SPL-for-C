@@ -23,7 +23,7 @@
 /* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /*************************************************************************/
 
-#ifdef __WIN32__
+#ifdef windows
 
 #include <stdio.h>
 #include <ctype.h>

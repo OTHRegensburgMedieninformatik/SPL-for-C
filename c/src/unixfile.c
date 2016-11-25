@@ -24,7 +24,7 @@
 /* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /*************************************************************************/
 
-#if defined(__unix__) || defined(__STDC_HOSTED__)
+#if defined unixlike
 
 #ifdef __macosx__
 #include <CoreServices/CoreServices.h>
