@@ -602,7 +602,7 @@ static bool containsGArc(GArc arc, double x, double y) {
       if (r > 1.0) return false;
    } else {
       t = ARC_TOLERANCE / ((rx + ry) / 2);
-      if (abs(1.0 - r) > t) return false;
+      if (fabs(1.0 - r) > t) return false;
    }
    return containsAngle(arc, atan2(-dy, dx) * 180 / PI);
 }

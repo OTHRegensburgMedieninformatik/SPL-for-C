@@ -5,7 +5,7 @@ SHELL=/bin/bash
 
 # Sets the target platform for SPL
 # Valid values for variable platform are unixlike and windows
-PLATFORM=windows
+PLATFORM=unixlike
 
 BUILD = \
     build \
