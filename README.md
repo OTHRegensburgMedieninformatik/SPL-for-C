@@ -1,6 +1,7 @@
-# Stanford Portable Library (SPL) for MacOS, Linux and Windows
+# C version of the Stanford Portable Library (SPL) for MacOS, Linux and Windows
 
-This is OTH Regensburg's fork of the Harvard CS50 version Eric Roberts' Stanford Portable Library. This version contains a patch of Robert's original version so that the library can be compiled under Linux, MacOS and Windows.
+SPL is a simple graphics library that can be used in introductory university-level CS courses.
+This is a fork of the Harvard CS50 version of Eric Roberts' Stanford Portable Library. This version contains a patch of Robert's original version so that the library can also be compiled under Windows.
 
 ## Building
 To set the target platform, edit the Makefile and change like so:
