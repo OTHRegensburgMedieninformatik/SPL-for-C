@@ -12,7 +12,7 @@ PROGRAMS = \
     TestInteractors \
     USFlag
 
-FLAGS = -L../lib -lcs -lm
+FLAGS = -L../../build/lib -lcs -lm
 
 
 # ***************************************************************
