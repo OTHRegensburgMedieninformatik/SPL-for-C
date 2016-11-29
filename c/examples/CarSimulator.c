@@ -17,7 +17,7 @@
 
 /* Constants */
 
-const int CAR_NUM = 100;
+#define CAR_NUM 100
 const int CAR_WIDTH = 15;
 const int CAR_HEIGHT = 5;
 const string BG_COLOR = "BLACK";
