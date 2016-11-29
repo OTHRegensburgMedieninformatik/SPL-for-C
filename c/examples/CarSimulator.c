@@ -3,6 +3,7 @@
  * --------------
  * This program simulates cars on a busy street with multiple lanes.
  *
+ * Author: Markus Heckner
  *
  */
 

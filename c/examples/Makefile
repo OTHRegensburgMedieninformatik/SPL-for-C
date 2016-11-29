@@ -12,6 +12,8 @@ PROGRAMS = \
     TestInteractors \
     FlipImage \
     CarSimulator \
+    BrickPyramid \
+    DrawTarget \
     USFlag
 
 FLAGS = -L../../build/lib -lcs -lm
@@ -89,6 +91,17 @@ CarSimulator.o: CarSimulator.c
 CarSimulator: CarSimulator.o
 	gcc -o CarSimulator CarSimulator.o $(FLAGS)
 
+BrickPyramid.o: BrickPyramid.c
+	gcc -c -I../include BrickPyramid.c
+
+BrickPyramid: BrickPyramid.o
+	gcc -o BrickPyramid BrickPyramid.o $(FLAGS)
+
+DrawTarget.o: DrawTarget.c
+	gcc -c -I../include DrawTarget.c
+
+DrawTarget: DrawTarget.o
+	gcc -o DrawTarget DrawTarget.o $(FLAGS)
 
 # ***************************************************************
 # Standard entries to remove files from the directories
