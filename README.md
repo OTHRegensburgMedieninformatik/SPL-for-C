@@ -5,12 +5,10 @@ This is a fork of the Harvard CS50 version of Eric Roberts' Stanford Portable Li
 
 ## Building
 To set the target platform, edit the Makefile and change like so:
-
 PLATFORM=unixlike #for Mac and Linux
-
 PLATFORM=windows #for windows
 
-### MacOS
+### MacOS (also tested with Ubuntu and Fedora)
 
     git clone https://github.com/OTHRegensburgMedieninformatik/SPL-for-C.git
     cd Spl-for-C
