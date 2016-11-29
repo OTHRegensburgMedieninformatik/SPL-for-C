@@ -3,7 +3,7 @@
 SPL is a simple graphics library that can be used in introductory university-level CS courses.
 This is a fork of the Harvard CS50 version of Eric Roberts' Stanford Portable Library. This version contains a patch of Robert's original version so that the library can also be compiled under Windows.
 
-## Building
+## Building C and Java sources
 To set the target platform, edit the Makefile and change like so:
 
 PLATFORM=unixlike #for Mac and Linux
@@ -26,8 +26,10 @@ The Windows version needs MSYS (http://www.mingw.org/wiki/MSYS) in order for mak
     make
     make install
 
-### Compiling and running examples
-You need to copy the compiled jar file from build/lib to c/examples.
+## Compiling and running the C example programs
+The library comes with several example programs that demonstrate the capability of the library but can also be used as student assignments.
+
+**Caution:** You need to copy the compiled jar file from build/lib to c/examples.
 From there run make to compile the examples.
 
 ## TODO
