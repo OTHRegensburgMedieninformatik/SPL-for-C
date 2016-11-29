@@ -10,6 +10,8 @@ PROGRAMS = \
     StopSign \
     TestGraphics \
     TestInteractors \
+    FlipImage \
+    CarSimulator \
     USFlag
 
 FLAGS = -L../../build/lib -lcs -lm
@@ -74,6 +76,18 @@ USFlag: USFlag.o
 
 USFlag.o: USFlag.c
 	gcc -c -I../include USFlag.c
+
+FlipImage.o: FlipImage.c
+	gcc -c -I../include FlipImage.c
+
+FlipImage: FlipImage.o
+	gcc -o FlipImage FlipImage.o $(FLAGS)
+
+CarSimulator.o: CarSimulator.c
+	gcc -c -I../include CarSimulator.c
+
+CarSimulator: CarSimulator.o
+	gcc -o CarSimulator CarSimulator.o $(FLAGS)
 
 
 # ***************************************************************
