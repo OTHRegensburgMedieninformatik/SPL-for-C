@@ -610,8 +610,9 @@ public class JavaBackEnd implements
    }
    public void componentShown(ComponentEvent e) { }
 
-   private void commandLoop() {
-	  if (debug) System.err.println("JavaBackEnd: commandLoop()");
+   private void commandLoop() {	   
+      long cmdCount = 0;
+	  if (debug) System.err.println("JavaBackEnd: commandLoop()");	  
       BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
       TokenScanner scanner = new TokenScanner();
       scanner.ignoreWhitespace();
@@ -621,6 +622,10 @@ public class JavaBackEnd implements
       while (true) {
          try {
             String line = rd.readLine();
+			if (debug) {
+				cmdCount++;
+				System.err.println("JavaBackEnd: line (" + Long.toString(cmdCount) + "):" + line);
+			}
             if (line == null) break;
             scanner.setInput(line);
             String fn = scanner.nextToken();
@@ -716,6 +721,9 @@ public class JavaBackEnd implements
          Info info = new Info(Clip.class, ais.getFormat());
          clip = (Clip)AudioSystem.getLine(info);
 		 clip.open(ais);
+      } catch (IllegalArgumentException ex) {
+		 if (debug) System.err.println("JavaBackEnd: getClip: " + ex);
+         // do not throw this exception, because it occurs when no audio device is available		 
       } catch (IOException ex) {
          throw new ErrorException("getClip: File not found");
       } catch (Exception ex) {

@@ -176,6 +176,12 @@ static void startJavaBackendProcess() {
 	  return;
    }
    
+   if (!SetCurrentDirectory(szPath))
+   {
+   	  error(TEXT("SetCurrentDirectory"));
+	  return;
+   }
+   
    ZeroMemory( szCmdline, MAX_PATH*2 );
    strncpy(szCmdline, TEXT("java.exe -jar "), 14);
    strncat(szCmdline, szPath, MAX_PATH);
@@ -227,6 +233,7 @@ static void startJavaBackendProcess() {
 }
 
 static void putPipe(string format, ...) {
+   static DWORD cmdCount = 0;
    DWORD dwWritten; 
    BOOL bSuccess = FALSE;
 
@@ -244,13 +251,16 @@ static void putPipe(string format, ...) {
    va_end(args);
    cmd = getString(psb);
    int commandSize = strlen(cmd);
-#ifdef PIPEDEBUG   
-   fprintf(stderr, "Sent to pipe: %s\n", cmd);
+#ifdef PIPEDEBUG
+   cmdCount++;
+   fprintf(stderr, "Sent to pipe (%u): %s\n", cmdCount, cmd);
 #endif
 
    jbetrace = getenv("JBETRACE");
-   bSuccess = WriteFile(g_hChildStd_IN_Wr, cmd, commandSize, &dwWritten, NULL);
-   bSuccess = WriteFile(g_hChildStd_IN_Wr, "\n", 1, &dwWritten, NULL);
+   bSuccess  = WriteFile(g_hChildStd_IN_Wr, cmd, commandSize, &dwWritten, NULL);
+   bSuccess &= WriteFile(g_hChildStd_IN_Wr, "\n", 1, &dwWritten, NULL);
+   
+   if ( ! bSuccess ) error(TEXT("WriteFile to pipe"));
 }
 
 static string getResult() {
