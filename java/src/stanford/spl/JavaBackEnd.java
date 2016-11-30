@@ -158,8 +158,9 @@ public class JavaBackEnd implements
             Process proc = Runtime.getRuntime().exec(exec);
             System.setIn(proc.getInputStream());
             System.setOut(new PrintStream(proc.getOutputStream(), true));
+			if (debug) System.err.println("JavaBackEnd: started process " + exec);
          } catch (IOException ex) {
-            System.err.println("Can't exec process");
+            System.err.println("JavaBackEnd: Can't exec process");
          }
       }
       commandLoop();
@@ -610,6 +611,7 @@ public class JavaBackEnd implements
    public void componentShown(ComponentEvent e) { }
 
    private void commandLoop() {
+	  if (debug) System.err.println("JavaBackEnd: commandLoop()");
       BufferedReader rd = new BufferedReader(new InputStreamReader(System.in));
       TokenScanner scanner = new TokenScanner();
       scanner.ignoreWhitespace();
@@ -625,8 +627,8 @@ public class JavaBackEnd implements
             JBECommand cmd = cmdTable.get(fn);
             if (cmd != null) cmd.execute(scanner, this);
          } catch (Exception ex) {
-            ex.printStackTrace(System.err);
-            System.err.println("Unexpected error: " + ex.getMessage());
+			System.err.println("JavaBackEnd: Unexpected error: " + ex.getMessage());
+            ex.printStackTrace(System.err);            
          }
       }
    }
@@ -639,8 +641,10 @@ public class JavaBackEnd implements
          if (arg.startsWith("-")) {
             if (arg.equals("-exec")) {
                exec = args[++i];
+			} else if (arg.equals("-debug")) {
+				debug = true;
             } else {
-               System.err.println("Error: Unrecognized option " + arg);
+               System.err.println("JavaBackEnd: Unrecognized option " + arg);
             }
          } else {
             appName = arg;
@@ -725,6 +729,7 @@ public class JavaBackEnd implements
 
    private String appName;
    private String exec;
+   private boolean debug = false;
    private JBEConsole console;
    private JFrame consoleFrame;
    private int consoleX = DEFAULT_CONSOLE_X;
