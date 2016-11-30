@@ -264,16 +264,16 @@ static string getResult() {
 
       if (startsWith(message, "result:")) {
 #ifdef PIPEDEBUG		  
-         fprintf(stderr, "Result contains newLine char at: %d", findChar('\n', message, 0));
+         fprintf(stderr, "Result contains newLine char at: %d\n", findChar('\n', message, 0));
 #endif		 
          result = substring(message, 7, stringLength(message));
 #ifdef PIPEDEBUG		 
-         fprintf(stderr, "Parsed result: %s", result);
+         fprintf(stderr, "Parsed result: %s\n", result);
 #endif
          return result;
       } else if (startsWith(message, "event:")) {
 #ifdef PIPEDEBUG		  
-         fprintf(stderr, "Event contains newLine char at: %d", findChar('\n', message, 0));
+         fprintf(stderr, "Event contains newLine char at: %d\n", findChar('\n', message, 0));
          result = substring(message, 6, stringLength(message));
          fprintf(stderr, "Parsed event: %s\n", result);
 #endif		 
@@ -303,7 +303,7 @@ void readMessageFromBuffer(char* message, int maxLength) {
       }
       message[bufferPosition-1] = '\0';
 #ifdef PIPEDEBUG	  
-      fprintf(stderr, "Read message from buffer%s", message);
+      fprintf(stderr, "Read message from buffer: %s\n", message);
 #endif	  
 }
 
