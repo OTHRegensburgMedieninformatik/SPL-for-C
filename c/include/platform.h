@@ -27,6 +27,10 @@
 #ifndef _platform_h
 #define _platform_h
 
+#ifdef windows
+#include <tchar.h>
+#endif
+
 #include "cslib.h"
 #include "gevents.h"
 #include "gobjects.h"
@@ -135,5 +139,9 @@ void pauseOp(double milliseconds);
 
 static void startJavaBackendProcess();
 void readMessageFromBuffer(char* message, int maxLength);
+
+#ifdef windows
+TCHAR* getApplicationPath(TCHAR* dest, size_t destSize);
+#endif
 
 #endif

@@ -25,14 +25,15 @@
 
 #ifdef windows
 #  include <windows.h>
-#  include <tchar.h>
+#  include <shlwapi.h>
+#  pragma comment(lib, "shlwapi.lib")
 #  undef MOUSE_EVENT
 #  undef KEY_EVENT
 #  undef MOUSE_MOVED
 #  undef HELP_KEY
 #endif
 
-#if defined unixlike
+#ifdef unixlike
 #  define pause unixpause
 #  include <sys/types.h>
 #  include <sys/stat.h>
@@ -130,8 +131,10 @@ string getId(void *ptr) {
 extern string *getMainArgArray(void);
 
 static void initPipe() {
-   SECURITY_ATTRIBUTES saAttr; 
-   //printf("\n->Initializing pipe.\n");
+   SECURITY_ATTRIBUTES saAttr;
+#ifdef PIPEDEBUG   
+   fprintf(stderr, "->Initializing pipe.\n");
+#endif
 
    // Set the bInheritHandle flag so pipe handles are inherited. 
    saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
@@ -141,7 +144,6 @@ static void initPipe() {
    // Create a pipe for the child process's STDOUT. 
    if ( ! CreatePipe(&g_hChildStd_OUT_Rd, &g_hChildStd_OUT_Wr, &saAttr, 0) ) 
       error(TEXT("StdoutRd CreatePipe")); 
-
    
    /// Ensure the read handle to the pipe for STDOUT is not inherited.
    if ( ! SetHandleInformation(g_hChildStd_OUT_Rd, HANDLE_FLAG_INHERIT, 0) )
@@ -160,12 +162,28 @@ static void initPipe() {
 }
 
 static void startJavaBackendProcess() {
-   // todo define, not here...
-   TCHAR szCmdline[]=TEXT("java -jar spl.jar");
    PROCESS_INFORMATION piProcInfo; 
    STARTUPINFO siStartInfo;
-   BOOL bSuccess = FALSE; 
- 
+   BOOL bSuccess = FALSE;
+   
+   // todo define, not here...
+   TCHAR szCmdline[MAX_PATH*2];
+   TCHAR szPath[MAX_PATH];   
+      
+   if (getApplicationPath(szPath, MAX_PATH) == NULL)
+   {
+	  error(TEXT("getApplicationPath"));
+	  return;
+   }
+   
+   ZeroMemory( szCmdline, MAX_PATH*2 );
+   strncpy(szCmdline, TEXT("java.exe -jar "), 14);
+   strncat(szCmdline, szPath, MAX_PATH);
+   strncat(szCmdline, TEXT("\\spl.jar"), 8);
+#ifdef PIPEDEBUG   
+   strncat(szCmdline, TEXT(" -debug"), 7);
+#endif
+	
    // Set up members of the PROCESS_INFORMATION structure. 
    ZeroMemory( &piProcInfo, sizeof(PROCESS_INFORMATION) );
  
@@ -173,7 +191,7 @@ static void startJavaBackendProcess() {
    // This structure specifies the STDIN and STDOUT handles for redirection.
    ZeroMemory( &siStartInfo, sizeof(STARTUPINFO) );
    siStartInfo.cb = sizeof(STARTUPINFO); 
-   siStartInfo.hStdError = g_hChildStd_OUT_Wr;
+   siStartInfo.hStdError = GetStdHandle(STD_ERROR_HANDLE);
    siStartInfo.hStdOutput = g_hChildStd_OUT_Wr;
    siStartInfo.hStdInput = g_hChildStd_IN_Rd;
    siStartInfo.dwFlags |= STARTF_USESTDHANDLES;
@@ -195,6 +213,10 @@ static void startJavaBackendProcess() {
       error(TEXT("CreateProcess"));
    else 
    {
+#ifdef PIPEDEBUG
+	  fprintf(stderr, "%s: %s\n", TEXT("CreateProcess successful"), szCmdline);
+#endif
+	   
       // Close handles to the child process and its primary thread.
       // Some applications might keep these handles to monitor the status
       // of the child process, for example. 
@@ -205,8 +227,6 @@ static void startJavaBackendProcess() {
 }
 
 static void putPipe(string format, ...) {
-    //testing
-   //printf("Starting to write to pipe");
    DWORD dwWritten; 
    BOOL bSuccess = FALSE;
 
@@ -224,14 +244,14 @@ static void putPipe(string format, ...) {
    va_end(args);
    cmd = getString(psb);
    int commandSize = strlen(cmd);
-   //debug
-   //printf("Sent to pipe: %s\n", cmd);
+#ifdef PIPEDEBUG   
+   fprintf(stderr, "Sent to pipe: %s\n", cmd);
+#endif
 
    jbetrace = getenv("JBETRACE");
    bSuccess = WriteFile(g_hChildStd_IN_Wr, cmd, commandSize, &dwWritten, NULL);
    bSuccess = WriteFile(g_hChildStd_IN_Wr, "\n", 1, &dwWritten, NULL);
 }
-
 
 static string getResult() {
    int maxMessageLength = 300;
@@ -243,14 +263,20 @@ static string getResult() {
       readMessageFromBuffer(message, maxMessageLength);
 
       if (startsWith(message, "result:")) {
-         //printf("Result contains newLine char at: %d", findChar('\n', messageBuffer, 0));
+#ifdef PIPEDEBUG		  
+         fprintf(stderr, "Result contains newLine char at: %d", findChar('\n', message, 0));
+#endif		 
          result = substring(message, 7, stringLength(message));
-         //printf("Parsed result: %s", result);
+#ifdef PIPEDEBUG		 
+         fprintf(stderr, "Parsed result: %s", result);
+#endif
          return result;
       } else if (startsWith(message, "event:")) {
-         //printf("Event contains newLine char at: %d", findChar('\n', messageBuffer, 0));
-         //result = substring(messageBuffer, 6, bufSize);
-         //printf("Parsed event: %s\n", message);
+#ifdef PIPEDEBUG		  
+         fprintf(stderr, "Event contains newLine char at: %d", findChar('\n', message, 0));
+         result = substring(message, 6, stringLength(message));
+         fprintf(stderr, "Parsed event: %s\n", result);
+#endif		 
          enqueue(eventQueue, parseEvent(message + 6));
       }
    }
@@ -276,8 +302,19 @@ void readMessageFromBuffer(char* message, int maxLength) {
          if( !bSuccess || dwRead == 0 ) break; 
       }
       message[bufferPosition-1] = '\0';
-      //printf("Read message from buffer%s", message);
+#ifdef PIPEDEBUG	  
+      fprintf(stderr, "Read message from buffer%s", message);
+#endif	  
 }
+
+TCHAR* getApplicationPath(TCHAR* dest, size_t destSize) {
+      if (!dest) return NULL;
+      if (MAX_PATH > destSize) return NULL; 
+      DWORD length = GetModuleFileName( NULL, dest, destSize );
+      PathRemoveFileSpec(dest);
+      return dest;
+}
+
 #else
 
 /* Linux/Mac implementation of interface to Java back end */

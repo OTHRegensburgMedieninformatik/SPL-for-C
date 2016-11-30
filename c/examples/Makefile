@@ -18,6 +18,9 @@ PROGRAMS = \
 
 FLAGS = -L../../build/lib -lcs -lm
 
+ifeq ($(OS),Windows_NT)
+FLAGS += -lshlwapi
+endif
 
 # ***************************************************************
 # Entry to bring the package up to date
