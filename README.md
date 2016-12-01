@@ -4,11 +4,7 @@ SPL is a simple graphics library that can be used in introductory university-lev
 This is a fork of the Harvard CS50 version of Eric Roberts' Stanford Portable Library. This version contains a patch of Robert's original version so that the library can also be compiled under Windows.
 
 ## Building C and Java sources
-To set the target platform, edit the Makefile and change like so:
-
-PLATFORM=unixlike #for Mac and Linux
-
-PLATFORM=windows #for windows
+The Makefile automatically detects your system and switches between the Windows and Linux version (no configuration required).
 
 ### MacOS (also tested with Ubuntu and Fedora)
 
