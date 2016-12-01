@@ -23,12 +23,12 @@ The Windows version needs MSYS (http://www.mingw.org/wiki/MSYS) in order for mak
     make install
 
 ## Compiling and running the C example programs
-The library comes with several example programs that demonstrate the capability of the library but can also be used as student assignments.
+The library comes with several example programs that demonstrate the capability of the library but can also be used as student assignments. The examples are automatically compiled together with the library by running make from the top level directory of the code.
 
-**Caution:** You need to copy the compiled jar file from build/lib to c/examples.
-From there run make to compile the examples.
+Examples can be compiled seperately from c/examples.
+From there run make to compile.
 
 ## TODO
 
-* Bug fixes
+* Fix display bug that seems to omit drawing graphical objects at the start of the program
 
