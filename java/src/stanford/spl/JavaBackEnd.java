@@ -169,6 +169,12 @@ public class JavaBackEnd implements
    protected void createWindow(String id, int width, int height,
                                TopCompound top) {
       JBEWindow window = new JBEWindow(this, id, appName, width, height);
+      //hack: wait and pray...
+      try {
+      	Thread.sleep(500);
+      } catch (InterruptedException ex) {
+
+      }
       windowTable.put(id, window);
       consoleWidth = width;
       consoleY = 50 + height;
