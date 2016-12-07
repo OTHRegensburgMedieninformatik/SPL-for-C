@@ -348,7 +348,7 @@ install: build/lib/libcs.a $(JAR)
 	chmod -R a+r /usr/local/lib/{libcs.a,spl.jar}
 	
 examples: build/lib/libcs.a $(JAR)	
-	cp -t c/examples build/lib/spl.jar
+	cp build/lib/spl.jar c/examples/
 	make -C c/examples
 
 # ***************************************************************
