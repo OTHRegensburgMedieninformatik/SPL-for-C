@@ -11,7 +11,6 @@
 #include "cslib.h"
 #include "gobjects.h"
 #include "gwindow.h"
-#include <windows.h>
 
 /* Constants */
 
@@ -32,7 +31,6 @@ void drawBricks();
 void drawLineOfBricks(int brickLine, int startYPos);
 
 int main() {
-	Sleep(2000);
 	setupCanvas();
 	drawBricks();
 	return 0;
