@@ -706,9 +706,9 @@ void createGWindowOp(GWindow gw, double width, double height, GObject top) {
            (long) gw, width, height, (long) top);
    //milliseconds on windows, secs on linux
    #ifdef windows
-      Sleep(1000);
+      Sleep(2000);
    #else
-      sleep(1);
+      sleep(2);
    #endif
    getStatus();
 }
