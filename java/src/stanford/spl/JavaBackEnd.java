@@ -558,7 +558,7 @@ public class JavaBackEnd implements
    }
 
    private void waitForWindowActive(JFrame window) {
-   		//this is a hack: Wait and prey that window is ready...
+   		//this is a hack: Wait and pray that window is ready...
     	synchronized (window) {
       		try {
       		Thread.sleep(100);
