@@ -704,6 +704,12 @@ void createGWindowOp(GWindow gw, double width, double height, GObject top) {
    freeBlock(id);
    putPipe("GWindow.create(\"0x%lX\", %g, %g, \"0x%lX\")",
            (long) gw, width, height, (long) top);
+   //milliseconds on windows, secs on linux
+   #ifdef windows
+      Sleep(1000);
+   #else
+      sleep(1);
+   #endif
    getStatus();
 }
 

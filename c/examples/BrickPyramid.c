@@ -38,7 +38,6 @@ int main() {
 
 void setupCanvas() {
 	gw = newGWindow(WIDTH, HEIGHT);
-	pause(1000);
 }
 
 void drawBricks() {
