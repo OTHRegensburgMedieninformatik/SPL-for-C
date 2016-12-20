@@ -14,6 +14,7 @@ PROGRAMS = \
     CarSimulator \
     BrickPyramid \
     DrawTarget \
+    CarSimulatorStructs \
     USFlag
 
 FLAGS = -L../../build/lib -lcs -lm
@@ -105,6 +106,12 @@ DrawTarget.o: DrawTarget.c
 
 DrawTarget: DrawTarget.o
 	gcc -o DrawTarget DrawTarget.o $(FLAGS)
+
+CarSimulatorStructs: CarSimulatorStructs.o
+	gcc -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
+
+CarSimulatorStructs.o: CarSimulatorStructs.c
+	gcc -c -I../include CarSimulatorStructs.c
 
 # ***************************************************************
 # Standard entries to remove files from the directories

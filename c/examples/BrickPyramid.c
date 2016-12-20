@@ -20,7 +20,8 @@ const int HEIGHT = 300;
 const int BRICK_WIDTH = 30;
 const int BRICK_HEIGHT = 12;
 const int BRICKS_IN_BASE = 14;
-const string BRICK_COLOR = "ORANGE";
+const string BRICK_FILL_COLOR = "ORANGE";
+const string BRICK_FRAME_COLOR = "BLACK";
 
 GWindow gw;
 
@@ -56,10 +57,11 @@ void drawLineOfBricks(int brickLine, int startYPos) {
 
 	int i;
 	for (i = 0; i < numBricks; i++) {
-		GRect brick = newGRect(startXPos, startYPos, BRICK_WIDTH, BRICK_HEIGHT);
-		setFilled(brick, true);
-		setFillColor(brick, BRICK_COLOR);
-		draw(gw, brick);
+		setColor(gw, BRICK_FILL_COLOR);
+		fillRect(gw, startXPos, startYPos, BRICK_WIDTH, BRICK_HEIGHT);
+
+		setColor(gw, BRICK_FRAME_COLOR);
+		drawRect(gw, startXPos, startYPos, BRICK_WIDTH, BRICK_HEIGHT);
 		startXPos += BRICK_WIDTH;
 	}
 }
