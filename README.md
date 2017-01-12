@@ -28,6 +28,15 @@ The library comes with several example programs that demonstrate the capability 
 Examples can be compiled seperately from c/examples.
 From there run make to compile.
 
+## Create StartProject
+The library comes with a StartProject for Clion that have all needed files included.
+
+The StartProject can be created with
+
+    make clion_windows
+
+And is located in Spl-for-C/StartProject
+
 ## TODO
 
 * Fix display bug that seems to omit drawing graphical objects at the start of the program

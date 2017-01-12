@@ -74,6 +74,8 @@ TESTOBJECTS = \
 
 JAR = spl.jar
 
+PROJECT = StarterProject
+
 
 # ***************************************************************
 # Entry to bring the package up to date
@@ -351,6 +353,13 @@ examples: build/lib/libcs.a $(JAR)
 	cp build/lib/spl.jar c/examples/
 	make -C c/examples
 
+clion_windows: build/lib/libcs.a $(JAR) 
+	@echo "About to make distribution files";
+	rm -rf StarterProject
+	cp -r ide/clion/StarterProject StarterProject
+	cp -r build/lib StarterProject/
+	cp -r build/include StarterProject/
+
 # ***************************************************************
 # Standard entries to remove files from the directories
 #    tidy    -- eliminate unwanted files
@@ -368,4 +377,4 @@ examples-tidy:
 	@rm -f c/examples/*.exe
 	
 scratch clean: tidy
-	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(TESTOBJECTS)
+	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(TESTOBJECTS) $(PROJECT)
