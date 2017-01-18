@@ -354,7 +354,7 @@ examples: build/lib/libcs.a $(JAR)
 	make -C c/examples
 
 clion_windows: build/lib/libcs.a $(JAR)
-	@echo "Build StarterProject for Windows";
+	@echo "Build StarterProject for Windows"
 	@rm -rf StarterProject
 	@cp -r ide/clion/windows StarterProject
 	@cp -r build/lib StarterProject/lib
@@ -365,6 +365,14 @@ clion_linux: build/lib/libcs.a $(JAR)
 	@echo "Build StarterProject for Linux";
 	@rm -rf StarterProject
 	@cp -r ide/clion/linux StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+clion_macos: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for MaxOS";
+	@rm -rf StarterProject
+	@cp -r ide/clion/macos StarterProject
 	@cp -r build/lib StarterProject/lib
 	@cp -r build/include StarterProject/include
 	@echo "Check the StarterProject folder"
