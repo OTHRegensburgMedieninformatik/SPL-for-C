@@ -348,17 +348,27 @@ install: build/lib/libcs.a $(JAR)
 	chmod -R a+rX /usr/local/include/spl
 	cp build/lib/{libcs.a,spl.jar} /usr/local/lib/
 	chmod -R a+r /usr/local/lib/{libcs.a,spl.jar}
-	
-examples: build/lib/libcs.a $(JAR)	
+
+examples: build/lib/libcs.a $(JAR)
 	cp build/lib/spl.jar c/examples/
 	make -C c/examples
 
-clion_windows: build/lib/libcs.a $(JAR) 
-	@echo "About to make Starter Project for Windows";
-	rm -rf StarterProject
-	cp -r ide StarterProject
-	cp -r build/lib StarterProject/clion/windows/lib
-	cp -r build/include StarterProject/clion/windows/include
+clion_windows: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for Windows";
+	@rm -rf StarterProject
+	@cp -r ide/clion/windows StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+clion_linux: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for Linux";
+	@rm -rf StarterProject
+	@cp -r ide/clion/linux StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
 
 # ***************************************************************
 # Standard entries to remove files from the directories
@@ -375,6 +385,6 @@ tidy: examples-tidy
 examples-tidy:
 	@rm -f c/examples/*.o
 	@rm -f c/examples/*.exe
-	
+
 scratch clean: tidy
 	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(TESTOBJECTS) $(PROJECT)

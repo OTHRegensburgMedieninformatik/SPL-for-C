@@ -18,11 +18,13 @@ PROGRAMS = \
     USFlag
 
 FLAGS = -L../../build/lib -lcs -lm
-CSTD = -std=c99
+CSTD =
 
 
 ifeq ($(OS),Windows_NT)
 FLAGS += -lshlwapi
+else
+CSTD += -std=c99
 endif
 
 # ***************************************************************
@@ -112,7 +114,7 @@ DrawTarget: DrawTarget.o
 CarSimulatorStructs: CarSimulatorStructs.o
 	gcc -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
 
-CarSimulatorStructs.o: CarSimulatorStructs.c 
+CarSimulatorStructs.o: CarSimulatorStructs.c
 	gcc -c -I../include CarSimulatorStructs.c $(CSTD)
 
 # ***************************************************************
