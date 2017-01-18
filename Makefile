@@ -354,11 +354,11 @@ examples: build/lib/libcs.a $(JAR)
 	make -C c/examples
 
 clion_windows: build/lib/libcs.a $(JAR) 
-	@echo "About to make distribution files";
+	@echo "About to make Starter Project for Windows";
 	rm -rf StarterProject
-	cp -r ide/clion/StarterProject StarterProject
-	cp -r build/lib StarterProject/
-	cp -r build/include StarterProject/
+	cp -r ide StarterProject
+	cp -r build/lib StarterProject/clion/windows/lib
+	cp -r build/include StarterProject/clion/windows/include
 
 # ***************************************************************
 # Standard entries to remove files from the directories
