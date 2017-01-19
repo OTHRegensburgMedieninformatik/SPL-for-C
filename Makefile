@@ -74,7 +74,8 @@ TESTOBJECTS = \
 
 JAR = spl.jar
 
-PROJECT = StarterProject
+PROJECT = StarterProject \
+					StarterProjects
 
 
 # ***************************************************************
@@ -348,17 +349,72 @@ install: build/lib/libcs.a $(JAR)
 	chmod -R a+rX /usr/local/include/spl
 	cp build/lib/{libcs.a,spl.jar} /usr/local/lib/
 	chmod -R a+r /usr/local/lib/{libcs.a,spl.jar}
-	
-examples: build/lib/libcs.a $(JAR)	
+
+examples: build/lib/libcs.a $(JAR)
 	cp build/lib/spl.jar c/examples/
 	make -C c/examples
 
-clion_windows: build/lib/libcs.a $(JAR) 
-	@echo "About to make distribution files";
-	rm -rf StarterProject
-	cp -r ide/clion/StarterProject StarterProject
-	cp -r build/lib StarterProject/
-	cp -r build/include StarterProject/
+starterprojects: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProjects"
+	@rm -rf StarterProjects
+	@cp -r ide StarterProjects
+	@echo "Build StarterProject for Clion on Windows"
+	@cp -r build/lib StarterProjects/clion/windows/lib
+	@cp -r build/include StarterProjects/clion/windows/include
+	@echo "Build StarterProject for Clion on Windows"
+	@cp -r build/lib StarterProjects/clion/linux/lib
+	@cp -r build/include StarterProjects/clion/linux/include
+	@echo "Build StarterProject for Clion on Windows"
+	@cp -r build/lib StarterProjects/clion/macos/lib
+	@cp -r build/include StarterProjects/clion/macos/include
+	@echo "Build StarterProject for CodeBlocks on Linux"
+	@cp -r build/lib StarterProjects/codeblocks/linux/lib
+	@cp -r build/include StarterProjects/codeblocks/macos/include
+	@echo "Build StarterProject for CodeBlocks on MacOS"
+	@cp -r build/lib StarterProjects/codeblocks/macos/lib
+	@cp -r build/include StarterProjects/codeblocks/macos/include
+
+	@echo "Check the StarterProjects folder"
+
+clion_windows: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for Clion on Windows"
+	@rm -rf StarterProject
+	@cp -r ide/clion/windows StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+clion_linux: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for Clion on Linux";
+	@rm -rf StarterProject
+	@cp -r ide/clion/linux StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+clion_macos: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for Clion on MaxOS";
+	@rm -rf StarterProject
+	@cp -r ide/clion/macos StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+codeblocks_linux: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for CodeBlocks on Linux";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/linux StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+codeblocks_macos: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for CodeBlocks on MacOS";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/macos StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
 
 # ***************************************************************
 # Standard entries to remove files from the directories
@@ -375,6 +431,6 @@ tidy: examples-tidy
 examples-tidy:
 	@rm -f c/examples/*.o
 	@rm -f c/examples/*.exe
-	
+
 scratch clean: tidy
 	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(TESTOBJECTS) $(PROJECT)
