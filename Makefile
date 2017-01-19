@@ -367,6 +367,13 @@ starterprojects: build/lib/libcs.a $(JAR)
 	@echo "Build StarterProject for Clion on Windows"
 	@cp -r build/lib StarterProjects/clion/macos/lib
 	@cp -r build/include StarterProjects/clion/macos/include
+	@echo "Build StarterProject for CodeBlocks on Linux"
+	@cp -r build/lib StarterProjects/codeblocks/linux/lib
+	@cp -r build/include StarterProjects/codeblocks/macos/include
+	@echo "Build StarterProject for CodeBlocks on MacOS"
+	@cp -r build/lib StarterProjects/codeblocks/macos/lib
+	@cp -r build/include StarterProjects/codeblocks/macos/include
+
 	@echo "Check the StarterProjects folder"
 
 clion_windows: build/lib/libcs.a $(JAR)
@@ -401,6 +408,13 @@ codeblocks_linux: build/lib/libcs.a $(JAR)
 	@cp -r build/include StarterProject/include
 	@echo "Check the StarterProject folder"
 
+codeblocks_macos: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for CodeBlocks on MacOS";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/macos StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
 
 # ***************************************************************
 # Standard entries to remove files from the directories
