@@ -74,7 +74,8 @@ TESTOBJECTS = \
 
 JAR = spl.jar
 
-PROJECT = StarterProject
+PROJECT = StarterProject \
+					StarterProjects
 
 
 # ***************************************************************
@@ -352,6 +353,21 @@ install: build/lib/libcs.a $(JAR)
 examples: build/lib/libcs.a $(JAR)
 	cp build/lib/spl.jar c/examples/
 	make -C c/examples
+
+starterprojects: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProjects"
+	@rm -rf StarterProjects
+	@cp -r ide StarterProjects
+	@echo "Build StarterProject for Windows"
+	@cp -r build/lib StarterProjects/clion/windows/lib
+	@cp -r build/include StarterProjects/clion/windows/include
+	@echo "Build StarterProject for Windows"
+	@cp -r build/lib StarterProjects/clion/linux/lib
+	@cp -r build/include StarterProjects/clion/linux/include
+	@echo "Build StarterProject for Windows"
+	@cp -r build/lib StarterProjects/clion/macos/lib
+	@cp -r build/include StarterProjects/clion/macos/include
+	@echo "Check the StarterProjects folder"
 
 clion_windows: build/lib/libcs.a $(JAR)
 	@echo "Build StarterProject for Windows"

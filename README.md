@@ -39,6 +39,10 @@ The StartProject can be created with one of the following commands
 
 And is located in Spl-for-C/StartProject
 
+Additional you can also build all StarterProjects with
+
+    make starterprojects
+
 ## TODO
 
 * Fix display bug that seems to omit drawing graphical objects at the start of the program
