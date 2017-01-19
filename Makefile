@@ -358,19 +358,19 @@ starterprojects: build/lib/libcs.a $(JAR)
 	@echo "Build StarterProjects"
 	@rm -rf StarterProjects
 	@cp -r ide StarterProjects
-	@echo "Build StarterProject for Windows"
+	@echo "Build StarterProject for Clion on Windows"
 	@cp -r build/lib StarterProjects/clion/windows/lib
 	@cp -r build/include StarterProjects/clion/windows/include
-	@echo "Build StarterProject for Windows"
+	@echo "Build StarterProject for Clion on Windows"
 	@cp -r build/lib StarterProjects/clion/linux/lib
 	@cp -r build/include StarterProjects/clion/linux/include
-	@echo "Build StarterProject for Windows"
+	@echo "Build StarterProject for Clion on Windows"
 	@cp -r build/lib StarterProjects/clion/macos/lib
 	@cp -r build/include StarterProjects/clion/macos/include
 	@echo "Check the StarterProjects folder"
 
 clion_windows: build/lib/libcs.a $(JAR)
-	@echo "Build StarterProject for Windows"
+	@echo "Build StarterProject for Clion on Windows"
 	@rm -rf StarterProject
 	@cp -r ide/clion/windows StarterProject
 	@cp -r build/lib StarterProject/lib
@@ -378,7 +378,7 @@ clion_windows: build/lib/libcs.a $(JAR)
 	@echo "Check the StarterProject folder"
 
 clion_linux: build/lib/libcs.a $(JAR)
-	@echo "Build StarterProject for Linux";
+	@echo "Build StarterProject for Clion on Linux";
 	@rm -rf StarterProject
 	@cp -r ide/clion/linux StarterProject
 	@cp -r build/lib StarterProject/lib
@@ -386,9 +386,17 @@ clion_linux: build/lib/libcs.a $(JAR)
 	@echo "Check the StarterProject folder"
 
 clion_macos: build/lib/libcs.a $(JAR)
-	@echo "Build StarterProject for MaxOS";
+	@echo "Build StarterProject for Clion on MaxOS";
 	@rm -rf StarterProject
 	@cp -r ide/clion/macos StarterProject
+	@cp -r build/lib StarterProject/lib
+	@cp -r build/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+codeblocks_linux: build/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for CodeBlocks on Linux";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/linux StarterProject
 	@cp -r build/lib StarterProject/lib
 	@cp -r build/include StarterProject/include
 	@echo "Check the StarterProject folder"
