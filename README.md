@@ -16,7 +16,7 @@ The Makefile automatically detects your system and switches between the Windows 
 ### Windows
 
 The Windows version needs MSYS (http://www.mingw.org/wiki/MSYS) in order for make to run. Once MSYS is installed, make sure to edit the PATH variable, so that the MSYS bin folder is the first in the list. This is important, since the Windows find command used in the makefile behaves differently than the MSYS version. Once this is set, the library should compile without errors.
-    
+
     git clone https://github.com/OTHRegensburgMedieninformatik/SPL-for-C.git
     cd Spl-for-C
     make
@@ -31,13 +31,18 @@ From there run make to compile.
 ## Create StartProject
 The library comes with a StartProject for Clion that have all needed files included.
 
-The StartProject can be created with
+The StartProject can be created with one of the following commands
 
-    make clion_windows
+    make clion_windows    
+    make clion_macos
+    make clion_linux
 
 And is located in Spl-for-C/StartProject
+
+Additional you can also build all StarterProjects with
+
+    make starterprojects
 
 ## TODO
 
 * Fix display bug that seems to omit drawing graphical objects at the start of the program
-

@@ -9,3 +9,8 @@ StopSign
 TestGraphics
 TestInteractors
 USFlag
+BrickPyramid
+CarSimulator
+CarSimulatorStructs
+DrawTarget
+FlipImage
