@@ -33,9 +33,13 @@ The library comes with a StartProject for Clion that have all needed files inclu
 
 The StartProject can be created with one of the following commands
 
-    make clion_windows    
-    make clion_macos
-    make clion_linux
+    IDE = [ "clion", "codeblocks"]
+    PLATFORM = ["windows","linux","macos"]
+
+    make IDE_PLATFORM
+
+>make clion_linux
+
 
 And is located in Spl-for-C/StartProject
 

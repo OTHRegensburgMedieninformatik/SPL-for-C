@@ -368,13 +368,15 @@ starterprojects: build/$(PLATFORM)/lib/libcs.a $(JAR)
 	@echo "Build StarterProject for Clion on Windows"
 	@cp -r build/$(PLATFORM)/lib StarterProjects/clion/macos/lib
 	@cp -r build/$(PLATFORM)/include StarterProjects/clion/macos/include
-	@echo "Build StarterProject for CodeBlocks on Linux"
+	@echo "Build StarterProject for CodeBlocks on Windows"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/windows/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/windows/include
+    @echo "Build StarterProject for CodeBlocks on Linux"
 	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/linux/lib
-	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/macos/include
+	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/linux/include
 	@echo "Build StarterProject for CodeBlocks on MacOS"
 	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/macos/lib
 	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/macos/include
-
 	@echo "Check the StarterProjects folder"
 
 clion_windows: build/$(PLATFORM)/lib/libcs.a $(JAR)
