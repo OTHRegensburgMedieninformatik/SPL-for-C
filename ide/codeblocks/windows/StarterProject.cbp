@@ -37,6 +37,7 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="lib/libcs.a" />
+					<Add library="shlwapi" />
 				</Linker>
 			</Target>
 		</Build>
