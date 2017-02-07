@@ -401,6 +401,14 @@ clion_macos: build/$(PLATFORM)/lib/libcs.a $(JAR)
 	@cp -r build/$(PLATFORM)/include StarterProject/include
 	@echo "Check the StarterProject folder"
 
+codeblocks_windows: build/$(PLATFORM)/lib/libcs.a $(JAR)
+	@echo "Build StarterProject for CodeBlocks on Windows";
+	@rm -rf StarterProject
+	@cp -r ide/codeblocks/windows StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
 codeblocks_linux: build/$(PLATFORM)/lib/libcs.a $(JAR)
 	@echo "Build StarterProject for CodeBlocks on Linux";
 	@rm -rf StarterProject
