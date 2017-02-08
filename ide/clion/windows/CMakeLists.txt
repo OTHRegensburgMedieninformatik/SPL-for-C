@@ -3,7 +3,7 @@ project(StarterProject)
 
 set(CMAKE_C_STANDARD 11)
 
-set(SOURCE_FILES main.c)
+set(SOURCE_FILES HelloGraphics.c)
 
 # Include Directories
 include_directories("include")

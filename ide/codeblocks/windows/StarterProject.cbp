@@ -17,6 +17,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="lib/libcs.a" />
+					<Add library="shlwapi" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="cp $(PROJECT_DIR)/lib/spl.jar $(PROJECT_DIR)/spl.jar" />
@@ -36,6 +37,7 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="lib/libcs.a" />
+					<Add library="shlwapi" />
 				</Linker>
 			</Target>
 		</Build>
@@ -48,6 +50,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

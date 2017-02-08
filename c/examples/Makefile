@@ -1,6 +1,17 @@
 # Makefile for spl
 #****************************************************************
 
+ifeq ($(OS),Windows_NT)
+PLATFORM=windows
+FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
+FLAGS += -lshlwapi
+CSTD =
+else
+PLATFORM=unixlike
+FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
+CSTD = -std=c99
+endif
+
 PROGRAMS = \
     Breakout \
     DrawLines \
@@ -17,15 +28,10 @@ PROGRAMS = \
     CarSimulatorStructs \
     USFlag
 
-FLAGS = -L../../build/lib -lcs -lm
-CSTD =
 
 
-ifeq ($(OS),Windows_NT)
-FLAGS += -lshlwapi
-else
-CSTD += -std=c99
-endif
+
+
 
 # ***************************************************************
 # Entry to bring the package up to date
