@@ -20,8 +20,8 @@
 					<Add library="shlwapi" />
 				</Linker>
 				<ExtraCommands>
-					<Add before="cp $(PROJECT_DIR)/lib/spl.jar $(PROJECT_DIR)/spl.jar" />
-					<Add after="cp $(PROJECT_DIR)/lib/spl.jar $(TARGET_OUTPUT_DIR)/spl.jar" />
+					<Add before="cmd /c copy $(PROJECT_DIR)lib\spl.jar $(PROJECT_DIR)spl.jar" />
+					<Add after="cmd /c copy $(PROJECT_DIR)lib\spl.jar $(TARGET_OUTPUT_DIR)spl.jar" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
