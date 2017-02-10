@@ -1,8 +1,9 @@
 #include "cslib.h"
 #include "gobjects.h"
 #include "gwindow.h"
+#include "run.h"
 
-int main() {
+int run() {
     double width, height;
     GWindow gw;
 
