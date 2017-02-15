@@ -55,7 +55,7 @@ And is located in Spl-for-C/StartProject
 
 Additional you can also build all StarterProjects with
 
-    make starterprojects
+>make starterprojects
 
 ## Notes
 
