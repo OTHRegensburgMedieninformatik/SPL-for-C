@@ -26,25 +26,13 @@ PROGRAMS = \
     BrickPyramid \
     DrawTarget \
     CarSimulatorStructs \
-    USFlag\
-	Run
-
-
-
-
-
+    USFlag
 
 # ***************************************************************
 # Entry to bring the package up to date
 #    The "make all" entry should be the first real entry
 
 all: $(PROGRAMS)
-
-Run: Run.o
-	gcc -D$(PLATFORM) -o Run Run.o $(FLAGS)
-
-Run.o: Run.c
-	gcc -D$(PLATFORM) -c -I../include Run.c $(CSTD)
 
 Breakout: Breakout.o
 	gcc -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)

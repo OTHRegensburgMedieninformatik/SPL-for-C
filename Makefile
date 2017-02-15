@@ -28,7 +28,6 @@ BUILD = \
     build/$(PLATFORM)/tests
 
 OBJECTS = \
-    build/$(PLATFORM)/obj/run.o \
     build/$(PLATFORM)/obj/bst.o \
     build/$(PLATFORM)/obj/charset.o \
     build/$(PLATFORM)/obj/cmpfn.o \
@@ -96,10 +95,6 @@ $(BUILD):
 
 # ***************************************************************
 # Library compilations
-
-build/$(PLATFORM)/obj/run.o: 
-	gcc $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/run.o -Ic/include c/src/run.c
-
 
 build/$(PLATFORM)/obj/bst.o: c/src/bst.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
            c/include/exception.h c/include/foreach.h c/include/generic.h \
