@@ -28,11 +28,6 @@ PROGRAMS = \
     CarSimulatorStructs \
     USFlag
 
-
-
-
-
-
 # ***************************************************************
 # Entry to bring the package up to date
 #    The "make all" entry should be the first real entry
@@ -40,88 +35,88 @@ PROGRAMS = \
 all: $(PROGRAMS)
 
 Breakout: Breakout.o
-	gcc -o Breakout Breakout.o $(FLAGS)
+	gcc -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
 
 Breakout.o: Breakout.c
-	gcc -c -I../include Breakout.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include Breakout.c $(CSTD)
 
 DrawLines: DrawLines.o
-	gcc -o DrawLines DrawLines.o $(FLAGS)
+	gcc -D$(PLATFORM) -o DrawLines DrawLines.o $(FLAGS)
 
 DrawLines.o: DrawLines.c
-	gcc -c -I../include DrawLines.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include DrawLines.c $(CSTD)
 
 DrawRectangles: DrawRectangles.o
-	gcc -o DrawRectangles DrawRectangles.o $(FLAGS)
+	gcc -D$(PLATFORM) -o DrawRectangles DrawRectangles.o $(FLAGS)
 
 DrawRectangles.o: DrawRectangles.c
-	gcc -c -I../include DrawRectangles.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include DrawRectangles.c $(CSTD)
 
 GHelloWorld: GHelloWorld.o
-	gcc -o GHelloWorld GHelloWorld.o $(FLAGS)
+	gcc -D$(PLATFORM) -o GHelloWorld GHelloWorld.o $(FLAGS)
 
 GHelloWorld.o: GHelloWorld.c
-	gcc -c -I../include GHelloWorld.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include GHelloWorld.c $(CSTD)
 
 PacMan: PacMan.o
-	gcc -o PacMan PacMan.o $(FLAGS)
+	gcc -D$(PLATFORM) -o PacMan PacMan.o $(FLAGS)
 
 PacMan.o: PacMan.c
-	gcc -c -I../include PacMan.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include PacMan.c $(CSTD)
 
 StopSign: StopSign.o
-	gcc -o StopSign StopSign.o $(FLAGS)
+	gcc -D$(PLATFORM) -o StopSign StopSign.o $(FLAGS)
 
 StopSign.o: StopSign.c
-	gcc -c -I../include StopSign.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include StopSign.c $(CSTD)
 
 TestGraphics: TestGraphics.o
-	gcc -o TestGraphics TestGraphics.o $(FLAGS)
+	gcc -D$(PLATFORM) -o TestGraphics TestGraphics.o $(FLAGS)
 
 TestGraphics.o: TestGraphics.c
-	gcc -c -I../include TestGraphics.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
 
 TestInteractors: TestInteractors.o
-	gcc -o TestInteractors TestInteractors.o $(FLAGS)
+	gcc -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)
 
 TestInteractors.o: TestInteractors.c
-	gcc -c -I../include TestInteractors.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include TestInteractors.c $(CSTD)
 
 USFlag: USFlag.o
-	gcc -o USFlag USFlag.o $(FLAGS)
+	gcc -D$(PLATFORM) -o USFlag USFlag.o $(FLAGS)
 
 USFlag.o: USFlag.c
-	gcc -c -I../include USFlag.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include USFlag.c $(CSTD)
 
 FlipImage.o: FlipImage.c
-	gcc -c -I../include FlipImage.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include FlipImage.c $(CSTD)
 
 FlipImage: FlipImage.o
-	gcc -o FlipImage FlipImage.o $(FLAGS)
+	gcc -D$(PLATFORM) -o FlipImage FlipImage.o $(FLAGS)
 
 CarSimulator.o: CarSimulator.c
-	gcc -c -I../include CarSimulator.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include CarSimulator.c $(CSTD)
 
 CarSimulator: CarSimulator.o
 	gcc -o CarSimulator CarSimulator.o $(FLAGS)
 
 BrickPyramid.o: BrickPyramid.c
-	gcc -c -I../include BrickPyramid.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include BrickPyramid.c $(CSTD)
 
 BrickPyramid: BrickPyramid.o
-	gcc -o BrickPyramid BrickPyramid.o $(FLAGS)
+	gcc -D$(PLATFORM) -o BrickPyramid BrickPyramid.o $(FLAGS)
 
 DrawTarget.o: DrawTarget.c
-	gcc -c -I../include DrawTarget.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include DrawTarget.c $(CSTD)
 
 DrawTarget: DrawTarget.o
-	gcc -o DrawTarget DrawTarget.o $(FLAGS)
+	gcc -D$(PLATFORM) -o DrawTarget DrawTarget.o $(FLAGS)
 
 CarSimulatorStructs: CarSimulatorStructs.o
-	gcc -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
+	gcc -D$(PLATFORM) -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
 
 CarSimulatorStructs.o: CarSimulatorStructs.c
-	gcc -c -I../include CarSimulatorStructs.c $(CSTD)
+	gcc -D$(PLATFORM) -c -I../include CarSimulatorStructs.c $(CSTD)
 
 # ***************************************************************
 # Standard entries to remove files from the directories
