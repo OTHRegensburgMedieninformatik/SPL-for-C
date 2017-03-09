@@ -32,7 +32,7 @@
 
 extern void uTTest(string exp, string value, ...);
 
-/*
+/**
  * Function: trace
  * Usage: trace(exp);
  * ------------------
@@ -49,7 +49,7 @@ extern void uTTest(string exp, string value, ...);
    } endtry \
 }
 
-/*
+/**
  * Function: test
  * Usage: test(exp, value);
  * ------------------------
@@ -75,7 +75,7 @@ extern void uTTest(string exp, string value, ...);
    } endtry \
 }
 
-/*
+/**
  * Function: testError
  * Usage: testError(exp);
  * ----------------------
@@ -97,7 +97,7 @@ extern void uTTest(string exp, string value, ...);
    } endtry \
 }
 
-/*
+/**
  * Function: testModule
  * Usage: errorCount = testModule(name, fn);
  * -----------------------------------------
@@ -108,7 +108,7 @@ extern void uTTest(string exp, string value, ...);
 
 int testModule(string name, proc fn);
 
-/*
+/**
  * Function: setVerboseTestingFlag
  * Usage: setVerboseTestingFlag(flag);
  * -----------------------------------
@@ -118,7 +118,7 @@ int testModule(string name, proc fn);
 
 void setVerboseTestingFlag(bool flag);
 
-/*
+/**
  * Function: getVerboseTestingFlag
  * Usage: flag = getVerboseTestingFlag();
  * --------------------------------------
@@ -127,7 +127,7 @@ void setVerboseTestingFlag(bool flag);
 
 bool getVerboseTestingFlag(void);
 
-/*
+/**
  * Function: reportError
  * Usage: reportError(msg, ...);
  * -----------------------------
@@ -138,7 +138,7 @@ bool getVerboseTestingFlag(void);
 
 void reportError(string msg, ...);
 
-/*
+/**
  * Function: reportMessage
  * Usage: reportMessage(msg, ...);
  * -------------------------------
@@ -147,7 +147,7 @@ void reportError(string msg, ...);
 
 void reportMessage(string msg, ...);
 
-/*
+/**
  * Function: setReportIndentation
  * Usage: setReportIndentation(indent);
  * ------------------------------------
@@ -162,7 +162,7 @@ void reportMessage(string msg, ...);
 
 void setReportIndentation(int indent);
 
-/*
+/**
  * Function: getReportIndentation
  * Usage: indent = getReportIndentation();
  * ---------------------------------------
@@ -174,7 +174,7 @@ void setReportIndentation(int indent);
 
 int getReportIndentation(void);
 
-/*
+/**
  * Function: adjustReportIndentation
  * Usage: adjustReportIndentation(delta);
  * --------------------------------------

@@ -28,7 +28,7 @@
 #include "cslib.h"
 #include "generic.h"
 
-/*
+/**
  * Type: Stack
  * -----------
  * The abstract data type for the stack.
@@ -36,7 +36,7 @@
 
 typedef struct StackCDT *Stack;
 
-/*
+/**
  * Function: newStack
  * Usage: stack = newStack();
  * --------------------------
@@ -45,7 +45,7 @@ typedef struct StackCDT *Stack;
 
 Stack newStack(void);
 
-/*
+/**
  * Function: freeStack
  * Usage: freeStack(stack);
  * ------------------------
@@ -54,7 +54,7 @@ Stack newStack(void);
 
 void freeStack(Stack stack);
 
-/*
+/**
  * Function: push
  * Usage: push(stack, element);
  * ----------------------------
@@ -63,7 +63,7 @@ void freeStack(Stack stack);
 
 void push(Stack stack, void *element);
 
-/*
+/**
  * Function: pop
  * Usage: element = pop(stack);
  * ----------------------------
@@ -75,7 +75,7 @@ void push(Stack stack, void *element);
 
 void *pop(Stack stack);
 
-/*
+/**
  * Function: peek
  * Usage: element = peek(stack);
  * -----------------------------
@@ -86,7 +86,7 @@ void *pop(Stack stack);
 
 void *peekStack(Stack stack);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(stack)) . . .
  * --------------------------------
@@ -95,7 +95,7 @@ void *peekStack(Stack stack);
 
 bool isEmptyStack(Stack stack);
 
-/*
+/**
  * Function: size
  * Usage: n = size(stack);
  * -----------------------
@@ -104,7 +104,7 @@ bool isEmptyStack(Stack stack);
 
 int sizeStack(Stack stack);
 
-/*
+/**
  * Function: clear
  * Usage: clear(stack);
  * --------------------
@@ -113,7 +113,7 @@ int sizeStack(Stack stack);
 
 void clearStack(Stack stack);
 
-/*
+/**
  * Function: clone
  * Usage: newstack = clone(stack);
  * -------------------------------

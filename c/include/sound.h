@@ -25,7 +25,7 @@
 #ifndef _sound_h
 #define _sound_h
 
-/*
+/**
  * Type: Sound
  * -----------
  * This type encapsulates a sound file.  The sound file is specified in the
@@ -43,7 +43,7 @@
 
 typedef struct SoundCDT *Sound;
 
-/*
+/**
  * Function: newSound
  * Usage: sound = newSound(filename);
  * ----------------------------------
@@ -52,7 +52,7 @@ typedef struct SoundCDT *Sound;
 
 Sound newSound(string filename);
 
-/*
+/**
  * Function: freeSound
  * Usage: freeSound(sound);
  * ------------------------
@@ -61,7 +61,7 @@ Sound newSound(string filename);
 
 void freeSound(Sound sound);
 
-/*
+/**
  * Function: play
  * Usage: play(sound);
  * -------------------

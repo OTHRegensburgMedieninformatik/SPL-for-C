@@ -29,7 +29,7 @@
 #include <stdarg.h>
 #include "cslib.h"
 
-/*
+/**
  * Type: StringBuffer
  * ------------------
  * This type provides an efficient, memory-safe mechanism for strings
@@ -38,7 +38,7 @@
 
 typedef struct StringBufferCDT *StringBuffer;
 
-/*
+/**
  * Function: newStringBuffer
  * Usage: sb = newStringBuffer();
  * ------------------------------
@@ -48,7 +48,7 @@ typedef struct StringBufferCDT *StringBuffer;
 
 StringBuffer newStringBuffer();
 
-/*
+/**
  * Function: freeStringBuffer
  * Usage: freeStringBuffer(sb);
  * ----------------------------
@@ -57,7 +57,7 @@ StringBuffer newStringBuffer();
 
 void freeStringBuffer(StringBuffer sb);
 
-/*
+/**
  * Function: pushChar
  * Usage: pushChar(sb, ch);
  * ------------------------
@@ -67,7 +67,7 @@ void freeStringBuffer(StringBuffer sb);
 
 void pushChar(StringBuffer sb, char ch);
 
-/*
+/**
  * Function: popChar
  * Usage: ch = popChar(sb);
  * ------------------------
@@ -76,7 +76,7 @@ void pushChar(StringBuffer sb, char ch);
 
 char popChar(StringBuffer sb);
 
-/*
+/**
  * Function: appendString
  * Usage: appendString(sb, str);
  * -----------------------------
@@ -85,7 +85,7 @@ char popChar(StringBuffer sb);
 
 void appendString(StringBuffer sb, string str);
 
-/*
+/**
  * Function: sbprintf
  * Usage: sbprintf(sb, format, ...);
  * ---------------------------------
@@ -95,7 +95,7 @@ void appendString(StringBuffer sb, string str);
 
 void sbprintf(StringBuffer sb, string format, ...);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(sb)) . . .
  * -----------------------------
@@ -104,7 +104,7 @@ void sbprintf(StringBuffer sb, string format, ...);
 
 bool isEmptyStringBuffer(StringBuffer vec);
 
-/*
+/**
  * Function: size
  * Usage: n = size(sb);
  * --------------------
@@ -113,7 +113,7 @@ bool isEmptyStringBuffer(StringBuffer vec);
 
 int sizeStringBuffer(StringBuffer vector);
 
-/*
+/**
  * Function: clear
  * Usage: clear(sb);
  * -----------------
@@ -122,7 +122,7 @@ int sizeStringBuffer(StringBuffer vector);
 
 void clearStringBuffer(StringBuffer sb);
 
-/*
+/**
  * Function: getString
  * Usage: str = getString(sb);
  * ---------------------------
@@ -132,7 +132,7 @@ void clearStringBuffer(StringBuffer sb);
 
 string getString(StringBuffer sb);
 
-/*
+/**
  * Friend function: printfCapacity
  * Usage: capacity = printfCapacity(format, args);
  * -----------------------------------------------
@@ -144,7 +144,7 @@ string getString(StringBuffer sb);
 
 int printfCapacity(string format, va_list args);
 
-/*
+/**
  * Friend function: sbFormat
  * Usage: sbFormat(sb, capacity, format, list);
  * --------------------------------------------

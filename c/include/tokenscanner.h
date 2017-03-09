@@ -29,7 +29,7 @@
 #include "cslib.h"
 #include "private/tokenpatch.h"
 
-/*
+/**
  * Type: TokenType
  * ---------------
  * This enumerated type defines the values of the
@@ -38,7 +38,7 @@
 
 typedef enum { SEPARATOR, WORD, NUMBER, STRING, OPERATOR } TokenType;
 
-/*
+/**
  * Type: TokenScanner
  * ------------------
  * This abstract type divides a string into individual tokens.  The
@@ -67,7 +67,7 @@ typedef enum { SEPARATOR, WORD, NUMBER, STRING, OPERATOR } TokenType;
 
 typedef struct TokenScannerCDT *TokenScanner;
 
-/*
+/**
  * Function: newTokenScanner
  * Usage: scanner = newTokenScanner();
  * -----------------------------------
@@ -78,7 +78,7 @@ typedef struct TokenScannerCDT *TokenScanner;
 
 TokenScanner newTokenScanner(void);
 
-/*
+/**
  * Function: freeTokenScanner
  * Usage: freeTokenScanner(scanner);
  * ---------------------------------
@@ -87,7 +87,7 @@ TokenScanner newTokenScanner(void);
 
 void freeTokenScanner();
 
-/*
+/**
  * Function: setInputString
  * Usage: setInputString(scanner, str);
  * ------------------------------------
@@ -96,7 +96,7 @@ void freeTokenScanner();
 
 void setInputString(TokenScanner scanner, string str);
 
-/*
+/**
  * Function: setInputFile
  * Usage: setInputFile(scanner, infile);
  * -------------------------------------
@@ -106,7 +106,7 @@ void setInputString(TokenScanner scanner, string str);
 
 void setInputFile(TokenScanner scanner, FILE *infile);
 
-/*
+/**
  * Function: hasMoreTokens
  * Usage: if (hasMoreTokens(scanner)) . . .
  * ----------------------------------------
@@ -116,7 +116,7 @@ void setInputFile(TokenScanner scanner, FILE *infile);
 
 bool hasMoreTokens(TokenScanner scanner);
 
-/*
+/**
  * Function: nextToken
  * Usage: token = nextToken(scanner);
  * ----------------------------------
@@ -126,7 +126,7 @@ bool hasMoreTokens(TokenScanner scanner);
 
 string nextToken(TokenScanner scanner);
 
-/*
+/**
  * Function: saveToken
  * Usage: saveToken(scanner, token);
  * ---------------------------------
@@ -138,7 +138,7 @@ string nextToken(TokenScanner scanner);
 
 void saveToken(TokenScanner scanner, string token);
 
-/*
+/**
  * Function: getPosition
  * Usage: pos = getPosition(scanner);
  * ----------------------------------
@@ -150,7 +150,7 @@ void saveToken(TokenScanner scanner, string token);
 
 int getPosition(TokenScanner scanner);
 
-/*
+/**
  * Function: ignoreWhitespace
  * Usage: ignoreWhitespace(scanner);
  * ---------------------------------
@@ -169,7 +169,7 @@ int getPosition(TokenScanner scanner);
 
 void ignoreWhitespace(TokenScanner scanner);
 
-/*
+/**
  * Function: ignoreComments
  * Usage: ignoreComments(scanner);
  * -------------------------------
@@ -186,7 +186,7 @@ void ignoreWhitespace(TokenScanner scanner);
 
 void ignoreComments(TokenScanner scanner);
 
-/*
+/**
  * Function: scanNumbers
  * Usage: scanNumbers(scanner);
  * ----------------------------
@@ -205,7 +205,7 @@ void ignoreComments(TokenScanner scanner);
 
 void scanNumbers(TokenScanner scanner);
 
-/*
+/**
  * Function: scanStrings
  * Usage: scanStrings(scanner);
  * ----------------------------
@@ -225,7 +225,7 @@ void scanNumbers(TokenScanner scanner);
 
 void scanStrings(TokenScanner scanner);
 
-/*
+/**
  * Function: addWordCharacters
  * Usage: addWordCharacters(scanner, str);
  * ---------------------------------------
@@ -237,7 +237,7 @@ void scanStrings(TokenScanner scanner);
 
 void addWordCharacters(TokenScanner scanner, string str);
 
-/*
+/**
  * Function: isWordCharacter
  * Usage: if (isWordCharacter(scanner, ch)) . . .
  * ----------------------------------------------
@@ -246,7 +246,7 @@ void addWordCharacters(TokenScanner scanner, string str);
 
 bool isWordCharacter(TokenScanner scanner, char ch);
 
-/*
+/**
  * Function: addOperator
  * Usage: addOperator(scanner, op);
  * --------------------------------
@@ -258,7 +258,7 @@ bool isWordCharacter(TokenScanner scanner, char ch);
 
 void addOperator(TokenScanner scanner, string op);
 
-/*
+/**
  * Function: verifyToken
  * Usage: verifyToken(scanner, expected);
  * --------------------------------------
@@ -269,7 +269,7 @@ void addOperator(TokenScanner scanner, string op);
 
 void verifyToken(TokenScanner scanner, string expected);
 
-/*
+/**
  * Function: getTokenType
  * Usage: type = getTokenType(scanner, token);
  * -------------------------------------------
@@ -281,7 +281,7 @@ void verifyToken(TokenScanner scanner, string expected);
 
 TokenType getTokenType(TokenScanner scanner, string token);
 
-/*
+/**
  * Method: getChar
  * Usage: int ch = getChar(scanner);
  * ---------------------------------
@@ -290,7 +290,7 @@ TokenType getTokenType(TokenScanner scanner, string token);
 
 int getChar(TokenScanner scanner);
 
-/*
+/**
  * Method: ungetChar
  * Usage: ungetChar(scanner, ch);
  * ------------------------------
@@ -300,7 +300,7 @@ int getChar(TokenScanner scanner);
 
 void ungetChar(TokenScanner scanner, int ch);
 
-/*
+/**
  * Function: getStringValue
  * Usage: str = getStringValue(token);
  * -----------------------------------

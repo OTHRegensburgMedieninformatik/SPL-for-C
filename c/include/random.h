@@ -28,7 +28,7 @@
 #include "cslib.h"
 #include <stdlib.h>
 
-/*
+/**
  * Function: randomInteger
  * Usage: n = randomInteger(low, high);
  * ------------------------------------
@@ -38,7 +38,7 @@
 
 int randomInteger(int low, int high);
 
-/*
+/**
  * Function: randomReal
  * Usage: d = randomReal(low, high);
  * ---------------------------------
@@ -51,7 +51,7 @@ int randomInteger(int low, int high);
 
 double randomReal(double low, double high);
 
-/*
+/**
  * Function: randomChance
  * Usage: if (randomChance(p)) . . .
  * ---------------------------------
@@ -64,7 +64,7 @@ double randomReal(double low, double high);
 
 bool randomChance(double p);
 
-/*
+/**
  * Function: setRandomSeed
  * Usage: setRandomSeed(seed);
  * ---------------------------

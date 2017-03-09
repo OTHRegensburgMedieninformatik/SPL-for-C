@@ -57,7 +57,7 @@
  * the comparison function passed to <code>newListIterator</code>.
  */
 
-/*
+/**
  * Type: NewIteratorFn
  * -------------------
  * Represents the class of functions that create new iterators.
@@ -65,7 +65,7 @@
 
 typedef Iterator (*NewIteratorFn)(void *collection);
 
-/*
+/**
  * Type: StepIteratorFn
  * --------------------
  * Represents the class of functions that step from one element to the next.
@@ -73,7 +73,7 @@ typedef Iterator (*NewIteratorFn)(void *collection);
 
 typedef bool (*StepIteratorFn)(Iterator iterator, void *dst);
 
-/*
+/**
  * Type: IteratorHeader
  * --------------------
  * This structure must appear at the beginning of any concrete
@@ -85,7 +85,7 @@ typedef struct {
     NewIteratorFn newFn;
 } IteratorHeader;
 
-/*
+/**
  * Function: enableIteration
  * Usage: enableIteration(collection, newFn);
  * ------------------------------------------
@@ -96,7 +96,7 @@ typedef struct {
 
 void enableIteration(void *collection, NewIteratorFn newFn);
 
-/*
+/**
  * Function: newStepIterator
  * Usage: iterator = newStepIterator(size, stepFn);
  * ------------------------------------------------
@@ -106,7 +106,7 @@ void enableIteration(void *collection, NewIteratorFn newFn);
 
 Iterator newStepIterator(int size, StepIteratorFn stepFn);
 
-/*
+/**
  * Function: newListIterator
  * Usage: iterator = newListIterator(size, cmpFn);
  * -----------------------------------------------
@@ -121,7 +121,7 @@ Iterator newStepIterator(int size, StepIteratorFn stepFn);
 
 Iterator newListIterator(int size, CompareFn cmpFn);
 
-/*
+/**
  * Function: addToIteratorList
  * Usage: addToIteratorList(iterator, dst);
  * ----------------------------------------
@@ -132,7 +132,7 @@ Iterator newListIterator(int size, CompareFn cmpFn);
 
 void addToIteratorList(Iterator iterator, void *dst);
 
-/*
+/**
  * Function: setCollection
  * Usage: setCollection(iterator, collection);
  * -------------------------------------------
@@ -141,7 +141,7 @@ void addToIteratorList(Iterator iterator, void *dst);
 
 void setCollection(Iterator iterator, void *collection);
 
-/*
+/**
  * Function: getCollection
  * Usage: collection = getCollection(iterator);
  * --------------------------------------------
@@ -150,7 +150,7 @@ void setCollection(Iterator iterator, void *collection);
 
 void *getCollection(Iterator iterator);
 
-/*
+/**
  * Function: setIteratorData
  * Usage: setIteratorData(iterator, data);
  * ---------------------------------------
@@ -159,7 +159,7 @@ void *getCollection(Iterator iterator);
 
 void setIteratorData(Iterator iterator, void *data);
 
-/*
+/**
  * Function: getIteratorData
  * Usage: data = getIteratorData(iterator);
  * ----------------------------------------

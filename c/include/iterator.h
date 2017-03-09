@@ -27,7 +27,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Type: Iterator
  * --------------
  * An abstract type used to iterate over the elements of any collection.
@@ -63,7 +63,7 @@ typedef struct IteratorCDT *Iterator;
  * associated with the iterator.
  */
 
-/*
+/**
  * Function: newIterator
  * Usage: iterator = newIterator(collection);
  * ------------------------------------------
@@ -72,7 +72,7 @@ typedef struct IteratorCDT *Iterator;
 
 Iterator newIterator(void *collection);
 
-/*
+/**
  * Function: stepIterator
  * Usage: hasMoreElements = stepIterator(iterator, &element);
  * ----------------------------------------------------------
@@ -84,7 +84,7 @@ Iterator newIterator(void *collection);
 
 bool stepIterator(Iterator iterator, void *dst);
 
-/*
+/**
  * Function: freeIterator
  * Usage: freeIterator(iterator);
  * ------------------------------

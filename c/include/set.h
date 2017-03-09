@@ -29,7 +29,7 @@
 #include "cslib.h"
 #include "cmpfn.h"
 
-/*
+/**
  * Type: Set
  * ---------
  * Defines the abstract type used to represent sets.
@@ -39,7 +39,7 @@ typedef struct SetCDT *Set;
 
 /* Exported entries */
 
-/*
+/**
  * Function: newSet
  * Usage: set = newSet(type);
  * --------------------------
@@ -50,7 +50,7 @@ typedef struct SetCDT *Set;
 
 #define newSet(type) newSetFromType(#type)
 
-/*
+/**
  * Function: newSetFromType
  * Usage: set = newSetFromType(baseType);
  * --------------------------------------
@@ -60,7 +60,7 @@ typedef struct SetCDT *Set;
 
 Set newSetFromType(string baseType);
 
-/*
+/**
  * Function: freeSet
  * Usage: freeSet(set);
  * --------------------
@@ -69,7 +69,7 @@ Set newSetFromType(string baseType);
 
 void freeSet(Set set);
 
-/*
+/**
  * Function: size
  * Usage: n = size(set);
  * ---------------------
@@ -78,7 +78,7 @@ void freeSet(Set set);
 
 int sizeSet(Set set);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(set)) . . .
  * ------------------------------
@@ -87,7 +87,7 @@ int sizeSet(Set set);
 
 bool isEmptySet(Set set);
 
-/*
+/**
  * Function: clear
  * Usage: clear(set);
  * ------------------
@@ -96,7 +96,7 @@ bool isEmptySet(Set set);
 
 void clearSet(Set set);
 
-/*
+/**
  * Function: clone
  * Usage: newset = clone(set);
  * ---------------------------
@@ -107,7 +107,7 @@ void clearSet(Set set);
 
 Set cloneSet(Set set);
 
-/*
+/**
  * Function: contains
  * Usage: if (contains(set, value)) . . .
  * --------------------------------------
@@ -116,7 +116,7 @@ Set cloneSet(Set set);
 
 bool containsSet(Set set, ...);
 
-/*
+/**
  * Friend function: containsSetFromArgs
  * Usage: if (containsSetFromArgs(set, args)) . . .
  * ------------------------------------------------
@@ -126,7 +126,7 @@ bool containsSet(Set set, ...);
 
 bool containsSetFromArgs(Set set, va_list args);
 
-/*
+/**
  * Function: add
  * Usage: add(set, value);
  * -----------------------
@@ -135,7 +135,7 @@ bool containsSetFromArgs(Set set, va_list args);
 
 void addSet(Set set, ...);
 
-/*
+/**
  * Friend function: addSetFromArgs
  * Usage: addSetFromArgs(set, args);
  * ---------------------------------
@@ -145,7 +145,7 @@ void addSet(Set set, ...);
 
 void addSetFromArgs(Set set, va_list args);
 
-/*
+/**
  * Function: remove
  * Usage: remove(set, value);
  * --------------------------
@@ -154,7 +154,7 @@ void addSetFromArgs(Set set, va_list args);
 
 void removeSet(Set set, ...);
 
-/*
+/**
  * Friend function: removeSetFromArgs
  * Usage: removeSetFromArgs(set, args);
  * ------------------------------------
@@ -164,7 +164,7 @@ void removeSet(Set set, ...);
 
 void removeSetFromArgs(Set set, va_list args);
 
-/*
+/**
  * Function: equals
  * Usage: if (equals(s1, s2)) . . .
  * --------------------------------
@@ -174,7 +174,7 @@ void removeSetFromArgs(Set set, va_list args);
 
 bool equalsSet(Set s1, Set s2);
 
-/*
+/**
  * Function: isSubset
  * Usage: if (isSubset(s1, s2)) . . .
  * ----------------------------------
@@ -184,7 +184,7 @@ bool equalsSet(Set s1, Set s2);
 
 bool isSubsetSet(Set s1, Set s2);
 
-/*
+/**
  * Function: union
  * Usage: set = union(s1, s2);
  * ---------------------------
@@ -194,7 +194,7 @@ bool isSubsetSet(Set s1, Set s2);
 
 Set unionSet(Set s1, Set s2);
 
-/*
+/**
  * Function: intersection
  * Usage: set = intersection(s1, s2);
  * ----------------------------------
@@ -204,7 +204,7 @@ Set unionSet(Set s1, Set s2);
 
 Set intersectionSet(Set s1, Set s2);
 
-/*
+/**
  * Function: setDifference
  * Usage: set = setDifference(s1, s2);
  * -----------------------------------
@@ -214,7 +214,7 @@ Set intersectionSet(Set s1, Set s2);
 
 Set setDifferenceSet(Set s1, Set s2);
 
-/*
+/**
  * Function: setCompareFn
  * Usage: setCompareFn(set, cmpFn);
  * --------------------------------
@@ -224,7 +224,7 @@ Set setDifferenceSet(Set s1, Set s2);
 
 void setCompareFn(Set set, CompareFn cmpFn);
 
-/*
+/**
  * Function: getCompareFn
  * Usage: cmpFn = getCompareFn(set);
  * ---------------------------------

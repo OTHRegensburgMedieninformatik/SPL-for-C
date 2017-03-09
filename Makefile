@@ -421,6 +421,9 @@ starterprojects: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for CodeBlocks on MacOS"
 	@cp -r build/$(PLATFORM)/lib StarterProjects/codeblocks/macos/lib
 	@cp -r build/$(PLATFORM)/include StarterProjects/codeblocks/macos/include
+	@echo "Build StarterProject for Makefile Project"
+	@cp -r build/$(PLATFORM)/lib StarterProjects/makefile/lib
+	@cp -r build/$(PLATFORM)/include StarterProjects/makefile/include
 	@echo "Check the StarterProjects folder"
 
 clion_windows: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
@@ -467,6 +470,14 @@ codeblocks_macos: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for CodeBlocks on MacOS";
 	@rm -rf StarterProject
 	@cp -r ide/codeblocks/macos StarterProject
+	@cp -r build/$(PLATFORM)/lib StarterProject/lib
+	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@echo "Check the StarterProject folder"
+
+makefile: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
+	@echo "Build StarterProject for Makefile Project";
+	@rm -rf StarterProject
+	@cp -r ide/makefile StarterProject
 	@cp -r build/$(PLATFORM)/lib StarterProject/lib
 	@cp -r build/$(PLATFORM)/include StarterProject/include
 	@echo "Check the StarterProject folder"

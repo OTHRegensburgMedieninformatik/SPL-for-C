@@ -28,7 +28,7 @@
 
 #include "generic.h"
 
-/*
+/**
  * Type: GPoint
  * ------------
  * This type contains real-valued x and y fields.  It is used to
@@ -40,7 +40,7 @@ typedef struct {
    double y;
 } GPoint;
 
-/*
+/**
  * Type: GDimension
  * ----------------
  * This type contains real-valued width and height fields.  It is used
@@ -52,7 +52,7 @@ typedef struct {
    double height;
 } GDimension;
 
-/*
+/**
  * Type: GRectangle
  * ----------------
  * This type contains real-valued x, y, width, and height fields.  It is
@@ -66,7 +66,7 @@ typedef struct {
    double height;
 } GRectangle;
 
-/*
+/**
  * Function: createGPoint
  * Usage: pt = createGPoint(x, y);
  * -------------------------------
@@ -76,7 +76,7 @@ typedef struct {
 
 GPoint createGPoint(double x, double y);
 
-/*
+/**
  * Function: getX
  * Usage: x = getX(pt);
  * --------------------
@@ -85,7 +85,7 @@ GPoint createGPoint(double x, double y);
 
 double getXGPoint(GPoint pt);
 
-/*
+/**
  * Function: getY
  * Usage: y = getY(pt);
  * --------------------
@@ -94,7 +94,7 @@ double getXGPoint(GPoint pt);
 
 double getYGPoint(GPoint pt);
 
-/*
+/**
  * Function: createGDimension
  * Usage: dim = createGDimension(width, height);
  * ---------------------------------------------
@@ -104,7 +104,7 @@ double getYGPoint(GPoint pt);
 
 GDimension createGDimension(double width, double height);
 
-/*
+/**
  * Function: getWidth
  * Usage: width = getWidth(dim);
  * -----------------------------
@@ -113,7 +113,7 @@ GDimension createGDimension(double width, double height);
 
 double getWidthGDimension(GDimension dim);
 
-/*
+/**
  * Function: getHeight
  * Usage: width = getHeight(dim);
  * ------------------------------
@@ -122,7 +122,7 @@ double getWidthGDimension(GDimension dim);
 
 double getHeightGDimension(GDimension dim);
 
-/*
+/**
  * Function: createGRectangle
  * Usage: r = createGRectangle(x, y, width, height);
  * -------------------------------------------------
@@ -131,7 +131,7 @@ double getHeightGDimension(GDimension dim);
 
 GRectangle createGRectangle(double x, double y, double width, double height);
 
-/*
+/**
  * Function: getX
  * Usage: double x = getX(r);
  * --------------------------
@@ -140,7 +140,7 @@ GRectangle createGRectangle(double x, double y, double width, double height);
 
 double getXGRectangle(GRectangle r);
 
-/*
+/**
  * Function: getY
  * Usage: double y = getY(r);
  * --------------------------
@@ -149,7 +149,7 @@ double getXGRectangle(GRectangle r);
 
 double getYGRectangle(GRectangle r);
 
-/*
+/**
  * Function: getWidth
  * Usage: width = getWidth(r);
  * ---------------------------
@@ -158,7 +158,7 @@ double getYGRectangle(GRectangle r);
 
 double getWidthGRectangle(GRectangle r);
 
-/*
+/**
  * Function: getHeight
  * Usage: width = getHeight(r);
  * ----------------------------
@@ -167,7 +167,7 @@ double getWidthGRectangle(GRectangle r);
 
 double getHeightGRectangle(GRectangle r);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(r)) . . .
  * ----------------------------
@@ -176,7 +176,7 @@ double getHeightGRectangle(GRectangle r);
 
 bool isEmptyGRectangle(GRectangle r);
 
-/*
+/**
  * Function: contains
  * Usage: if (contains(r, pt)) . . .
  * ---------------------------------

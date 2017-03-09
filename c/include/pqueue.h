@@ -31,7 +31,7 @@
 #include "cslib.h"
 #include "generic.h"
 
-/*
+/**
  * Type: PriorityQueue
  * -------------------
  * This type defines the abstract type for a queue.
@@ -39,7 +39,7 @@
 
 typedef struct PriorityQueueCDT *PriorityQueue;
 
-/*
+/**
  * Function: newPriorityQueue
  * Usage: pq = newPriorityQueue();
  * -------------------------------
@@ -48,7 +48,7 @@ typedef struct PriorityQueueCDT *PriorityQueue;
 
 PriorityQueue newPriorityQueue(void);
 
-/*
+/**
  * Function: freePriorityQueue
  * Usage: freePriorityQueue(pq);
  * -----------------------------
@@ -57,7 +57,7 @@ PriorityQueue newPriorityQueue(void);
 
 void freePriorityQueue(PriorityQueue pq);
 
-/*
+/**
  * Function: enqueue
  * Usage: enqueue(pq, value, priority);
  * ------------------------------------
@@ -69,7 +69,7 @@ void freePriorityQueue(PriorityQueue pq);
 
 void enqueuePriorityQueue(PriorityQueue pq, void *value, double priority);
 
-/*
+/**
  * Function: dequeue
  * Usage: value = dequeue(pq);
  * ---------------------------
@@ -80,7 +80,7 @@ void enqueuePriorityQueue(PriorityQueue pq, void *value, double priority);
 
 void *dequeuePriorityQueue(PriorityQueue pq);
 
-/*
+/**
  * Function: peek
  * Usage: value = peek(pq);
  * ------------------------
@@ -91,7 +91,7 @@ void *dequeuePriorityQueue(PriorityQueue pq);
 
 void *peekPriorityQueue(PriorityQueue pq);
 
-/*
+/**
  * Function: peekPriority
  * Usage: priority = peekPriority(pq);
  * -----------------------------------
@@ -101,7 +101,7 @@ void *peekPriorityQueue(PriorityQueue pq);
 
 double peekPriority(PriorityQueue pq);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(pq)) . . .
  * -----------------------------
@@ -110,7 +110,7 @@ double peekPriority(PriorityQueue pq);
 
 bool isEmptyPriorityQueue(PriorityQueue pq);
 
-/*
+/**
  * Function: size
  * Usage: n = size(pq);
  * --------------------
@@ -119,7 +119,7 @@ bool isEmptyPriorityQueue(PriorityQueue pq);
 
 int sizePriorityQueue(PriorityQueue pq);
 
-/*
+/**
  * Function: clear
  * Usage: clear(pq);
  * -----------------
@@ -128,7 +128,7 @@ int sizePriorityQueue(PriorityQueue pq);
 
 void clearPriorityQueue(PriorityQueue pq);
 
-/*
+/**
  * Function: clone
  * Usage: newpq = clone(pq);
  * -------------------------

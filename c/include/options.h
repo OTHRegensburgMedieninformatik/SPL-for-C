@@ -29,7 +29,7 @@
 #include "cslib.h"
 #include "hashmap.h"
 
-/*
+/**
  * Function: parseOptions
  * ----------------------
  * Parses shell arguments into a table of options and a list of
@@ -75,7 +75,7 @@
 
 HashMap parseOptions(string args[], string optionSpec[]);
 
-/*
+/**
  * Function: parseShellArgs
  * ------------------------
  * Parses a string into individual arguments in the style of the
@@ -89,7 +89,7 @@ HashMap parseOptions(string args[], string optionSpec[]);
 
 string *parseShellArgs(string line);
 
-/*
+/**
  * Function: getOption
  * -------------------
  * Gets an option value from the table, supplying a default value
@@ -98,7 +98,7 @@ string *parseShellArgs(string line);
 
 string getOption(HashMap options, string key, string def);
 
-/*
+/**
  * Function: getArgList
  * --------------------
  * Gets the list of arguments that were not interpreted by the option
@@ -107,7 +107,7 @@ string getOption(HashMap options, string key, string def);
 
 string *getArgList(HashMap options);
 
-/*
+/**
  * Function: getIntOption
  * ----------------------
  * Gets an integer option from the table, supplying a default value
@@ -116,7 +116,7 @@ string *getArgList(HashMap options);
 
 int getIntOption(HashMap options, string key, int def);
 
-/*
+/**
  * Function: getDoubleOption
  * -------------------------
  * Gets a numeric option from the table, supplying a default value
@@ -125,7 +125,7 @@ int getIntOption(HashMap options, string key, int def);
 
 double getDoubleOption(HashMap options, string key, double def);
 
-/*
+/**
  * Function: getCharOption
  * -----------------------
  * Gets a character option from the table, supplying a default value
@@ -134,7 +134,7 @@ double getDoubleOption(HashMap options, string key, double def);
 
 int getCharOption(HashMap options, string key, char def);
 
-/*
+/**
  * Function: getBoolOption
  * -----------------------
  * Gets a Boolean option from the table, supplying a default value
@@ -143,7 +143,7 @@ int getCharOption(HashMap options, string key, char def);
 
 bool getBoolOption(HashMap options, string key, bool def);
 
-/*
+/**
  * Function: getUnitsOption
  * ------------------------
  * Gets a units value from an option table.  The value for the units
@@ -154,7 +154,7 @@ bool getBoolOption(HashMap options, string key, bool def);
 
 double getUnitsOption(HashMap options, string key, double def);
 
-/*
+/**
  * Function: getColorOption
  * ------------------------
  * Gets a color value from an option table, which is returned here as
@@ -191,7 +191,7 @@ double getUnitsOption(HashMap options, string key, double def);
 
 string getColorOption(HashMap options, string key, string def);
 
-/*
+/**
  * Function: showUsage
  * -------------------
  * Displays a message describing the command line and its options.

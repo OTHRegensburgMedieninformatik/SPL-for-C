@@ -26,7 +26,7 @@
 #ifndef _gmath_h
 #define _gmath_h
 
-/*
+/**
  * Constant: PI
  * ------------
  * The mathematical constant pi, which is the ratio of the circumference
@@ -35,7 +35,7 @@
 
 #define PI 3.14159265358979323846
 
-/*
+/**
  * Constant: E
  * -----------
  * The mathematical constant e, which is the base of natural logarithms.
@@ -43,7 +43,7 @@
 
 #define E 2.71828182845904523536
 
-/*
+/**
  * Function: sinDegrees
  * Usage: sine = sinDegrees(angle);
  * --------------------------------
@@ -53,7 +53,7 @@
 
 double sinDegrees(double angle);
 
-/*
+/**
  * Function: cosDegrees
  * Usage: cosine = cosDegrees(angle);
  * ----------------------------------
@@ -63,7 +63,7 @@ double sinDegrees(double angle);
 
 double cosDegrees(double angle);
 
-/*
+/**
  * Function: tanDegrees
  * Usage: tangent = tanDegrees(angle);
  * -----------------------------------
@@ -73,7 +73,7 @@ double cosDegrees(double angle);
 
 double tanDegrees(double angle);
 
-/*
+/**
  * Function: toDegrees
  * Usage: degrees = toDegrees(radians);
  * ------------------------------------
@@ -82,7 +82,7 @@ double tanDegrees(double angle);
 
 double toDegrees(double radians);
 
-/*
+/**
  * Function: toRadians
  * Usage: radians = toRadians(degrees);
  * ------------------------------------
@@ -91,7 +91,7 @@ double toDegrees(double radians);
 
 double toRadians(double degrees);
 
-/*
+/**
  * Function: vectorDistance
  * Usage: r = vectorDistance(x, y);
  * --------------------------------
@@ -100,7 +100,7 @@ double toRadians(double degrees);
 
 double vectorDistance(double x, double y);
 
-/*
+/**
  * Function: vectorAngle
  * Usage: angle = vectorAngle(x, y);
  * ---------------------------------

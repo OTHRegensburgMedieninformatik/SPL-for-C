@@ -1,11 +1,11 @@
 #include "cslib.h"
 #include "gobjects.h"
 #include "gwindow.h"
-#include "run.h"
 
-int run() {
+int main() {
     double width, height;
     GWindow gw;
+    
     gw = newGWindow(480,320);
     width = getWidth(gw);
     height = getHeight(gw);

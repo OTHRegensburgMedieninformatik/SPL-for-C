@@ -5,7 +5,7 @@
 int main() {
     double width, height;
     GWindow gw;
-
+    
     gw = newGWindow(480,320);
     width = getWidth(gw);
     height = getHeight(gw);

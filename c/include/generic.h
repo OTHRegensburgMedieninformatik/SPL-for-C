@@ -47,7 +47,7 @@
 #define isEmpty(arg) isEmptyGeneric(sizeof arg, arg)
 #define contains(arg, value) containsGeneric(sizeof arg, arg, value)
 
-/*
+/**
  * Type: GenericType
  * -----------------
  * Union capable of holding any of the primitive types.
@@ -68,7 +68,7 @@ typedef union {
     void *pointerRep;
 } GenericType;
 
-/*
+/**
  * Friend type: FetchFn
  * --------------------
  * This function type fetches an argument from an argument list into the
@@ -77,7 +77,7 @@ typedef union {
 
 typedef void (*FetchFn)(va_list args, GenericType *dst);
 
-/*
+/**
  * Friend type: StoreFn
  * --------------------
  * This function type stores a value from the generic object into the
@@ -86,7 +86,7 @@ typedef void (*FetchFn)(va_list args, GenericType *dst);
 
 typedef void (*StoreFn)(GenericType src, void *dst);
 
-/*
+/**
  * Friend type: ToStringFn
  * -----------------------
  * This function type converts a generic argument to a string.
@@ -94,7 +94,7 @@ typedef void (*StoreFn)(GenericType src, void *dst);
 
 typedef string (*ToStringFn)(GenericType dst);
 
-/*
+/**
  * Function: size
  * Usage: n = size(arg);
  * ---------------------
@@ -103,7 +103,7 @@ typedef string (*ToStringFn)(GenericType dst);
 
 int size(void *arg);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(arg)) . . .
  * ------------------------------
@@ -112,7 +112,7 @@ int size(void *arg);
 
 bool isEmptyGeneric(int size, ...);
 
-/*
+/**
  * Function: clear
  * Usage: clear(arg);
  * ------------------
@@ -121,7 +121,7 @@ bool isEmptyGeneric(int size, ...);
 
 void clear(void *arg);
 
-/*
+/**
  * Function: clone
  * Usage: clone(arg);
  * ------------------
@@ -130,7 +130,7 @@ void clear(void *arg);
 
 void *clone(void *arg);
 
-/*
+/**
  * Function: get
  * Usage: value = get(arg, ...);
  * -----------------------------
@@ -141,7 +141,7 @@ void *clone(void *arg);
 
 void *get(void *arg, ...);
 
-/*
+/**
  * Function: set
  * Usage: set(arg, ...);
  * ---------------------
@@ -152,7 +152,7 @@ void *get(void *arg, ...);
 
 void set(void *arg, ...);
 
-/*
+/**
  * Function: put
  * Usage: put(arg, ...);
  * ---------------------
@@ -164,7 +164,7 @@ void set(void *arg, ...);
 
 void put(void *arg, ...);
 
-/*
+/**
  * Function: containsKey
  * Usage: if (containsKey(arg, key)) . . .
  * ---------------------------------------
@@ -173,7 +173,7 @@ void put(void *arg, ...);
 
 bool containsKey(void *arg, void *key);
 
-/*
+/**
  * Function: contains
  * Usage: if (contains(arg, ...)) . . .
  * ------------------------------------
@@ -183,7 +183,7 @@ bool containsKey(void *arg, void *key);
 
 bool containsGeneric(int size, ...);
 
-/*
+/**
  * Function: add
  * Usage: add(arg, ...);
  * ---------------------
@@ -194,7 +194,7 @@ bool containsGeneric(int size, ...);
 
 void add(void *arg, ...);
 
-/*
+/**
  * Function: remove
  * Usage: remove(arg, ...);
  * ------------------------
@@ -205,7 +205,7 @@ void add(void *arg, ...);
 
 void remove(void *arg, ...);
 
-/*
+/**
  * Function: enqueue
  * Usage: enqueue(arg, ...);
  * -------------------------
@@ -216,7 +216,7 @@ void remove(void *arg, ...);
 
 void enqueue(void *arg, ...);
 
-/*
+/**
  * Function: dequeue
  * Usage: value = dequeue(arg);
  * ----------------------------
@@ -225,7 +225,7 @@ void enqueue(void *arg, ...);
 
 void *dequeue(void *arg);
 
-/*
+/**
  * Function: peek
  * Usage: peek(arg);
  * -----------------
@@ -234,7 +234,7 @@ void *dequeue(void *arg);
 
 void *peek(void *arg);
 
-/*
+/**
  * Function: equals
  * Usage: if (equals(s1, s2)) . . .
  * --------------------------------
@@ -243,7 +243,7 @@ void *peek(void *arg);
 
 bool equals(void *s1, void *s2);
 
-/*
+/**
  * Function: isSubset
  * Usage: if (isSubset(s1, s2)) . . .
  * ----------------------------------
@@ -253,7 +253,7 @@ bool equals(void *s1, void *s2);
 
 bool isSubset(void *s1, void *s2);
 
-/*
+/**
  * Function: union
  * Usage: set = union(s1, s2);
  * ---------------------------
@@ -262,7 +262,7 @@ bool isSubset(void *s1, void *s2);
 
 void *union(void *s1, void *s2);
 
-/*
+/**
  * Function: intersection
  * Usage: set = intersection(s1, s2);
  * ----------------------------------
@@ -271,7 +271,7 @@ void *union(void *s1, void *s2);
 
 void *intersection(void *s1, void *s2);
 
-/*
+/**
  * Function: setDifference
  * Usage: set = setDifference(s1, s2);
  * -----------------------------------
@@ -280,7 +280,7 @@ void *intersection(void *s1, void *s2);
 
 void *setDifference(void *s1, void *s2);
 
-/*
+/**
  * Function: getX
  * Usage: x = getX(any);
  * ---------------------
@@ -289,7 +289,7 @@ void *setDifference(void *s1, void *s2);
 
 double getXGeneric(int size, ...);
 
-/*
+/**
  * Function: getY
  * Usage: y = getY(any);
  * ---------------------
@@ -298,7 +298,7 @@ double getXGeneric(int size, ...);
 
 double getYGeneric(int size, ...);
 
-/*
+/**
  * Function: getWidth
  * Usage: width = getWidth(any);
  * -----------------------------
@@ -307,7 +307,7 @@ double getYGeneric(int size, ...);
 
 double getWidthGeneric(int size, ...);
 
-/*
+/**
  * Function: getHeight
  * Usage: height = getHeight(any);
  * -------------------------------
@@ -316,7 +316,7 @@ double getWidthGeneric(int size, ...);
 
 double getHeightGeneric(int size, ...);
 
-/*
+/**
  * Function: toString
  * Usage: str = toString(arg);
  * ---------------------------
@@ -325,7 +325,7 @@ double getHeightGeneric(int size, ...);
 
 string toStringGeneric(int size, ...);
 
-/*
+/**
  * Function: setVisible
  * Usage: setVisible(arg, flag);
  * -----------------------------
@@ -334,7 +334,7 @@ string toStringGeneric(int size, ...);
 
 void setVisible(void *arg, bool flag);
 
-/*
+/**
  * Function: isVisible
  * Usage: if (isVisible(arg)) . . .
  * --------------------------------
@@ -343,7 +343,7 @@ void setVisible(void *arg, bool flag);
 
 bool isVisible(void *arg);
 
-/*
+/**
  * Function: setColor
  * Usage: setColor(arg, color);
  * ----------------------------
@@ -352,7 +352,7 @@ bool isVisible(void *arg);
 
 void setColor(void *arg, string color);
 
-/*
+/**
  * Friend function: getTypeSizeForType
  * Usage: size = getTypeSizeForType(type);
  * ---------------------------------------
@@ -361,7 +361,7 @@ void setColor(void *arg, string color);
 
 int getTypeSizeForType(string type);
 
-/*
+/**
  * Friend function: getCompareFnForType
  * Usage: fn = getCompareFnForType(type);
  * --------------------------------------
@@ -370,7 +370,7 @@ int getTypeSizeForType(string type);
 
 CompareFn getCompareFnForType(string type);
 
-/*
+/**
  * Friend function: getFetchFnForType
  * Usage: fn = getFetchFnForType(type);
  * ------------------------------------
@@ -387,7 +387,7 @@ CompareFn getCompareFnForType(string type);
 
 FetchFn getFetchFnForType(string type);
 
-/*
+/**
  * Friend function: getStoreFnForType
  * Usage: fn = getStoreFnForType(type);
  * ------------------------------------
@@ -404,7 +404,7 @@ FetchFn getFetchFnForType(string type);
 
 StoreFn getStoreFnForType(string type);
 
-/*
+/**
  * Friend function: getToStringFn
  * Usage: fn = getToStringFn(type);
  * --------------------------------

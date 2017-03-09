@@ -31,7 +31,7 @@
 #include "cmpfn.h"
 #include "set.h"
 
-/*
+/**
  * Type: Graph
  * -----------
  * This type represents the abstract type for a graph.  Conceptually, a
@@ -43,7 +43,7 @@
 
 typedef struct GraphCDT *Graph;
 
-/*
+/**
  * Type: Node
  * ----------
  * This type is the abstract type for a node in a graph.  Clients
@@ -54,7 +54,7 @@ typedef struct GraphCDT *Graph;
 
 typedef struct NodeCDT *Node;
 
-/*
+/**
  * Type: Arc
  * ---------
  * This type is the abstract type for an arc in a graph.  Clients
@@ -65,7 +65,7 @@ typedef struct NodeCDT *Node;
 
 typedef struct ArcCDT *Arc;
 
-/*
+/**
  * Function: newGraph
  * Usage: g = newGraph();
  * ----------------------
@@ -74,7 +74,7 @@ typedef struct ArcCDT *Arc;
 
 Graph newGraph(void);
 
-/*
+/**
  * Function: freeGraph
  * Usage: freeGraph(g);
  * --------------------
@@ -83,7 +83,7 @@ Graph newGraph(void);
 
 void freeGraph(Graph g);
 
-/*
+/**
  * Function: addNode
  * Usage: node = addNode(g, name);
  * -------------------------------
@@ -94,7 +94,7 @@ void freeGraph(Graph g);
 
 Node addNode(Graph g, string name);
 
-/*
+/**
  * Function: removeNode
  * Usage: removeNode(g, node);
  * ---------------------------
@@ -104,7 +104,7 @@ Node addNode(Graph g, string name);
 
 void removeNode(Graph g, Node node);
 
-/*
+/**
  * Function: getNode
  * Usage: node = getNode(g, name);
  * -------------------------------
@@ -114,7 +114,7 @@ void removeNode(Graph g, Node node);
 
 Node getNode(Graph g, string name);
 
-/*
+/**
  * Function: addArc
  * Usage: arc = addArc(g, n1, n2);
  * -------------------------------
@@ -124,7 +124,7 @@ Node getNode(Graph g, string name);
 
 Arc addArc(Graph g, Node n1, Node n2);
 
-/*
+/**
  * Function: removeArc
  * Usage: removeArc(g, arc);
  * -------------------------
@@ -133,7 +133,7 @@ Arc addArc(Graph g, Node n1, Node n2);
 
 void removeArc(Graph g, Arc arc);
 
-/*
+/**
  * Function: isConnected
  * Usage: if (isConnected(n1, n2)) . . .
  * -------------------------------------
@@ -143,7 +143,7 @@ void removeArc(Graph g, Arc arc);
 
 bool isConnected(Node n1, Node n2);
 
-/*
+/**
  * Function: getNodeSet
  * Usage: nodeSet = getNodeSet(g);
  * -------------------------------
@@ -159,7 +159,7 @@ bool isConnected(Node n1, Node n2);
 
 Set getNodeSet(Graph g);
 
-/*
+/**
  * Function: getArcSet
  * Usage: arcSet = getArcSet(g);
  *        arcSet = getArcSet(node);
@@ -177,7 +177,7 @@ Set getNodeSet(Graph g);
 
 Set getArcSet(void *arg);
 
-/*
+/**
  * Function: getNeighbors
  * Usage: nodeSet = getNeighbors(node);
  * ------------------------------------
@@ -194,7 +194,7 @@ Set getArcSet(void *arg);
 
 Set getNeighbors(Node node);
 
-/*
+/**
  * Function: getName
  * Usage: str = getName(node);
  * ---------------------------
@@ -203,7 +203,7 @@ Set getNeighbors(Node node);
 
 string getName(Node node);
 
-/*
+/**
  * Function: startOfArc
  * Usage: node = startOfArc(arc);
  * ------------------------------
@@ -212,7 +212,7 @@ string getName(Node node);
 
 Node startOfArc(Arc arc);
 
-/*
+/**
  * Function: endOfArc
  * Usage: node = endOfArc(arc);
  * ----------------------------
@@ -221,7 +221,7 @@ Node startOfArc(Arc arc);
 
 Node endOfArc(Arc arc);
 
-/*
+/**
  * Function: getCost
  * Usage: cost = getCost(arc);
  * ---------------------------
@@ -231,7 +231,7 @@ Node endOfArc(Arc arc);
 
 double getCost(Arc arc);
 
-/*
+/**
  * Function: setCost
  * Usage: setCost(arc, cost);
  * --------------------------
@@ -240,7 +240,7 @@ double getCost(Arc arc);
 
 void setCost(Arc arc, double cost);
 
-/*
+/**
  * Function: setNodeOrdering
  * Usage: setNodeOrdering(graph, cmpFn);
  * -------------------------------------
@@ -251,7 +251,7 @@ void setCost(Arc arc, double cost);
 
 void setNodeOrdering(Graph graph, CompareFn cmpFn);
 
-/*
+/**
  * Function: setArcOrdering
  * Usage: setArcOrdering(graph, cmpFn);
  * ------------------------------------
