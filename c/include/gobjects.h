@@ -36,7 +36,7 @@
 
 typedef struct GWindowCDT *GWindow;
 
-/*
+/**
  * Type: GObject
  * -------------
  * This type represents an abstract type that unifies the set of all
@@ -82,7 +82,7 @@ typedef struct GObjectCDT *GObject;
 
 #endif
 
-/*
+/**
  * Function: freeGObject
  * Usage: freeGObject(gobj);
  * -------------------------
@@ -95,7 +95,7 @@ typedef struct GObjectCDT *GObject;
 
 void freeGObject(GObject gobj);
 
-/*
+/**
  * Function: getX
  * Usage: x = getX(gobj);
  * ----------------------
@@ -104,7 +104,7 @@ void freeGObject(GObject gobj);
 
 double getXGObject(GObject gobj);
 
-/*
+/**
  * Function: getY
  * Usage: y = getY(gobj);
  * ----------------------
@@ -113,7 +113,7 @@ double getXGObject(GObject gobj);
 
 double getYGObject(GObject gobj);
 
-/*
+/**
  * Function: getLocation
  * Usage: pt = getLocation(gobj);
  * ------------------------------
@@ -122,7 +122,7 @@ double getYGObject(GObject gobj);
 
 GPoint getLocation(GObject gobj);
 
-/*
+/**
  * Function: setLocation
  * Usage: setLocation(gobj, x, y);
  * -------------------------------
@@ -131,7 +131,7 @@ GPoint getLocation(GObject gobj);
 
 void setLocation(GObject gobj, double x, double y);
 
-/*
+/**
  * Function: move
  * Usage: move(gobj, dx, dy);
  * --------------------------
@@ -141,7 +141,7 @@ void setLocation(GObject gobj, double x, double y);
 
 void move(GObject gobj, double dx, double dy);
 
-/*
+/**
  * Function: getWidth
  * Usage: width = getWidth(gobj);
  * ------------------------------
@@ -151,7 +151,7 @@ void move(GObject gobj, double dx, double dy);
 
 double getWidthGObject(GObject gobj);
 
-/*
+/**
  * Function: getHeight
  * Usage: height = getHeight(gobj);
  * --------------------------------
@@ -161,7 +161,7 @@ double getWidthGObject(GObject gobj);
 
 double getHeightGObject(GObject gobj);
 
-/*
+/**
  * Function: getSize
  * Usage: size = getSize(gobj);
  * ----------------------------
@@ -170,7 +170,7 @@ double getHeightGObject(GObject gobj);
 
 GDimension getSize(GObject gobj);
 
-/*
+/**
  * Function: getBounds
  * Usage: rect = getBounds(gobj);
  * ------------------------------
@@ -186,7 +186,7 @@ GDimension getSize(GObject gobj);
 
 GRectangle getBounds(GObject gobj);
 
-/*
+/**
  * Function: setColor
  * Usage: setColor(gobj, color);
  * -----------------------------
@@ -214,7 +214,7 @@ GRectangle getBounds(GObject gobj);
 
 void setColorGObject(GObject gobj, string color);
 
-/*
+/**
  * Function: getColorGObject
  * Usage: color = getColorGObject(gobj);
  * ------------------------------
@@ -227,7 +227,7 @@ void setColorGObject(GObject gobj, string color);
 
 string getColorGObject(GObject gobj);
 
-/*
+/**
  * Function: setVisible
  * Usage: setVisible(gobj, flag);
  * ------------------------------
@@ -236,7 +236,7 @@ string getColorGObject(GObject gobj);
 
 void setVisibleGObject(GObject gobj, bool flag);
 
-/*
+/**
  * Function: isVisible
  * Usage: if (isVisible(gobj)) . . .
  * ---------------------------------
@@ -245,7 +245,7 @@ void setVisibleGObject(GObject gobj, bool flag);
 
 bool isVisibleGObject(GObject gobj);
 
-/*
+/**
  * Function: sendForward
  * Usage: sendForward(gobj);
  * -------------------------
@@ -255,7 +255,7 @@ bool isVisibleGObject(GObject gobj);
 
 void sendForward(GObject gobj);
 
-/*
+/**
  * Function: sendToFront
  * Usage: sendToFront(gobj);
  * -------------------------
@@ -267,7 +267,7 @@ void sendForward(GObject gobj);
 
 void sendToFront(GObject gobj);
 
-/*
+/**
  * Function: sendBackward
  * Usage: sendBackward(gobj);
  * --------------------------
@@ -277,7 +277,7 @@ void sendToFront(GObject gobj);
 
 void sendBackward(GObject gobj);
 
-/*
+/**
  * Function: sendToBack
  * Usage: sendToBack(gobj);
  * ------------------------
@@ -289,7 +289,7 @@ void sendBackward(GObject gobj);
 
 void sendToBack(GObject gobj);
 
-/*
+/**
  * Function: contains
  * Usage: if (contains(gobj, x, y)) . . .
  * --------------------------------------
@@ -298,7 +298,7 @@ void sendToBack(GObject gobj);
 
 bool containsGObject(GObject gobj, double x, double y);
 
-/*
+/**
  * Function: getType
  * Usage: type = getType(gobj);
  * ----------------------------
@@ -308,7 +308,7 @@ bool containsGObject(GObject gobj, double x, double y);
 
 string getType(GObject gobj);
 
-/*
+/**
  * Function: getParent
  * Usage: parent = getParent(gobj);
  * --------------------------------
@@ -325,7 +325,7 @@ GObject getParent(GObject gobj);
 
 /* Functions that apply to several types */
 
-/*
+/**
  * Function: setSize
  * Usage: setSize(gobj, width, height);
  * ------------------------------------
@@ -336,7 +336,7 @@ GObject getParent(GObject gobj);
 
 void setSize(GObject gobj, double width, double height);
 
-/*
+/**
  * Function: setBounds
  * Usage: setBounds(gobj, x, y, width, height);
  * --------------------------------------------
@@ -347,7 +347,7 @@ void setSize(GObject gobj, double width, double height);
 
 void setBounds(GObject gobj, double x, double y, double width, double height);
 
-/*
+/**
  * Function: setFilled
  * Usage: setFilled(gobj, flag);
  * -----------------------------
@@ -357,7 +357,7 @@ void setBounds(GObject gobj, double x, double y, double width, double height);
 
 void setFilled(GObject gobj, bool flag);
 
-/*
+/**
  * Function: isFilled
  * Usage: if (isFilled(gobj)) . . .
  * --------------------------------
@@ -366,7 +366,7 @@ void setFilled(GObject gobj, bool flag);
 
 bool isFilled(GObject gobj);
 
-/*
+/**
  * Function: setFillColor
  * Usage: setFillColor(gobj, color);
  * ---------------------------------
@@ -375,7 +375,7 @@ bool isFilled(GObject gobj);
 
 void setFillColor(GObject gobj, string color);
 
-/*
+/**
  * Function: getFillColor
  * Usage: color = getFillColor(gobj);
  * ----------------------------------
@@ -386,12 +386,12 @@ void setFillColor(GObject gobj, string color);
 
 string getFillColor(GObject gobj);
 
-/*
+/**
  * Type: GRect
  * -----------
  * This type represents a graphical object whose appearance consists of a
  * rectangular box.  For example, the following code adds a filled, red,
- * <nobr>200<font class=sansserif size=-1>x</font>100</nobr> rectangle
+ * <code>200x100</code> rectangle
  * at the upper left corner of the graphics window:
  *
  *<pre>
@@ -408,7 +408,7 @@ string getFillColor(GObject gobj);
 
 typedef GObject GRect;
 
-/*
+/**
  * Function: newGRect
  * Usage: rect = newGRect(x, y, width, height);
  * --------------------------------------------
@@ -418,7 +418,7 @@ typedef GObject GRect;
 
 GRect newGRect(double x, double y, double width, double height);
 
-/*
+/**
  * Type: GRoundRect
  * ----------------
  * This type represents a rectangular box with rounded corners.
@@ -426,7 +426,7 @@ GRect newGRect(double x, double y, double width, double height);
 
 typedef GRect GRoundRect;
 
-/*
+/**
  * Function: newGRoundRect
  * Usage: GRoundRect rect = newGRoundRect(x, y, width, height, corner);
  * --------------------------------------------------------------------
@@ -438,7 +438,7 @@ typedef GRect GRoundRect;
 GRoundRect newGRoundRect(double x, double y, double width, double height,
                                              double corner);
 
-/*
+/**
  * Type: G3DRect
  * -------------
  * This type represents a rectangular box that can appear raised or lowered.
@@ -446,7 +446,7 @@ GRoundRect newGRoundRect(double x, double y, double width, double height,
 
 typedef GRect G3DRect;
 
-/*
+/**
  * Function: newG3DRect
  * Usage: G3DRect rect = newG3DRect(x, y, width, height, raised);
  * --------------------------------------------------------------
@@ -457,7 +457,7 @@ typedef GRect G3DRect;
 
 G3DRect newG3DRect(double x, double y, double width, double height,
                                        bool raised);
-/*
+/**
  * Function: setRaised
  * Usage: setRaised(rect, raised);
  * -------------------------------
@@ -466,7 +466,7 @@ G3DRect newG3DRect(double x, double y, double width, double height,
 
 void setRaised(G3DRect rect, bool raised);
 
-/*
+/**
  * Function: isRaised
  * Usage: if (isRaised(rect)) ...
  * ------------------------------
@@ -475,7 +475,7 @@ void setRaised(G3DRect rect, bool raised);
 
 bool isRaised(G3DRect rect);
 
-/*
+/**
  * Type: GOval
  * -----------
  * This type represents an oval inscribed in a rectangular box.
@@ -496,7 +496,7 @@ bool isRaised(G3DRect rect);
 
 typedef GObject GOval;
 
-/*
+/**
  * Function: newGOval
  * Usage: oval = newGOval(x, y, width, height);
  * --------------------------------------------
@@ -506,7 +506,7 @@ typedef GObject GOval;
 
 GObject newGOval(double x, double y, double width, double height);
 
-/*
+/**
  * Type: GLine
  * -----------
  * This type represents a line segment.  For example, the following code
@@ -524,7 +524,7 @@ GObject newGOval(double x, double y, double width, double height);
 
 typedef GObject GLine;
 
-/*
+/**
  * Function: newGLine
  * Usage: line = newGLine(x0, y0, x1, y1);
  * ---------------------------------------
@@ -535,7 +535,7 @@ typedef GObject GLine;
 
 GObject newGLine(double x0, double y0, double x1, double y1);
 
-/*
+/**
  * Function: setStartPoint
  * Usage: setStartPoint(gline, x, y);
  * ----------------------------------
@@ -547,7 +547,7 @@ GObject newGLine(double x0, double y0, double x1, double y1);
 
 void setStartPoint(GLine line, double x, double y);
 
-/*
+/**
  * Function: setEndPoint
  * Usage: setEndPoint(line, x, y);
  * -------------------------------
@@ -557,7 +557,7 @@ void setStartPoint(GLine line, double x, double y);
 
 void setEndPoint(GLine line, double x, double y);
 
-/*
+/**
  * Function: getStartPoint
  * Usage: pt = getStartPoint(gobj);
  * --------------------------------
@@ -566,7 +566,7 @@ void setEndPoint(GLine line, double x, double y);
 
 GPoint getStartPoint(GObject gobj);
 
-/*
+/**
  * Function: getEndPoint
  * Usage: pt = getEndPoint(gobj);
  * ------------------------------
@@ -575,7 +575,7 @@ GPoint getStartPoint(GObject gobj);
 
 GPoint getEndPoint(GObject gobj);
 
-/*
+/**
  * Type: GArc
  * ----------
  * This type represents an elliptical arc.  The arc is specified by the
@@ -597,7 +597,7 @@ GPoint getEndPoint(GObject gobj);
 
 typedef GObject GArc;
 
-/*
+/**
  * Function: newGArc
  * Usage: arc = newGArc(x, y, width, height, start, sweep);
  * --------------------------------------------------------
@@ -608,7 +608,7 @@ typedef GObject GArc;
 GArc newGArc(double x, double y, double width, double height,
                                  double start, double sweep);
 
-/*
+/**
  * Function: setStartAngle
  * Usage: setStartAngle(arc, start);
  * ---------------------------------
@@ -617,7 +617,7 @@ GArc newGArc(double x, double y, double width, double height,
 
 void setStartAngle(GArc arc, double start);
 
-/*
+/**
  * Function: getStartAngle
  * Usage: angle = getStartAngle(arc);
  * ----------------------------------
@@ -626,7 +626,7 @@ void setStartAngle(GArc arc, double start);
 
 double getStartAngle(GArc arc);
 
-/*
+/**
  * Function: setSweepAngle
  * Usage: setSweepAngle(arc, start);
  * ---------------------------------
@@ -635,7 +635,7 @@ double getStartAngle(GArc arc);
 
 void setSweepAngle(GArc arc, double start);
 
-/*
+/**
  * Function: getSweepAngle
  * Usage: angle = getSweepAngle(arc);
  * ----------------------------------
@@ -644,7 +644,7 @@ void setSweepAngle(GArc arc, double start);
 
 double getSweepAngle(GArc arc);
 
-/*
+/**
  * Function: setFrameRectangle
  * Usage: setFrameRectangle(arc, x, y, width, height);
  * ---------------------------------------------------
@@ -654,7 +654,7 @@ double getSweepAngle(GArc arc);
 void setFrameRectangle(GArc garc, double x, double y,
                                   double width, double height);
 
-/*
+/**
  * Function: getFrameRectangle
  * Usage: rect = getFrameRectangle(arc);
  * -------------------------------------
@@ -663,7 +663,7 @@ void setFrameRectangle(GArc garc, double x, double y,
 
 GRectangle getFrameRectangle(GArc arc);
 
-/*
+/**
  * Type: GLabel
  * ------------
  * This subtype represents a text string.  For example, the following code
@@ -707,7 +707,7 @@ GRectangle getFrameRectangle(GArc arc);
 
 typedef GObject GLabel;
 
-/*
+/**
  * Function: newGLabel
  * Usage: label = newGLabel(str);
  * ------------------------------
@@ -717,7 +717,7 @@ typedef GObject GLabel;
 
 GLabel newGLabel(string str);
 
-/*
+/**
  * Function: setFont
  * Usage: setFont(label, font);
  * ----------------------------
@@ -735,7 +735,7 @@ GLabel newGLabel(string str);
 
 void setFont(GLabel label, string font);
 
-/*
+/**
  * Function: getFont
  * Usage: font = getFont(label);
  * -----------------------------
@@ -744,7 +744,7 @@ void setFont(GLabel label, string font);
 
 string getFont(GLabel label);
 
-/*
+/**
  * Function: setLabel
  * Usage: setLabel(label, str);
  * ----------------------------
@@ -754,7 +754,7 @@ string getFont(GLabel label);
 
 void setLabel(GLabel label, string str);
 
-/*
+/**
  * Function: getLabel
  * Usage: str = getLabel(label);
  * -----------------------------
@@ -763,7 +763,7 @@ void setLabel(GLabel label, string str);
 
 string getLabel(GLabel label);
 
-/*
+/**
  * Function: getFontAscent
  * Usage: ascent = getFontAscent(label);
  * -------------------------------------
@@ -773,7 +773,7 @@ string getLabel(GLabel label);
 
 double getFontAscent(GLabel label);
 
-/*
+/**
  * Function: getFontDescent
  * Usage: descent = getFontDescent(label);
  * ---------------------------------------
@@ -783,7 +783,7 @@ double getFontAscent(GLabel label);
 
 double getFontDescent(GLabel label);
 
-/*
+/**
  * Type: GImage
  * ------------
  * This subtype represents an image from a file.  For example, the
@@ -806,7 +806,7 @@ double getFontDescent(GLabel label);
 
 typedef GObject GImage;
 
-/*
+/**
  * Function: newGImage
  * Usage: GImage image = newGImage(filename);
  * ------------------------------------------
@@ -818,7 +818,7 @@ typedef GObject GImage;
 
 GImage newGImage(string filename);
 
-/*
+/**
  * Type: GPolygon
  * --------------
  * This subtype represents a polygon bounded by line segments.
@@ -856,7 +856,7 @@ GImage newGImage(string filename);
 
 typedef GObject GPolygon;
 
-/*
+/**
  * Function: newGPolygon
  * Usage: poly = newGPolygon();
  * ----------------------------
@@ -865,7 +865,7 @@ typedef GObject GPolygon;
 
 GPolygon newGPolygon(void);
 
-/*
+/**
  * Function: addVertex
  * Usage: addVertex(poly, x, y);
  * -----------------------------
@@ -875,7 +875,7 @@ GPolygon newGPolygon(void);
 
 void addVertex(GPolygon poly, double x, double y);
 
-/*
+/**
  * Function: addEdge
  * Usage: addEdge(poly, dx, dy);
  * -----------------------------
@@ -885,7 +885,7 @@ void addVertex(GPolygon poly, double x, double y);
 
 void addEdge(GPolygon poly, double dx, double dy);
 
-/*
+/**
  * Function: addPolarEdge
  * Usage: addPolarEdge(poly, r, theta);
  * ------------------------------------
@@ -897,7 +897,7 @@ void addEdge(GPolygon poly, double dx, double dy);
 
 void addPolarEdge(GPolygon poly, double r, double theta);
 
-/*
+/**
  * Function: getVertices
  * Usage: vec = getVertices(poly);
  * -------------------------------
@@ -908,7 +908,7 @@ void addPolarEdge(GPolygon poly, double r, double theta);
 
 Vector getVertices(GPolygon poly);
 
-/*
+/**
  * Type: GCompound
  * ---------------
  * This subtype consists of a collection of other graphical objects.
@@ -919,7 +919,7 @@ Vector getVertices(GPolygon poly);
 
 typedef GObject GCompound;
 
-/*
+/**
  * Function: newGCompound
  * Usage: comp = newGCompound();
  * -----------------------------
@@ -928,7 +928,7 @@ typedef GObject GCompound;
 
 GObject newGCompound(void);
 
-/*
+/**
  * Function: add
  * Usage: add(compound, gobj);
  * ---------------------------
@@ -937,7 +937,7 @@ GObject newGCompound(void);
 
 void addGCompound(GCompound compound, GObject gobj);
 
-/*
+/**
  * Function: add
  * Usage: add(compound, gobj);
  * ---------------------------
@@ -946,7 +946,7 @@ void addGCompound(GCompound compound, GObject gobj);
 
 void removeGCompound(GCompound compound, GObject gobj);
 
-/*
+/**
  * Friend function: getGObjectCompound
  * Usage: gobj = getGObjectCompound(GCompound compound, double x, double y);
  * -------------------------------------------------------------------------
@@ -956,7 +956,7 @@ void removeGCompound(GCompound compound, GObject gobj);
 
 GObject getGObjectCompound(GCompound compound, double x, double y);
 
-/*
+/**
  * Friend type: ObjectTypeBits
  * ---------------------------
  * This enumeration identifies a GObject type in a way that simplifies

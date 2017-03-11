@@ -32,7 +32,7 @@
 
 typedef void *GObject;
 
-/*
+/**
  * Type: GWindow
  * -------------
  * This type represents a graphics window that supports simple graphics.
@@ -72,7 +72,7 @@ typedef struct GWindowCDT *GWindow;
 
 #endif
 
-/*
+/**
  * Function: newGWindow
  * Usage: gw = newGWindow(width, height);
  * --------------------------------------
@@ -81,7 +81,7 @@ typedef struct GWindowCDT *GWindow;
 
 GWindow newGWindow(double width, double height);
 
-/*
+/**
  * Function: closeGWindow
  * Usage: closeGWindow(gw);
  * ------------------------
@@ -90,7 +90,7 @@ GWindow newGWindow(double width, double height);
 
 void closeGWindow(GWindow gw);
 
-/*
+/**
  * Function: requestFocus
  * Usage: requestFocus(gw);
  * ------------------------
@@ -101,7 +101,7 @@ void closeGWindow(GWindow gw);
 
 void requestFocus(GWindow gw);
 
-/*
+/**
  * Function: clear
  * Usage: clear(gw);
  * -----------------
@@ -110,7 +110,7 @@ void requestFocus(GWindow gw);
 
 void clearGWindow(GWindow gw);
 
-/*
+/**
  * Function: setVisible
  * Usage: setVisible(gw, flag);
  * ----------------------------
@@ -119,7 +119,7 @@ void clearGWindow(GWindow gw);
 
 void setVisibleGWindow(GWindow gw, bool flag);
 
-/*
+/**
  * Function: isVisible
  * Usage: if (isVisible(gw)) . . .
  * -------------------------------
@@ -128,7 +128,7 @@ void setVisibleGWindow(GWindow gw, bool flag);
 
 bool isVisibleGWindow(GWindow gw);
 
-/*
+/**
  * Function: drawLine
  * Usage: drawLine(gw, x0, y0, x1, y1);
  * ------------------------------------
@@ -137,7 +137,7 @@ bool isVisibleGWindow(GWindow gw);
 
 void drawLine(GWindow gw, double x0, double y0, double x1, double y1);
 
-/*
+/**
  * Function: drawPolarLine
  * Usage: pt = drawPolarLine(gw, x, y, r, theta);
  * ----------------------------------------------
@@ -149,7 +149,7 @@ void drawLine(GWindow gw, double x0, double y0, double x1, double y1);
 
 GPoint drawPolarLine(GWindow gw, double x, double y, double r, double theta);
 
-/*
+/**
  * Function: drawOval
  * Usage: drawOval(gw, x, y, width, height);
  * -----------------------------------------
@@ -158,7 +158,7 @@ GPoint drawPolarLine(GWindow gw, double x, double y, double r, double theta);
 
 void drawOval(GWindow gw, double x, double y, double width, double height);
 
-/*
+/**
  * Function: fillOval
  * Usage: fillOval(gw, x, y, width, height);
  * -----------------------------------------
@@ -167,7 +167,7 @@ void drawOval(GWindow gw, double x, double y, double width, double height);
 
 void fillOval(GWindow gw, double x, double y, double width, double height);
 
-/*
+/**
  * Function: drawRect
  * Usage: drawRect(gw, x, y, width, height);
  * -----------------------------------------
@@ -176,7 +176,7 @@ void fillOval(GWindow gw, double x, double y, double width, double height);
 
 void drawRect(GWindow gw, double x, double y, double width, double height);
 
-/*
+/**
  * Function: fillRect
  * Usage: fillRect(gw, x, y, width, height);
  * -----------------------------------------
@@ -185,7 +185,7 @@ void drawRect(GWindow gw, double x, double y, double width, double height);
 
 void fillRect(GWindow gw, double x, double y, double width, double height);
 
-/*
+/**
  * Function: setColor
  * Usage: setColor(gw, color);
  * ---------------------------
@@ -202,7 +202,7 @@ void fillRect(GWindow gw, double x, double y, double width, double height);
 
 void setColorGWindow(GWindow gw, string color);
 
-/*
+/**
  * Function: getColorGWindow
  * Usage: color = getColorGWindow(gw);
  * ----------------------------
@@ -214,7 +214,7 @@ void setColorGWindow(GWindow gw, string color);
 
 string getColorGWindow(GWindow gw);
 
-/*
+/**
  * Function: getWidth
  * Usage: width = getWidth(gw);
  * ----------------------------
@@ -223,7 +223,7 @@ string getColorGWindow(GWindow gw);
 
 double getWidthGWindow(GWindow gw);
 
-/*
+/**
  * Function: getHeight
  * Usage: height = getHeight(gw);
  * ------------------------------
@@ -232,7 +232,7 @@ double getWidthGWindow(GWindow gw);
 
 double getHeightGWindow(GWindow gw);
 
-/*
+/**
  * Function: repaint
  * Usage: repaint(gw);
  * -------------------
@@ -241,7 +241,7 @@ double getHeightGWindow(GWindow gw);
 
 void repaint(GWindow gw);
 
-/*
+/**
  * Function: setWindowTitle
  * Usage: setWindowTitle(gw, title);
  * ---------------------------------
@@ -250,7 +250,7 @@ void repaint(GWindow gw);
 
 void setWindowTitle(GWindow gw, string title);
 
-/*
+/**
  * Function: getWindowTitle
  * Usage: title = getWindowTitle(gw);
  * ----------------------------------
@@ -259,7 +259,7 @@ void setWindowTitle(GWindow gw, string title);
 
 string getWindowTitle(GWindow gw);
 
-/*
+/**
  * Function: draw
  * Usage: draw(gw, gobj);
  * ----------------------
@@ -268,7 +268,7 @@ string getWindowTitle(GWindow gw);
 
 void draw(GWindow gw, GObject gobj);
 
-/*
+/**
  * Function: drawAt
  * Usage: drawAt(gw, gobj, x, y);
  * ------------------------------
@@ -278,7 +278,7 @@ void draw(GWindow gw, GObject gobj);
 
 void drawAt(GWindow gw, GObject gobj, double x, double y);
 
-/*
+/**
  * Function: add
  * Usage: add(gw, gobj);
  * ---------------------
@@ -286,12 +286,12 @@ void drawAt(GWindow gw, GObject gobj, double x, double y);
  * Adding a <code>GObject</code> to a <code>GWindow</code> transfers
  * control of the memory for that object from the client to the graphics
  * package.  Freeing a <code>GWindow</code> automatically frees
- * any <nobr><code>GObject</code><font size=-1>s</font></nobr> it contains.
+ * any <code>GObjects</code> it contains.
  */
 
 void addGWindow(GWindow gw, GObject gobj);
 
-/*
+/**
  * Function: addAt
  * Usage: addAt(gw, gobj, x, y);
  * -----------------------------
@@ -301,7 +301,7 @@ void addGWindow(GWindow gw, GObject gobj);
 
 void addAt(GWindow gw, GObject gobj, double x, double y);
 
-/*
+/**
  * Function: addToRegion
  * Usage: addToRegion(gw, gobj, region);
  * -------------------------------------
@@ -314,7 +314,7 @@ void addAt(GWindow gw, GObject gobj, double x, double y);
 
 void addToRegion(GWindow gw, GObject gobj, string region);
 
-/*
+/**
  * Function: removeGWindow
  * Usage: removeGWindow(gw, gobj);
  * ------------------------
@@ -323,7 +323,7 @@ void addToRegion(GWindow gw, GObject gobj, string region);
 
 void removeGWindow(GWindow gw, GObject gobj);
 
-/*
+/**
  * Function: getGObjectAt
  * Usage: gobj = getGObjectAt(gw, x, y);
  * -------------------------------------
@@ -334,7 +334,7 @@ void removeGWindow(GWindow gw, GObject gobj);
 
 GObject getGObjectAt(GWindow gw, double x, double y);
 
-/*
+/**
  * Function: setRegionAlignment
  * Usage: setRegionAlignment(gw, region, align);
  * ---------------------------------------------
@@ -349,7 +349,7 @@ GObject getGObjectAt(GWindow gw, double x, double y);
 
 void setRegionAlignment(GWindow gw, string region, string align);
 
-/*
+/**
  * Function: pause
  * Usage: pause(milliseconds);
  * ---------------------------

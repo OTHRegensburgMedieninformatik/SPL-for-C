@@ -28,7 +28,7 @@
 #include "cslib.h"
 #include "generic.h"
 
-/*
+/**
  * Type: Vector
  * ------------
  * This type defines the abstract vector type.
@@ -38,7 +38,7 @@ typedef struct VectorCDT *Vector;
 
 /* Exported entries */
 
-/*
+/**
  * Function: newVector
  * Usage: vector = newVector();
  * ----------------------------
@@ -47,7 +47,7 @@ typedef struct VectorCDT *Vector;
 
 Vector newVector(void);
 
-/*
+/**
  * Function: freeVector
  * Usage: freeVector(vector);
  * --------------------------
@@ -56,7 +56,7 @@ Vector newVector(void);
 
 void freeVector(Vector vector);
 
-/*
+/**
  * Function: arrayToVector
  * Usage: vector = arrayToVector(array, n);
  * ----------------------------------------
@@ -67,7 +67,7 @@ void freeVector(Vector vector);
 
 Vector arrayToVector(void *array[], int n);
 
-/*
+/**
  * Function: vectorToArray
  * Usage: array = vectorToArray(vector);
  * -------------------------------------
@@ -78,7 +78,7 @@ Vector arrayToVector(void *array[], int n);
 
 void **vectorToArray(Vector vector);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(vector)) . . .
  * ---------------------------------
@@ -87,7 +87,7 @@ void **vectorToArray(Vector vector);
 
 bool isEmptyVector(Vector vector);
 
-/*
+/**
  * Function: size
  * Usage: n = size(vector);
  * ------------------------
@@ -96,7 +96,7 @@ bool isEmptyVector(Vector vector);
 
 int sizeVector(Vector vector);
 
-/*
+/**
  * Function: clear
  * Usage: clear(vector);
  * ---------------------
@@ -105,7 +105,7 @@ int sizeVector(Vector vector);
 
 void clearVector(Vector vector);
 
-/*
+/**
  * Function: clone
  * Usage: newvec = clone(vector);
  * ------------------------------
@@ -116,7 +116,7 @@ void clearVector(Vector vector);
 
 Vector cloneVector(Vector vector);
 
-/*
+/**
  * Function: get
  * Usage: value = get(vector, index);
  * ----------------------------------
@@ -126,7 +126,7 @@ Vector cloneVector(Vector vector);
 
 void *getVector(Vector vector, int index);
 
-/*
+/**
  * Function: set
  * Usage: set(vector, index, value);
  * ---------------------------------
@@ -136,7 +136,7 @@ void *getVector(Vector vector, int index);
 
 void setVector(Vector vector, int index, void *value);
 
-/*
+/**
  * Function: add
  * Usage: add(vector, value);
  * --------------------------
@@ -145,7 +145,7 @@ void setVector(Vector vector, int index, void *value);
 
 void addVector(Vector vector, void *value);
 
-/*
+/**
  * Function: insert
  * Usage: insert(vector, index, value);
  * ------------------------------------
@@ -157,7 +157,7 @@ void addVector(Vector vector, void *value);
 void insert(Vector vector, int index, void *value);
 void insertAt(Vector vector, int index, void *value);
 
-/*
+/**
  * Function: remove
  * Usage: remove(vector, index);
  * -----------------------------

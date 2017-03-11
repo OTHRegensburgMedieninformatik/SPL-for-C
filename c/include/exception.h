@@ -194,7 +194,7 @@
 #   define debugTry(s)
 #endif
 
-/*
+/**
  * Type: exception
  * ---------------
  * This type is used to define the general class of exceptions.
@@ -220,14 +220,14 @@ typedef struct exceptionContextBlock {
     struct exceptionContextBlock *link;
 } ExceptionContextBlock;
 
-/*
+/**
  * Type: ErrorException
  * --------------------
  * Predefined exception type for the <code>error</code> function.
  */
 extern exception ErrorException;
 
-/*
+/**
  * Constant: ANY
  * -------------
  * Predefined exception type that allows handlers to catch an arbitrary

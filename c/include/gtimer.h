@@ -27,7 +27,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Type: GTimer
  * ------------
  * This type implements a simple interval timer that generates a timer
@@ -36,7 +36,7 @@
 
 typedef struct GTimerCDT *GTimer;
 
-/*
+/**
  * Function: newGTimer
  * Usage: timer = newGTimer(milliseconds);
  * ---------------------------------------
@@ -47,7 +47,7 @@ typedef struct GTimerCDT *GTimer;
 
 GTimer newGTimer(double milliseconds);
 
-/*
+/**
  * Function: freeGTimer
  * Usage: freeGTimer(timer);
  * -------------------------
@@ -56,7 +56,7 @@ GTimer newGTimer(double milliseconds);
 
 void freeGTimer(GTimer timer);
 
-/*
+/**
  * Function: startTimer
  * Usage: startTimer(timer);
  * -------------------------
@@ -68,7 +68,7 @@ void freeGTimer(GTimer timer);
 
 void startTimer(GTimer timer);
 
-/*
+/**
  * Function: stopTimer
  * Usage: stopTimer(timer);
  * ------------------------

@@ -28,7 +28,7 @@
 #include "cslib.h"
 #include "tokenscanner.h"
 
-/*
+/**
  * Type: CommandScanner
  * --------------------
  * The <code>CommandScanner</code> type offers a simple command-scanning
@@ -48,7 +48,7 @@
 
 typedef struct CommandScannerCDT *CommandScanner;
 
-/*
+/**
  * Type: CommandFn
  * ---------------
  * This type represents the space of functions that can be used
@@ -59,7 +59,7 @@ typedef struct CommandScannerCDT *CommandScanner;
 
 typedef void (*CommandFn)(CommandScanner cs);
 
-/*
+/**
  * Function: newCommandScanner
  * Usage: cs = newCommandScanner();
  * --------------------------------
@@ -68,7 +68,7 @@ typedef void (*CommandFn)(CommandScanner cs);
 
 CommandScanner newCommandScanner(void);
 
-/*
+/**
  * Function: freeCommandScanner
  * Usage: freeCommandScanner(cs);
  * ------------------------------
@@ -77,7 +77,7 @@ CommandScanner newCommandScanner(void);
 
 void freeCommandScanner(CommandScanner cs);
 
-/*
+/**
  * Function: defineCommand
  * Usage: defineCommand(cs, cmdName, cmdFn);
  * -----------------------------------------
@@ -87,7 +87,7 @@ void freeCommandScanner(CommandScanner cs);
 
 void defineCommand(CommandScanner cs, string cmdName, CommandFn cmdFn);
 
-/*
+/**
  * Function: commandLoop
  * Usage: commandLoop(cs, prompt);
  * -------------------------------
@@ -109,7 +109,7 @@ void defineCommand(CommandScanner cs, string cmdName, CommandFn cmdFn);
 
 void commandLoop(CommandScanner cs, string prompt);
 
-/*
+/**
  * Function: executeCommand
  * Usage: ok = executeCommand(cs, line);
  * -------------------------------------
@@ -120,7 +120,7 @@ void commandLoop(CommandScanner cs, string prompt);
 
 bool executeCommand(CommandScanner cs, string line);
 
-/*
+/**
  * Function: setCommandData
  * Usage: setCommandData(cs, data);
  * --------------------------------
@@ -130,7 +130,7 @@ bool executeCommand(CommandScanner cs, string line);
 
 void setCommandData(CommandScanner cs, void *data);
 
-/*
+/**
  * Function: getCommandData
  * Usage: data = getCommandData(cs);
  * ---------------------------------
@@ -139,7 +139,7 @@ void setCommandData(CommandScanner cs, void *data);
 
 void *getCommandData(CommandScanner cs);
 
-/*
+/**
  * Function: readCommandToken
  * Usage: token = readCommandToken(cs);
  * ------------------------------------
@@ -150,7 +150,7 @@ void *getCommandData(CommandScanner cs);
 
 string readCommandToken(CommandScanner cs);
 
-/*
+/**
  * Function: getCommandLine
  * Usage: line = getCommandLine(cs);
  * ---------------------------------
@@ -159,7 +159,7 @@ string readCommandToken(CommandScanner cs);
 
 string getCommandLine(CommandScanner cs);
 
-/*
+/**
  * Function: getCommandName
  * Usage: name = getCommandName(cs);
  * ---------------------------------
@@ -168,7 +168,7 @@ string getCommandLine(CommandScanner cs);
 
 string getCommandName(CommandScanner cs);
 
-/*
+/**
  * Function: getTokenScanner
  * Usage: scanner = getTokenScanner(cs);
  * -------------------------------------
@@ -177,7 +177,7 @@ string getCommandName(CommandScanner cs);
 
 TokenScanner getTokenScanner(CommandScanner cs);
 
-/*
+/**
  * Function: quitCommand
  * Usage: defineCommand(cs, "quit", quitCommand);
  * ----------------------------------------------

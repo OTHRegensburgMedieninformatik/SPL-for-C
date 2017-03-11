@@ -35,7 +35,7 @@
 
 /* Exported entries */
 
-/*
+/**
  * Function: getDirectoryPathSeparator
  * Usage: sep = getDirectoryPathSeparator();
  * -----------------------------------------
@@ -44,7 +44,7 @@
 
 string getDirectoryPathSeparator(void);
 
-/*
+/**
  * Function: getSearchPathSeparator
  * Usage: sep = getSearchPathSeparator();
  * --------------------------------------
@@ -53,7 +53,7 @@ string getDirectoryPathSeparator(void);
 
 string getSearchPathSeparator(void);
 
-/*
+/**
  * Function: getRoot
  * Usage: root = getRoot(filename);
  * --------------------------------
@@ -67,7 +67,7 @@ string getSearchPathSeparator(void);
 
 string getRoot(string filename);
 
-/*
+/**
  * Function: getExtension
  * Usage: ext = getExtension(filename);
  * ------------------------------------
@@ -87,7 +87,7 @@ string getRoot(string filename);
 
 string getExtension(string filename);
 
-/*
+/**
  * Function: getHead
  * Usage: head = getHead(pathname);
  * --------------------------------
@@ -106,7 +106,7 @@ string getExtension(string filename);
 
 string getHead(string pathname);
 
-/*
+/**
  * Function: getTail
  * Usage: tail = getTail(pathname);
  * --------------------------------
@@ -125,7 +125,7 @@ string getHead(string pathname);
 
 string getTail(string pathname);
 
-/*
+/**
  * Function: defaultExtension
  * Usage: newname = defaultExtension(filename, ext);
  * -------------------------------------------------
@@ -137,7 +137,7 @@ string getTail(string pathname);
 
 string defaultExtension(string filename, string ext);
 
-/*
+/**
  * Function: openOnPath
  * Usage: FILE *file = openOnPath(path, filename, mode);
  * -----------------------------------------------------
@@ -157,7 +157,7 @@ string defaultExtension(string filename, string ext);
 
 FILE *openOnPath(string path, string filename, string mode);
 
-/*
+/**
  * Function: findOnPath
  * Usage: pathname = findOnPath(path, filename);
  * ---------------------------------------------
@@ -170,7 +170,7 @@ FILE *openOnPath(string path, string filename, string mode);
 
 string findOnPath(string path, string filename);
 
-/*
+/**
  * Function: deleteFile
  * Usage: deleteFile(filename);
  * ----------------------------
@@ -180,7 +180,7 @@ string findOnPath(string path, string filename);
 
 void deleteFile(string filename);
 
-/*
+/**
  * Function: renameFile
  * Usage: renameFile(oldname, newname);
  * ------------------------------------
@@ -190,7 +190,7 @@ void deleteFile(string filename);
 
 void renameFile(string oldname, string newname);
 
-/*
+/**
  * Function: fileExists
  * Usage: if (fileExists(pathname)) . . .
  * --------------------------------------
@@ -199,7 +199,7 @@ void renameFile(string oldname, string newname);
 
 bool fileExists(string pathname);
 
-/*
+/**
  * Function: isFile
  * Usage: if (isFile(pathname)) . . .
  * ----------------------------------
@@ -208,7 +208,7 @@ bool fileExists(string pathname);
 
 bool isFile(string pathname);
 
-/*
+/**
  * Function: isSymbolicLink
  * Usage: if (isSymbolicLink(pathname)) . . .
  * ------------------------------------------
@@ -217,7 +217,7 @@ bool isFile(string pathname);
 
 bool isSymbolicLink(string pathname);
 
-/*
+/**
  * Function: isDirectory
  * Usage: if (isDirectory(pathname)) . . .
  * ---------------------------------------
@@ -226,7 +226,7 @@ bool isSymbolicLink(string pathname);
 
 bool isDirectory(string pathname);
 
-/*
+/**
  * Function: createDirectory
  * Usage: createDirectory(pathname);
  * ---------------------------------
@@ -240,7 +240,7 @@ bool isDirectory(string pathname);
 
 void createDirectory(string pathname);
 
-/*
+/**
  * Function: createDirectoryPath
  * Usage: createDirectoryPath(pathname);
  * -------------------------------------
@@ -251,7 +251,7 @@ void createDirectory(string pathname);
 
 void createDirectoryPath(string pathname);
 
-/*
+/**
  * Function: setCurrentDirectory
  * Usage: setCurrentDirectory(pathname);
  * -------------------------------------
@@ -260,7 +260,7 @@ void createDirectoryPath(string pathname);
 
 void setCurrentDirectory(string path);
 
-/*
+/**
  * Function: getCurrentDirectory
  * Usage: pathname = getCurrentDirectory();
  * ----------------------------------------
@@ -269,7 +269,7 @@ void setCurrentDirectory(string path);
 
 string getCurrentDirectory(void);
 
-/*
+/**
  * Function: expandPathname
  * Usage: fullname = expandPathname(pathname);
  * -------------------------------------------
@@ -278,7 +278,7 @@ string getCurrentDirectory(void);
 
 string expandPathname(string filename);
 
-/*
+/**
  * Function: listDirectory
  * Usage: string array[] = listDirectory(dir);
  * -------------------------------------------
@@ -289,7 +289,7 @@ string expandPathname(string filename);
 
 string *listDirectory(string dir);
 
-/*
+/**
  * Function: newDirectoryIterator
  * Usage: foreach (name in newDirectoryIterator(dir)) . . .
  * --------------------------------------------------------
@@ -299,7 +299,7 @@ string *listDirectory(string dir);
 
 Iterator newDirectoryIterator(string dir);
 
-/*
+/**
  * Function: newDirectoryTreeIterator
  * Usage: foreach (name in newDirectoryTreeIterator(dir)) . . .
  * ------------------------------------------------------------
@@ -309,7 +309,7 @@ Iterator newDirectoryIterator(string dir);
 
 Iterator newDirectoryTreeIterator(string dir);
 
-/*
+/**
  * Function: matchFilenamePattern
  * Usage: if (matchFilenamePattern(filename, pattern)) . . .
  * ---------------------------------------------------------
@@ -334,7 +334,7 @@ Iterator newDirectoryTreeIterator(string dir);
 
 bool matchFilenamePattern(string filename, string pattern);
 
-/*
+/**
  * Function: getFileType
  * Usage: type = getFileType(filename);
  * ------------------------------------
@@ -344,7 +344,7 @@ bool matchFilenamePattern(string filename, string pattern);
 
 string getFileType(string filename);
 
-/*
+/**
  * Function: getFileCreator
  * Usage: type = getFileCreator(filename);
  * ---------------------------------------
@@ -354,7 +354,7 @@ string getFileType(string filename);
 
 string getFileCreator(string filename);
 
-/*
+/**
  * Friend function: setFileTypeAndCreator
  * Usage: setFileTypeAndCreator(pathname, type, creator);
  * ------------------------------------------------------
@@ -364,7 +364,7 @@ string getFileCreator(string filename);
 
 void setFileTypeAndCreator(string pathname, string type, string creator);
 
-/*
+/**
  * Friend function: copyFileTypeAndCreator
  * Usage: copyFileTypeAndCreator(src, dst);
  * ----------------------------------------

@@ -37,7 +37,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Macro: foreach
  * Usage: foreach (element in collection) { . . . }
  * ------------------------------------------------

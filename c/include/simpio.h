@@ -28,7 +28,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Function: getInteger
  * Usage: n = getInteger();
  * ------------------------
@@ -39,7 +39,7 @@
 
 int getInteger(void);
 
-/*
+/**
  * Function: getLong
  * Usage: l = getLong();
  * ---------------------
@@ -51,7 +51,7 @@ int getInteger(void);
 
 long getLong(void);
 
-/*
+/**
  * Function: getReal
  * Usage: d = getReal();
  * ---------------------
@@ -63,7 +63,7 @@ long getLong(void);
 
 double getReal(void);
 
-/*
+/**
  * Function: getLine
  * Usage: s = getLine();
  * ---------------------
@@ -74,7 +74,7 @@ double getReal(void);
 
 string getLine(void);
 
-/*
+/**
  * Function: readLine
  * Usage: s = readLine(infile);
  * ----------------------------
@@ -87,7 +87,7 @@ string getLine(void);
 
 string readLine(FILE *infile);
 
-/*
+/**
  * Function: readLinesFromStream
  * Usage: string *array = readLinesFromStream(infile);
  * ---------------------------------------------------
@@ -97,7 +97,7 @@ string readLine(FILE *infile);
 
 string *readLinesFromStream(FILE *infile);
 
-/*
+/**
  * Function: readLinesFromFile
  * Usage: string *array = readLinesFromFile(filename);
  * ---------------------------------------------------

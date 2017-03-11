@@ -28,7 +28,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Type: CompareFn
  * ---------------
  * This type defines the type space of comparison functions,
@@ -40,7 +40,7 @@
 
 typedef int (*CompareFn)(const void *p1, const void *p2);
 
-/*
+/**
  * Function: intCmpFn
  * ------------------
  * Compares two values of type <code>int</code> whose addresses are
@@ -49,7 +49,7 @@ typedef int (*CompareFn)(const void *p1, const void *p2);
 
 int intCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: shortCmpFn
  * --------------------
  * Compares two values of type <code>short</code> whose addresses are
@@ -58,7 +58,7 @@ int intCmpFn(const void *p1, const void *p2);
 
 int shortCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: longCmpFn
  * -------------------
  * Compares two values of type <code>long</code> whose addresses are
@@ -67,7 +67,7 @@ int shortCmpFn(const void *p1, const void *p2);
 
 int longCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: charCmpFn
  * -------------------
  * Compares two values of type <code>char</code> whose addresses are
@@ -76,7 +76,7 @@ int longCmpFn(const void *p1, const void *p2);
 
 int charCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: floatCmpFn
  * --------------------
  * Compares two values of type <code>float</code> whose addresses are
@@ -85,7 +85,7 @@ int charCmpFn(const void *p1, const void *p2);
 
 int floatCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: doubleCmpFn
  * ---------------------
  * Compares two values of type <code>double</code> whose addresses are
@@ -94,7 +94,7 @@ int floatCmpFn(const void *p1, const void *p2);
 
 int doubleCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: unsignedCmpFn
  * -----------------------
  * Compares two values of type <code>unsigned</code> whose addresses are
@@ -103,7 +103,7 @@ int doubleCmpFn(const void *p1, const void *p2);
 
 int unsignedCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: unsignedShortCmpFn
  * ----------------------------
  * Compares two values of type <code>unsignedshort</code> whose addresses are
@@ -112,7 +112,7 @@ int unsignedCmpFn(const void *p1, const void *p2);
 
 int unsignedShortCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: unsignedLongCmpFn
  * ---------------------------
  * Compares two values of type <code>unsignedlong</code> whose addresses are
@@ -121,7 +121,7 @@ int unsignedShortCmpFn(const void *p1, const void *p2);
 
 int unsignedLongCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: unsignedCharCmpFn
  * ---------------------------
  * Compares two values of type <code>unsignedchar</code> whose addresses are
@@ -130,7 +130,7 @@ int unsignedLongCmpFn(const void *p1, const void *p2);
 
 int unsignedCharCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: stringCmpFn
  * ---------------------
  * Compares two values of type <code>string</code> whose addresses are
@@ -139,7 +139,7 @@ int unsignedCharCmpFn(const void *p1, const void *p2);
 
 int stringCmpFn(const void *p1, const void *p2);
 
-/*
+/**
  * Function: pointerCmpFn
  * ----------------------
  * Compares two values of type <code>pointer</code> whose addresses are

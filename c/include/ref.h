@@ -28,7 +28,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Function: newRefInt
  * Usage: ref = newRefInt(value);
  * ------------------------------
@@ -37,7 +37,7 @@
 
 void *newRefInt(int value);
 
-/*
+/**
  * Function: newRefShort
  * Usage: ref = newRefShort(value);
  * --------------------------------
@@ -46,7 +46,7 @@ void *newRefInt(int value);
 
 void *newRefShort(short value);
 
-/*
+/**
  * Function: newRefLong
  * Usage: ref = newRefLong(value);
  * -------------------------------
@@ -55,7 +55,7 @@ void *newRefShort(short value);
 
 void *newRefLong(long value);
 
-/*
+/**
  * Function: newRefFloat
  * Usage: ref = newRefFloat(value);
  * --------------------------------
@@ -64,7 +64,7 @@ void *newRefLong(long value);
 
 void *newRefFloat(float value);
 
-/*
+/**
  * Function: newRefDouble
  * Usage: ref = newRefDouble(value);
  * ---------------------------------
@@ -73,7 +73,7 @@ void *newRefFloat(float value);
 
 void *newRefDouble(double value);
 
-/*
+/**
  * Function: newRefChar
  * Usage: ref = newRefChar(value);
  * -------------------------------
@@ -82,7 +82,7 @@ void *newRefDouble(double value);
 
 void *newRefChar(char value);
 
-/*
+/**
  * Function: newRefBool
  * Usage: ref = newRefBool(value);
  * -------------------------------
@@ -91,7 +91,7 @@ void *newRefChar(char value);
 
 void *newRefBool(bool value);
 
-/*
+/**
  * Function: newRefUnsigned
  * Usage: ref = newRefUnsigned(value);
  * -----------------------------------
@@ -100,7 +100,7 @@ void *newRefBool(bool value);
 
 void *newRefUnsigned(unsigned value);
 
-/*
+/**
  * Function: newRefUnsignedShort
  * Usage: ref = newRefUnsignedShort(value);
  * ----------------------------------------
@@ -109,7 +109,7 @@ void *newRefUnsigned(unsigned value);
 
 void *newRefUnsignedShort(unsigned short value);
 
-/*
+/**
  * Function: newRefUnsignedLong
  * Usage: ref = newRefUnsignedLong(value);
  * ---------------------------------------
@@ -118,7 +118,7 @@ void *newRefUnsignedShort(unsigned short value);
 
 void *newRefUnsignedLong(unsigned long value);
 
-/*
+/**
  * Function: newRefUnsignedChar
  * Usage: ref = newRefUnsignedChar(value);
  * ---------------------------------------
@@ -127,7 +127,7 @@ void *newRefUnsignedLong(unsigned long value);
 
 void *newRefUnsignedChar(unsigned char value);
 
-/*
+/**
  * Part 2 -- Functions to dereference generic pointers
  * ---------------------------------------------------
  * These functions take a generic pointer of type void * and return
@@ -136,7 +136,7 @@ void *newRefUnsignedChar(unsigned char value);
  * as a pointer to an int and returns the integer at that address.
  */
 
-/*
+/**
  * Function: refToInt
  * Usage: i = refToInt(ref);
  * -------------------------
@@ -145,7 +145,7 @@ void *newRefUnsignedChar(unsigned char value);
 
 int refToInt(void *ref);
 
-/*
+/**
  * Function: refToShort
  * Usage: s = refToShort(ref);
  * ---------------------------
@@ -154,7 +154,7 @@ int refToInt(void *ref);
 
 short refToShort(void *ref);
 
-/*
+/**
  * Function: refToLong
  * Usage: l = refToLong(ref);
  * --------------------------
@@ -163,7 +163,7 @@ short refToShort(void *ref);
 
 long refToLong(void *ref);
 
-/*
+/**
  * Function: refToFloat
  * Usage: f = refToFloat(ref);
  * ---------------------------
@@ -172,7 +172,7 @@ long refToLong(void *ref);
 
 float refToFloat(void *ref);
 
-/*
+/**
  * Function: refToDouble
  * Usage: d = refToDouble(ref);
  * ----------------------------
@@ -181,7 +181,7 @@ float refToFloat(void *ref);
 
 double refToDouble(void *ref);
 
-/*
+/**
  * Function: refToChar
  * Usage: c = refToChar(ref);
  * --------------------------
@@ -190,7 +190,7 @@ double refToDouble(void *ref);
 
 char refToChar(void *ref);
 
-/*
+/**
  * Function: refToBool
  * Usage: b = refToBool(ref);
  * --------------------------
@@ -199,7 +199,7 @@ char refToChar(void *ref);
 
 bool refToBool(void *ref);
 
-/*
+/**
  * Function: refToUnsigned
  * Usage: u = refToUnsigned(ref);
  * ------------------------------
@@ -208,7 +208,7 @@ bool refToBool(void *ref);
 
 unsigned refToUnsigned(void *ref);
 
-/*
+/**
  * Function: refToUnsignedShort
  * Usage: us = refToUnsignedShort(ref);
  * ------------------------------------
@@ -217,7 +217,7 @@ unsigned refToUnsigned(void *ref);
 
 unsigned short refToUnsignedShort(void *ref);
 
-/*
+/**
  * Function: refToUnsignedLong
  * Usage: ul = refToUnsignedLong(ref);
  * -----------------------------------
@@ -226,7 +226,7 @@ unsigned short refToUnsignedShort(void *ref);
 
 unsigned long refToUnsignedLong(void *ref);
 
-/*
+/**
  * Function: refToUnsignedChar
  * Usage: uc = refToUnsignedChar(ref);
  * -----------------------------------

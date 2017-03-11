@@ -29,7 +29,7 @@
 #include "cslib.h"
 #include "generic.h"
 
-/*
+/**
  * Type: Queue
  * -----------
  * This type defines the abstract type for a queue.
@@ -37,7 +37,7 @@
 
 typedef struct QueueCDT *Queue;
 
-/*
+/**
  * Function: newQueue
  * Usage: queue = newQueue();
  * --------------------------
@@ -46,7 +46,7 @@ typedef struct QueueCDT *Queue;
 
 Queue newQueue(void);
 
-/*
+/**
  * Function: freeQueue
  * Usage: freeQueue(queue);
  * ------------------------
@@ -55,7 +55,7 @@ Queue newQueue(void);
 
 void freeQueue(Queue queue);
 
-/*
+/**
  * Function: enqueue
  * Usage: enqueue(queue, element);
  * -------------------------------
@@ -64,7 +64,7 @@ void freeQueue(Queue queue);
 
 void enqueueQueue(Queue queue, void *element);
 
-/*
+/**
  * Function: dequeue
  * Usage: element = dequeue(queue);
  * --------------------------------
@@ -75,7 +75,7 @@ void enqueueQueue(Queue queue, void *element);
 
 void *dequeueQueue(Queue queue);
 
-/*
+/**
  * Function: peek
  * Usage: element = peek(queue);
  * -----------------------------
@@ -86,7 +86,7 @@ void *dequeueQueue(Queue queue);
 
 void *peekQueue(Queue queue);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(queue)) . . .
  * --------------------------------
@@ -95,7 +95,7 @@ void *peekQueue(Queue queue);
 
 bool isEmptyQueue(Queue queue);
 
-/*
+/**
  * Function: size
  * Usage: n = size(queue);
  * -----------------------
@@ -104,7 +104,7 @@ bool isEmptyQueue(Queue queue);
 
 int sizeQueue(Queue queue);
 
-/*
+/**
  * Function: clear
  * Usage: clear(queue);
  * --------------------
@@ -113,7 +113,7 @@ int sizeQueue(Queue queue);
 
 void clearQueue(Queue queue);
 
-/*
+/**
  * Function: clone
  * Usage: newqueue = clone(queue);
  * -------------------------------

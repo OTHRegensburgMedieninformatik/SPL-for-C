@@ -39,7 +39,7 @@
 #include "generic.h"
 #include "iterator.h"
 
-/*
+/**
  * Type: BST
  * ---------
  * The abstract type for a binary search tree.
@@ -47,7 +47,7 @@
 
 typedef struct BSTCDT *BST;
 
-/*
+/**
  * Type: TraversalOrder
  * --------------------
  * This type allows clients to control the order of iteration.  Specifying
@@ -59,7 +59,7 @@ typedef struct BSTCDT *BST;
 
 typedef enum {PREORDER, INORDER, POSTORDER} TraversalOrder;
 
-/*
+/**
  * Type: BSTNode
  * -------------
  * The abstract type for a tree node.
@@ -67,7 +67,7 @@ typedef enum {PREORDER, INORDER, POSTORDER} TraversalOrder;
 
 typedef struct BSTNodeCDT *BSTNode;
 
-/*
+/**
  * Function: newBST
  * Usage: bst = newBST(type);
  * --------------------------
@@ -78,7 +78,7 @@ typedef struct BSTNodeCDT *BSTNode;
 
 #define newBST(type) newBSTFromType(#type)
 
-/*
+/**
  * Function: newBSTFromType
  * Usage: bst = newBSTFromType(baseType);
  * --------------------------------------
@@ -88,7 +88,7 @@ typedef struct BSTNodeCDT *BSTNode;
 
 BST newBSTFromType(string baseType);
 
-/*
+/**
  * Function: freeBST
  * Usage: freeBST(bst);
  * --------------------
@@ -99,7 +99,7 @@ BST newBSTFromType(string baseType);
 
 void freeBST(BST bst);
 
-/*
+/**
  * Function: size
  * Usage: n = size(bst);
  * ---------------------
@@ -108,7 +108,7 @@ void freeBST(BST bst);
 
 int sizeBST(BST bst);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(bst)) . . .
  * ------------------------------
@@ -117,7 +117,7 @@ int sizeBST(BST bst);
 
 bool isEmptyBST(BST bst);
 
-/*
+/**
  * Function: clearBST
  * Usage: clearBST(bst);
  * ---------------------
@@ -126,7 +126,7 @@ bool isEmptyBST(BST bst);
 
 void clearBST(BST bst);
 
-/*
+/**
  * Function: clone
  * Usage: newbst = clone(bst);
  * ---------------------------
@@ -137,7 +137,7 @@ void clearBST(BST bst);
 
 BST cloneBST(BST bst);
 
-/*
+/**
  * Function: findBSTNode
  * Usage: node = findBSTNode(bst, key);
  * ------------------------------------
@@ -149,7 +149,7 @@ BST cloneBST(BST bst);
 
 BSTNode findBSTNode(BST bst, ...);
 
-/*
+/**
  * Friend function: findBSTNodeFromArg
  * Usage: node = findBSTNodeFromArg(bst, any);
  * -------------------------------------------
@@ -159,7 +159,7 @@ BSTNode findBSTNode(BST bst, ...);
 
 BSTNode findBSTNodeFromArg(BST bst, GenericType any);
 
-/*
+/**
  * Function: insertBSTNode
  * Usage: node = insertBSTNode(bst, key);
  * --------------------------------------
@@ -171,7 +171,7 @@ BSTNode findBSTNodeFromArg(BST bst, GenericType any);
 
 BSTNode insertBSTNode(BST bst, ...);
 
-/*
+/**
  * Friend function: insertBSTNodeFromArg
  * Usage: node = insertBSTNodeFromArg(bst, any);
  * ---------------------------------------------
@@ -181,7 +181,7 @@ BSTNode insertBSTNode(BST bst, ...);
 
 BSTNode insertBSTNodeFromArg(BST bst, GenericType any);
 
-/*
+/**
  * Function: removeBSTNode
  * Usage: removeBSTNode(bst, key);
  * -------------------------------
@@ -190,7 +190,7 @@ BSTNode insertBSTNodeFromArg(BST bst, GenericType any);
 
 void removeBSTNode(BST bst, ...);
 
-/*
+/**
  * Friend function: removeBSTNodeFromArg
  * Usage: node = removeBSTNodeFromArg(bst, any);
  * ---------------------------------------------
@@ -200,7 +200,7 @@ void removeBSTNode(BST bst, ...);
 
 void removeBSTNodeFromArg(BST bst, GenericType any);
 
-/*
+/**
  * Function: mapBST
  * Usage: mapBST(bst, fn, order, data);
  * ------------------------------------
@@ -211,7 +211,7 @@ void removeBSTNodeFromArg(BST bst, GenericType any);
 
 void mapBST(BST bst, proc fn, TraversalOrder order, void *data);
 
-/*
+/**
  * Function: newNodeIterator
  * Usage: iterator = newNodeIterator(bst, order);
  * ----------------------------------------------
@@ -222,7 +222,7 @@ void mapBST(BST bst, proc fn, TraversalOrder order, void *data);
 
 Iterator newNodeIterator(BST bst, TraversalOrder order);
 
-/*
+/**
  * Function: getRootBST
  * Usage: root = getRootBST(bst);
  * ------------------------------
@@ -231,7 +231,7 @@ Iterator newNodeIterator(BST bst, TraversalOrder order);
 
 BSTNode getRootBST(BST bst);
 
-/*
+/**
  * Function: getLeftChild
  * Usage: child = getLeftChild(node);
  * ----------------------------------
@@ -240,7 +240,7 @@ BSTNode getRootBST(BST bst);
 
 BSTNode getLeftChild(BSTNode node);
 
-/*
+/**
  * Function: getRightChild
  * Usage: child = getRightChild(node);
  * -----------------------------------
@@ -249,7 +249,7 @@ BSTNode getLeftChild(BSTNode node);
 
 BSTNode getRightChild(BSTNode node);
 
-/*
+/**
  * Function: getKey
  * Usage: any = getKey(node);
  * --------------------------
@@ -258,7 +258,7 @@ BSTNode getRightChild(BSTNode node);
 
 GenericType getKey(BSTNode node);
 
-/*
+/**
  * Function: getKeyString
  * Usage: str = getKeyString(node);
  * --------------------------------
@@ -267,7 +267,7 @@ GenericType getKey(BSTNode node);
 
 string getKeyString(BSTNode node);
 
-/*
+/**
  * Function: setNodeValue
  * Usage: setNodeValue(node, value);
  * ---------------------------------
@@ -276,7 +276,7 @@ string getKeyString(BSTNode node);
 
 void setNodeValue(BSTNode node, void *value);
 
-/*
+/**
  * Function: getNodeValue
  * Usage: value = getNodeValue(node);
  * ----------------------------------
@@ -285,7 +285,7 @@ void setNodeValue(BSTNode node, void *value);
 
 void *getNodeValue(BSTNode node);
 
-/*
+/**
  * Function: getBaseTypeBST
  * Usage: baseType = getBaseTypeBST(bst);
  * --------------------------------------
@@ -294,7 +294,7 @@ void *getNodeValue(BSTNode node);
 
 string getBaseTypeBST(BST bst);
 
-/*
+/**
  * Function: getBaseTypeSizeBST
  * Usage: size = getBaseTypeSizeBST(bst);
  * --------------------------------------
@@ -303,7 +303,7 @@ string getBaseTypeBST(BST bst);
 
 int getBaseTypeSizeBST(BST bst);
 
-/*
+/**
  * Function: setCompareFnBST
  * Usage: setCompareFnBST(bst, cmpFn);
  * -----------------------------------
@@ -313,7 +313,7 @@ int getBaseTypeSizeBST(BST bst);
 
 void setCompareFnBST(BST bst, CompareFn cmpFn);
 
-/*
+/**
  * Function: getCompareFnBST
  * Usage: cmpFn = getCompareFnBST(bst);
  * ------------------------------------

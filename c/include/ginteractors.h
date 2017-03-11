@@ -33,7 +33,7 @@
 #include "gwindow.h"
 #include "vector.h"
 
-/*
+/**
  * Type: GInteractor
  * -----------------
  * This abstract type is the superclass for all graphical interactors.
@@ -45,7 +45,7 @@
 
 typedef GObject GInteractor;
 
-/*
+/**
  * Function: setActionCommand
  * Usage: setActionCommand(interactor, cmd);
  * -----------------------------------------
@@ -55,7 +55,7 @@ typedef GObject GInteractor;
 
 void setActionCommand(GInteractor interactor, string cmd);
 
-/*
+/**
  * Function: getActionCommand
  * Usage: cmd = getActionCommand(interactor);
  * ------------------------------------------
@@ -64,7 +64,7 @@ void setActionCommand(GInteractor interactor, string cmd);
 
 string getActionCommandGInteractor(GInteractor interactor);
 
-/*
+/**
  * Type: GButton
  * -------------
  * This interactor subtype represents an onscreen button.  The following
@@ -89,7 +89,7 @@ string getActionCommandGInteractor(GInteractor interactor);
 
 typedef GInteractor GButton;
 
-/*
+/**
  * Function: newGButton
  * Usage: button = newGButton(label);
  * ----------------------------------
@@ -100,7 +100,7 @@ typedef GInteractor GButton;
 
 GButton newGButton(string label);
 
-/*
+/**
  * Type: GCheckBox
  * ---------------
  * This interactor subtype represents an onscreen check box.  Clicking
@@ -112,7 +112,7 @@ GButton newGButton(string label);
 
 typedef GInteractor GCheckBox;
 
-/*
+/**
  * Function: GCheckBox
  * Usage: chkbox = new GCheckBox(label);
  * -------------------------------------
@@ -123,7 +123,7 @@ typedef GInteractor GCheckBox;
 
 GCheckBox newGCheckBox(string label);
 
-/*
+/**
  * Function: setSelected
  * Usage: setSelected(chkbox, state);
  * ----------------------------------
@@ -132,7 +132,7 @@ GCheckBox newGCheckBox(string label);
 
 void setSelected(GCheckBox chkbox, bool state);
 
-/*
+/**
  * Function: isSelected
  * Usage: if (isSelected(chkbox)) ...
  * ----------------------------------
@@ -141,7 +141,7 @@ void setSelected(GCheckBox chkbox, bool state);
 
 bool isSelected(GCheckBox chkbox);
 
-/*
+/**
  * Type: GSlider
  * -------------
  * This interactor subtype represents an onscreen slider.  Dragging
@@ -152,7 +152,7 @@ bool isSelected(GCheckBox chkbox);
 
 typedef GInteractor GSlider;
 
-/*
+/**
  * Function: GSlider
  * Usage: slider = new GSlider(min, max, value);
  * ---------------------------------------------
@@ -164,7 +164,7 @@ typedef GInteractor GSlider;
 
 GSlider newGSlider(int min, int max, int value);
 
-/*
+/**
  * Function: setValue
  * Usage: setValue(slider, value);
  * -------------------------------
@@ -173,7 +173,7 @@ GSlider newGSlider(int min, int max, int value);
 
 void setValue(GSlider slider, int value);
 
-/*
+/**
  * Function: getValue
  * Usage: value = getValue(slider);
  * --------------------------------
@@ -182,7 +182,7 @@ void setValue(GSlider slider, int value);
 
 int getValue(GSlider slider);
 
-/*
+/**
  * Type: GTextField
  * ----------------
  * This interactor subtype represents a text field for entering
@@ -193,7 +193,7 @@ int getValue(GSlider slider);
 
 typedef GInteractor GTextField;
 
-/*
+/**
  * Function: GTextField
  * Usage: field = newGTextField(nChars);
  * -------------------------------------
@@ -204,7 +204,7 @@ typedef GInteractor GTextField;
 
 GTextField newGTextField(int nChars);
 
-/*
+/**
  * Function: setText
  * Usage: setText(field, str);
  * ---------------------------
@@ -213,7 +213,7 @@ GTextField newGTextField(int nChars);
 
 void setText(GTextField field, string str);
 
-/*
+/**
  * Function: getText
  * Usage: str = getText(field);
  * ----------------------------
@@ -222,7 +222,7 @@ void setText(GTextField field, string str);
 
 string getText(GTextField field);
 
-/*
+/**
  * Type: GChooser
  * --------------
  * This interactor subtype represents a selectable list.  The
@@ -245,7 +245,7 @@ string getText(GTextField field);
 
 typedef GInteractor GChooser;
 
-/*
+/**
  * Function: newGChooser
  * Usage: chooser = newGChooser();
  * -------------------------------
@@ -257,7 +257,7 @@ typedef GInteractor GChooser;
 
 GChooser newGChooser(void);
 
-/*
+/**
  * Function: addItem
  * Usage: addItem(chooser, item);
  * ------------------------------
@@ -266,7 +266,7 @@ GChooser newGChooser(void);
 
 void addItem(GChooser chooser, string item);
 
-/*
+/**
  * Function: setSelectedItem
  * Usage: setSelectedItem(chooser, item);
  * --------------------------------------
@@ -276,7 +276,7 @@ void addItem(GChooser chooser, string item);
 
 void setSelectedItem(GChooser chooser, string item);
 
-/*
+/**
  * Function: getSelectedItem
  * Usage: item = getSelectedItem(chooser);
  * ---------------------------------------

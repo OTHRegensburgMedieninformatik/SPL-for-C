@@ -41,7 +41,7 @@
 
 /* Section 1 -- Define new "primitive" types */
 
-/*
+/**
  * Type: bool
  * ----------
  * This type defines the space of Boolean data using the constants
@@ -62,7 +62,7 @@
 
 typedef enum {false, true} bool;
 
-/*
+/**
  * Type: string
  * ------------
  * This type is defined to be identical with <code>char *</code>.
@@ -70,7 +70,7 @@ typedef enum {false, true} bool;
 
 typedef char *string;
 
-/*
+/**
  * Type: proc
  * ----------
  * This function type represents an arbitrary procedure that can be passed
@@ -94,7 +94,7 @@ typedef void (*proc)();
  * of installing a garbage-collecting allocator.
  */
 
-/*
+/**
  * Function: getBlock
  * Usage: ptr = getBlock(nbytes);
  * ------------------------------
@@ -104,7 +104,7 @@ typedef void (*proc)();
 
 void *getBlock(size_t nbytes);
 
-/*
+/**
  * Private function: getTypedBlock
  * -------------------------------
  * Returns a block with the indicated type marker.  This function is
@@ -114,7 +114,7 @@ void *getBlock(size_t nbytes);
 
 void *getTypedBlock(size_t nbytes, string type);
 
-/*
+/**
  * Function: freeBlock
  * Usage: freeBlock(ptr);
  * ----------------------
@@ -127,7 +127,7 @@ void *getTypedBlock(size_t nbytes, string type);
 
 void freeBlock(void *ptr);
 
-/*
+/**
  * Function: getBlockType
  * Usage: type = getBlockType(ptr);
  * --------------------------------
@@ -141,7 +141,7 @@ void freeBlock(void *ptr);
 
 string getBlockType(void *ptr);
 
-/*
+/**
  * Function: setBlockData
  * Usage: setBlockData(ptr, value);
  * --------------------------------
@@ -150,7 +150,7 @@ string getBlockType(void *ptr);
 
 void setBlockData(void *ptr, void *value);
 
-/*
+/**
  * Function: getBlockData
  * Usage: value = getBlockData(ptr);
  * ---------------------------------
@@ -159,7 +159,7 @@ void setBlockData(void *ptr, void *value);
 
 void *getBlockData(void *ptr);
 
-/*
+/**
  * Macro: newBlock
  * Usage: ptr = (type) newBlock(type);
  * -----------------------------------
@@ -172,7 +172,7 @@ void *getBlockData(void *ptr);
 
 #define newBlock(type) ((type) getTypedBlock(sizeof *((type) NULL), #type))
 
-/*
+/**
  * Macro: newArray
  * Usage: ptr = newArray(n, type);
  * -------------------------------
@@ -185,7 +185,7 @@ void *getBlockData(void *ptr);
 
 /* Section 3 -- error handling */
 
-/*
+/**
  * Function: error
  * Usage: error(msg, . . .);
  * -------------------------

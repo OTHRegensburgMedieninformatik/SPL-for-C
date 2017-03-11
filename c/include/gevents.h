@@ -33,7 +33,7 @@
 #include "gtimer.h"
 #include "gwindow.h"
 
-/*
+/**
  * Type: EventClassType
  * --------------------
  * This enumeration type defines the event classes.  The element values
@@ -53,7 +53,7 @@ typedef enum {
    ANY_EVENT    = 0x3F0
 } EventClassType;
 
-/*
+/**
  * Type: EventType
  * ---------------
  * This enumeration type defines the event types for all events.
@@ -74,7 +74,7 @@ typedef enum {
    TIMER_TICKED     = TIMER_EVENT + 1
 } EventType;
 
-/*
+/**
  * Type: ModifierCodes
  * -------------------
  * This enumeration type defines a set of constants used to check whether
@@ -92,7 +92,7 @@ typedef enum {
    BUTTON3_DOWN   = 1 << 7
 } ModifierCodes;
 
-/*
+/**
  * Type: KeyCodes
  * --------------
  * This type defines the names of the key codes returned in a key event.
@@ -128,7 +128,7 @@ typedef enum {
    HELP_KEY = 156
 } KeyCodes;
 
-/*
+/**
  * Type: GEvent
  * ------------
  * This abstract type is used to represent an event of any type.  This
@@ -158,7 +158,7 @@ typedef enum {
 
 typedef struct GEventCDT *GEvent;
 
-/*
+/**
  * Function: freeEvent
  * Usage: freeEvent(e);
  * --------------------
@@ -167,7 +167,7 @@ typedef struct GEventCDT *GEvent;
 
 void freeEvent(GEvent e);
 
-/*
+/**
  * Function: getEventClass
  * Usage: eventClass = getEventClass(e);
  * -------------------------------------
@@ -176,7 +176,7 @@ void freeEvent(GEvent e);
 
 EventClassType getEventClass(GEvent e);
 
-/*
+/**
  * Function: getEventType
  * Usage: eventType = getEventType(e);
  * -----------------------------------
@@ -185,7 +185,7 @@ EventClassType getEventClass(GEvent e);
 
 EventType getEventType(GEvent e);
 
-/*
+/**
  * Function: getGWindow
  * Usage: gw = getGWindow(e);
  * --------------------------
@@ -196,7 +196,7 @@ EventType getEventType(GEvent e);
 
 GWindow getGWindow(GEvent e);
 
-/*
+/**
  * Function: getEventTime
  * Usage: time = getEventTime(e);
  * ------------------------------
@@ -210,7 +210,7 @@ GWindow getGWindow(GEvent e);
 
 double getEventTime(GEvent e);
 
-/*
+/**
  * Function: setEventTime
  * Usage: setEventTime(e, time);
  * -----------------------------
@@ -219,7 +219,7 @@ double getEventTime(GEvent e);
 
 void setEventTime(GEvent e, double time);
 
-/*
+/**
  * Function: getModifiers
  * Usage: modifiers = getModifiers(e);
  * -----------------------------------
@@ -234,7 +234,7 @@ void setEventTime(GEvent e, double time);
 
 int getModifiers(GEvent e);
 
-/*
+/**
  * Function: setModifiers
  * Usage: setModifiers(e, modifiers);
  * ----------------------------------
@@ -243,7 +243,7 @@ int getModifiers(GEvent e);
 
 void setModifiers(GEvent e, int modifiers);
 
-/*
+/**
  * Function: waitForClick
  * Usage: waitForClick();
  * ----------------------
@@ -253,7 +253,7 @@ void setModifiers(GEvent e, int modifiers);
 
 void waitForClick();
 
-/*
+/**
  * Function: waitForEvent
  * Usage: e = waitForEvent(mask);
  * ------------------------------
@@ -296,7 +296,7 @@ void waitForClick();
 
 GEvent waitForEvent(int mask);
 
-/*
+/**
  * Function: getNextEvent
  * Usage: e = getNextEvent(mask);
  * ------------------------------
@@ -308,7 +308,7 @@ GEvent waitForEvent(int mask);
 
 GEvent getNextEvent(int mask);
 
-/*
+/**
  * Type: GWindowEvent
  * ------------------
  * This event subtype represents a change in a window.
@@ -316,7 +316,7 @@ GEvent getNextEvent(int mask);
 
 typedef GEvent GWindowEvent;
 
-/*
+/**
  * Function: newGWindowEvent
  * Usage: e = newGWindowEvent(type, gw);
  * -------------------------------------
@@ -327,7 +327,7 @@ typedef GEvent GWindowEvent;
 
 GWindowEvent newGWindowEvent(EventType type, GWindow gw);
 
-/*
+/**
  * Type: GActionEvent
  * ------------------
  * This event subtype represents activation of an interactor.
@@ -335,7 +335,7 @@ GWindowEvent newGWindowEvent(EventType type, GWindow gw);
 
 typedef GEvent GActionEvent;
 
-/*
+/**
  * Function: newGActionEvent
  * Usage: e = newGActionEvent(type, source, actionCommand);
  * --------------------------------------------------------
@@ -346,7 +346,7 @@ typedef GEvent GActionEvent;
 GActionEvent newGActionEvent(EventType type, GObject source,
                                              string actionCommand);
 
-/*
+/**
  * Function: getSource
  * Usage: gobj = getSource(e);
  * ---------------------------
@@ -355,7 +355,7 @@ GActionEvent newGActionEvent(EventType type, GObject source,
 
 GObject getSource(GActionEvent e);
 
-/*
+/**
  * Function: getActionCommand
  * Usage: cmd = getActionCommand(arg);
  * -----------------------------------
@@ -364,7 +364,7 @@ GObject getSource(GActionEvent e);
 
 string getActionCommand(void *arg);
 
-/*
+/**
  * Type: GMouseEvent
  * -----------------
  * This event subtype represents a mouse action in a window.
@@ -372,7 +372,7 @@ string getActionCommand(void *arg);
 
 typedef GEvent GMouseEvent;
 
-/*
+/**
  * Function: newGMouseEvent
  * Usage: e = newGMouseEvent(type, gw, x, y);
  * ------------------------------------------
@@ -383,7 +383,7 @@ typedef GEvent GMouseEvent;
 
 GMouseEvent newGMouseEvent(EventType type, GWindow gw, double x, double y);
 
-/*
+/**
  * Function: getX
  * Usage: x = getX(e);
  * -------------------
@@ -392,7 +392,7 @@ GMouseEvent newGMouseEvent(EventType type, GWindow gw, double x, double y);
 
 double getXGEvent(GMouseEvent e);
 
-/*
+/**
  * Function: getY
  * Usage: y = getY(e);
  * -------------------
@@ -401,7 +401,7 @@ double getXGEvent(GMouseEvent e);
 
 double getYGEvent(GMouseEvent e);
 
-/*
+/**
  * Type: GKeyEvent
  * ---------------
  * This event subtype represents a key action in a window.
@@ -409,7 +409,7 @@ double getYGEvent(GMouseEvent e);
 
 typedef GEvent GKeyEvent;
 
-/*
+/**
  * Function: newGKeyEvent
  * Usage: e = newGKeyEvent(type, gw, ch, code);
  * --------------------------------------------
@@ -421,7 +421,7 @@ typedef GEvent GKeyEvent;
 
 GKeyEvent newGKeyEvent(EventType type, GWindow gw, int keyChar, int keyCode);
 
-/*
+/**
  * Function: getKeyChar
  * Usage: ch = getKeyChar(e);
  * --------------------------
@@ -434,7 +434,7 @@ GKeyEvent newGKeyEvent(EventType type, GWindow gw, int keyChar, int keyCode);
 
 char getKeyChar(GKeyEvent e);
 
-/*
+/**
  * Function: getKeyCode
  * Usage: key = getKeyCode(e);
  * ---------------------------
@@ -443,7 +443,7 @@ char getKeyChar(GKeyEvent e);
 
 int getKeyCode(GKeyEvent e);
 
-/*
+/**
  * Type: GTimerEvent
  * -----------------
  * This event subtype represents a tick from a <code>GTimer</code>.
@@ -451,7 +451,7 @@ int getKeyCode(GKeyEvent e);
 
 typedef GEvent GTimerEvent;
 
-/*
+/**
  * Function: newGTimerEvent
  * Usage: e = newGTimerEvent(type, timer);
  * ---------------------------------------
@@ -461,7 +461,7 @@ typedef GEvent GTimerEvent;
 
 GEvent newGTimerEvent(EventType type, GTimer timer);
 
-/*
+/**
  * Function: getGTimer
  * Usage: timer = getGTimer(e);
  * ----------------------------

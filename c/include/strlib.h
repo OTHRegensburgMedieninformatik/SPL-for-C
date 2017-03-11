@@ -58,7 +58,7 @@
 
 /* Section 1 -- Basic string operations */
 
-/*
+/**
  * Function: concat
  * Usage: s = concat(s1, s2);
  * --------------------------
@@ -69,7 +69,7 @@
 
 string concat(string s1, string s2);
 
-/*
+/**
  * Function: charAt
  * Usage: ch = charAt(s, i);
  * -------------------------
@@ -82,13 +82,13 @@ string concat(string s1, string s2);
  * <code>charAt</code> checks to see if <code>i</code> is
  * within the range of legal index positions, which extend
  * from 0 to <code>stringLength(s)</code>.  Calling
- * <code>charAt(s, stringLength(s))</code returns the null
+ * <code>charAt(s, stringLength(s))</code> returns the null
  * character at the end of the string.
  */
 
 char charAt(string s, int i);
 
-/*
+/**
  * Function: substring
  * Usage: t = substring(s, p1, p2);
  * --------------------------------
@@ -107,7 +107,7 @@ char charAt(string s, int i);
 
 string substring(string s, int p1, int p2);
 
-/*
+/**
  * Function: charToString
  * Usage: s = charToString(ch);
  * ----------------------------
@@ -120,7 +120,7 @@ string substring(string s, int p1, int p2);
 
 string charToString(char ch);
 
-/*
+/**
  * Function: stringLength
  * Usage: len = stringLength(s);
  * -----------------------------
@@ -129,7 +129,7 @@ string charToString(char ch);
 
 int stringLength(string s);
 
-/*
+/**
  * Function: copyString
  * Usage: newstr = copyString(s);
  * ------------------------------
@@ -143,7 +143,7 @@ string copyString(string s);
 
 /* Section 2 -- String comparison functions */
 
-/*
+/**
  * Function: stringEqual
  * Usage: if (stringEqual(s1, s2)) ...
  * -----------------------------------
@@ -157,7 +157,7 @@ string copyString(string s);
 
 bool stringEqual(string s1, string s2);
 
-/*
+/**
  * Function: stringEqualIgnoreCase
  * Usage: if (stringEqualIgnoreCase(s1, s2)) ...
  * ---------------------------------------------
@@ -167,7 +167,7 @@ bool stringEqual(string s1, string s2);
 
 bool stringEqualIgnoreCase(string s1, string s2);
 
-/*
+/**
  * Function: stringCompare
  * Usage: if (stringCompare(s1, s2) < 0) ...
  * -----------------------------------------
@@ -178,7 +178,7 @@ bool stringEqualIgnoreCase(string s1, string s2);
 
 int stringCompare(string s1, string s2);
 
-/*
+/**
  * Function: startsWith
  * Usage: if (startsWith(s1, s2)) ...
  * ----------------------------------
@@ -187,7 +187,7 @@ int stringCompare(string s1, string s2);
 
 bool startsWith(string s1, string s2);
 
-/*
+/**
  * Function: endsWith
  * Usage: if (endsWith(s1, s2)) ...
  * --------------------------------
@@ -198,7 +198,7 @@ bool endsWith(string s1, string s2);
 
 /* Section 3 -- Search functions */
 
-/*
+/**
  * Function: findChar
  * Usage: p = findChar(ch, text, start);
  * -------------------------------------
@@ -209,7 +209,7 @@ bool endsWith(string s1, string s2);
 
 int findChar(char ch, string text, int start);
 
-/*
+/**
  * Function: findString
  * Usage: p = findString(str, text, start);
  * ----------------------------------------
@@ -220,7 +220,7 @@ int findChar(char ch, string text, int start);
 
 int findString(string str, string text, int start);
 
-/*
+/**
  * Function: findLastChar
  * Usage: p = findLastChar(ch, text);
  * ----------------------------------
@@ -230,7 +230,7 @@ int findString(string str, string text, int start);
 
 int findLastChar(char ch, string text);
 
-/*
+/**
  * Function: findLastString
  * Usage: p = findLastString(str, text);
  * -------------------------------------
@@ -242,7 +242,7 @@ int findLastString(string str, string text);
 
 /* Section 4 -- Conversion functions */
 
-/*
+/**
  * Function: toLowerCase
  * Usage: s = toLowerCase(s);
  * --------------------------
@@ -252,7 +252,7 @@ int findLastString(string str, string text);
 
 string toLowerCase(string s);
 
-/*
+/**
  * Function: toUpperCase
  * Usage: s = toUpperCase(s);
  * --------------------------
@@ -262,7 +262,7 @@ string toLowerCase(string s);
 
 string toUpperCase(string s);
 
-/*
+/**
  * Function: integerToString
  * Usage: s = integerToString(n);
  * ------------------------------
@@ -273,7 +273,7 @@ string toUpperCase(string s);
 
 string integerToString(int n);
 
-/*
+/**
  * Function: stringToInteger
  * Usage: n = stringToInteger(s);
  * ------------------------------
@@ -284,19 +284,19 @@ string integerToString(int n);
 
 int stringToInteger(string s);
 
-/*
+/**
  * Function: realToString
  * Usage: string  s = realToString(d);
  * -----------------------------------
  * Converts a floating-point number into the corresponding string
  * form.  For example, calling <code>realToString(23.45)</code>
- * returns </code>"23.45"</code>.  The conversion is the same as
+ * returns <code>"23.45"</code>.  The conversion is the same as
  * that used for <code>"%G"</code> format in <code>printf</code>.
  */
 
 string realToString(double d);
 
-/*
+/**
  * Function: stringToReal
  * Usage: d = stringToReal(s);
  * ---------------------------
@@ -310,7 +310,7 @@ double stringToReal(string s);
 
 /* Section 5 - Miscellaneous functions */
 
-/*
+/**
  * Function: trim
  * Usage: trimmed = trim(str);
  * ---------------------------
@@ -320,7 +320,7 @@ double stringToReal(string s);
 
 string trim(string str);
 
-/*
+/**
  * Function: quoteString
  * Usage: quoted = quoteString(str);
  * ---------------------------------
@@ -332,7 +332,7 @@ string trim(string str);
 
 string quoteString(string str);
 
-/*
+/**
  * Function: quoteHTML
  * Usage: quoted = quoteHTML(str);
  * -------------------------------
@@ -342,7 +342,7 @@ string quoteString(string str);
 
 string quoteHTML(string str);
 
-/*
+/**
  * Function: stringArrayLength
  * Usage: len = stringArrayLength(array);
  * --------------------------------------
@@ -351,7 +351,7 @@ string quoteHTML(string str);
 
 int stringArrayLength(string array[]);
 
-/*
+/**
  * Function: searchStringArray
  * Usage: index = searchStringArray(str, array);
  * ---------------------------------------------

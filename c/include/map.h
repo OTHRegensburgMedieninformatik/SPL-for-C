@@ -38,7 +38,7 @@
 #include "generic.h"
 #include "iterator.h"
 
-/*
+/**
  * Type: Map
  * ---------
  * This type is the ADT used to represent the map.
@@ -48,7 +48,7 @@ typedef struct MapCDT *Map;
 
 /* Exported entries */
 
-/*
+/**
  * Function: newMap
  * Usage: map = newMap();
  * ----------------------
@@ -57,7 +57,7 @@ typedef struct MapCDT *Map;
 
 Map newMap();
 
-/*
+/**
  * Function: freeMap
  * Usage: freeMap(map);
  * --------------------
@@ -66,7 +66,7 @@ Map newMap();
 
 void freeMap(Map map);
 
-/*
+/**
  * Function: size
  * Usage: n = size(map);
  * ---------------------
@@ -75,7 +75,7 @@ void freeMap(Map map);
 
 int sizeMap(Map map);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(map)) . . .
  * ------------------------------
@@ -84,7 +84,7 @@ int sizeMap(Map map);
 
 bool isEmptyMap(Map map);
 
-/*
+/**
  * Function: clear
  * Usage: clear(map);
  * ------------------
@@ -93,7 +93,7 @@ bool isEmptyMap(Map map);
 
 void clearMap(Map map);
 
-/*
+/**
  * Function: clone
  * Usage: newmap = clone(map);
  * ---------------------------
@@ -104,7 +104,7 @@ void clearMap(Map map);
 
 Map cloneMap(Map map);
 
-/*
+/**
  * Function: put
  * Usage: put(map, key, value);
  * ----------------------------
@@ -115,7 +115,7 @@ Map cloneMap(Map map);
 
 void putMap(Map map, string key, void *value);
 
-/*
+/**
  * Function: get
  * Usage: void *value = get(map, key);
  * -----------------------------------
@@ -125,7 +125,7 @@ void putMap(Map map, string key, void *value);
 
 void *getMap(Map map, string key);
 
-/*
+/**
  * Function: containsKey
  * Usage: if (containsKey(map, key)) . . .
  * ---------------------------------------
@@ -134,7 +134,7 @@ void *getMap(Map map, string key);
 
 bool containsKeyMap(Map map, string key);
 
-/*
+/**
  * Function: remove
  * Usage: remove(map, key);
  * ------------------------
@@ -143,7 +143,7 @@ bool containsKeyMap(Map map, string key);
 
 void removeMap(Map map, string key);
 
-/*
+/**
  * Function: map
  * Usage: map(map, fn, data);
  * --------------------------

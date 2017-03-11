@@ -30,7 +30,7 @@
 
 #include "cslib.h"
 
-/*
+/**
  * Function: loadObject
  * Usage: loadObject(pathname);
  * ----------------------------
@@ -39,7 +39,7 @@
 
 void loadObject(string pathname);
 
-/*
+/**
  * Function: loadSymbols
  * Usage: loadSymbols(progname);
  * -----------------------------
@@ -48,7 +48,7 @@ void loadObject(string pathname);
 
 void loadSymbols(string progname);
 
-/*
+/**
  * Function: findFunction
  * Usage: fn = findFunction(fnname);
  * ---------------------------------

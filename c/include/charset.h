@@ -29,7 +29,7 @@
 #include "cslib.h"
 #include "generic.h"
 
-/*
+/**
  * Type: CharSet
  * -------------
  * Defines the abstract type used to represent sets of characters
@@ -39,7 +39,7 @@ typedef struct CharSetCDT *CharSet;
 
 /* Exported entries */
 
-/*
+/**
  * Function: newCharSet
  * Usage: set = newCharSet();
  * --------------------------
@@ -48,7 +48,7 @@ typedef struct CharSetCDT *CharSet;
 
 CharSet newCharSet();
 
-/*
+/**
  * Function: freeCharSet
  * Usage: freeCharSet(set);
  * ------------------------
@@ -57,7 +57,7 @@ CharSet newCharSet();
 
 void freeCharSet(CharSet set);
 
-/*
+/**
  * Function: size
  * Usage: n = size(set);
  * ---------------------
@@ -66,7 +66,7 @@ void freeCharSet(CharSet set);
 
 int sizeCharSet(CharSet set);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(set)) . . .
  * ------------------------------
@@ -75,7 +75,7 @@ int sizeCharSet(CharSet set);
 
 bool isEmptyCharSet(CharSet set);
 
-/*
+/**
  * Function: clear
  * Usage: clear(set);
  * ------------------
@@ -84,7 +84,7 @@ bool isEmptyCharSet(CharSet set);
 
 void clearCharSet(CharSet set);
 
-/*
+/**
  * Function: clone
  * Usage: newset = clone(set);
  * ---------------------------
@@ -95,7 +95,7 @@ void clearCharSet(CharSet set);
 
 CharSet cloneCharSet(CharSet set);
 
-/*
+/**
  * Function: contains
  * Usage: if (contains(set, ch)) . . .
  * -----------------------------------
@@ -105,7 +105,7 @@ CharSet cloneCharSet(CharSet set);
 
 bool containsCharSet(CharSet set, char ch);
 
-/*
+/**
  * Function: add
  * Usage: add(set, ch);
  * --------------------
@@ -114,7 +114,7 @@ bool containsCharSet(CharSet set, char ch);
 
 void addCharSet(CharSet set, char ch);
 
-/*
+/**
  * Function: addString
  * Usage: addString(set, str);
  * ---------------------------
@@ -123,7 +123,7 @@ void addCharSet(CharSet set, char ch);
 
 void addString(CharSet set, string str);
 
-/*
+/**
  * Function: remove
  * Usage: remove(set, ch);
  * -----------------------
@@ -132,7 +132,7 @@ void addString(CharSet set, string str);
 
 void removeCharSet(CharSet set, char ch);
 
-/*
+/**
  * Function: equals
  * Usage: if (equals(s1, s2)) . . .
  * --------------------------------
@@ -142,7 +142,7 @@ void removeCharSet(CharSet set, char ch);
 
 bool equalsCharSet(CharSet s1, CharSet s2);
 
-/*
+/**
  * Function: isSubset
  * Usage: if (isSubset(s1, s2)) . . .
  * ----------------------------------
@@ -151,7 +151,7 @@ bool equalsCharSet(CharSet s1, CharSet s2);
 
 bool isSubsetCharSet(CharSet s1, CharSet s2);
 
-/*
+/**
  * Function: union
  * Usage: set = union(s1, s2);
  * ---------------------------
@@ -161,7 +161,7 @@ bool isSubsetCharSet(CharSet s1, CharSet s2);
 
 CharSet unionCharSet(CharSet s1, CharSet s2);
 
-/*
+/**
  * Function: intersection
  * Usage: set = intersection(s1, s2);
  * ----------------------------------
@@ -171,7 +171,7 @@ CharSet unionCharSet(CharSet s1, CharSet s2);
 
 CharSet intersectionCharSet(CharSet s1, CharSet s2);
 
-/*
+/**
  * Function: setDifference
  * Usage: set = setDifference(s1, s2);
  * -----------------------------------

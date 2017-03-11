@@ -32,7 +32,7 @@
 #include "generic.h"
 #include "iterator.h"
 
-/*
+/**
  * Function: HashMap
  * -----------------
  * This type is the ADT used to represent a map from strings to values.
@@ -42,7 +42,7 @@ typedef struct HashMapCDT *HashMap;
 
 /* Exported entries */
 
-/*
+/**
  * Function: newHashMap
  * Usage: map = newHashMap();
  * --------------------------
@@ -51,7 +51,7 @@ typedef struct HashMapCDT *HashMap;
 
 HashMap newHashMap(void);
 
-/*
+/**
  * Function: freeHashMap
  * Usage: freeHashMap(map);
  * ------------------------
@@ -60,7 +60,7 @@ HashMap newHashMap(void);
 
 void freeHashMap(HashMap map);
 
-/*
+/**
  * Function: size
  * Usage: n = size(map);
  * ---------------------
@@ -69,7 +69,7 @@ void freeHashMap(HashMap map);
 
 int sizeHashMap(HashMap map);
 
-/*
+/**
  * Function: isEmpty
  * Usage: if (isEmpty(map)) . . .
  * ------------------------------
@@ -78,7 +78,7 @@ int sizeHashMap(HashMap map);
 
 bool isEmptyHashMap(HashMap map);
 
-/*
+/**
  * Function: clear
  * Usage: clear(map);
  * ------------------
@@ -87,7 +87,7 @@ bool isEmptyHashMap(HashMap map);
 
 void clearHashMap(HashMap map);
 
-/*
+/**
  * Function: clone
  * Usage: newmap = clone(map);
  * ---------------------------
@@ -98,7 +98,7 @@ void clearHashMap(HashMap map);
 
 HashMap cloneHashMap(HashMap map);
 
-/*
+/**
  * Function: put
  * Usage: put(map, key, value);
  * ----------------------------
@@ -109,7 +109,7 @@ HashMap cloneHashMap(HashMap map);
 
 void putHashMap(HashMap map, string key, void *value);
 
-/*
+/**
  * Function: get
  * Usage: void *value = get(map, key);
  * -----------------------------------
@@ -119,7 +119,7 @@ void putHashMap(HashMap map, string key, void *value);
 
 void *getHashMap(HashMap map, string key);
 
-/*
+/**
  * Function: containsKey
  * Usage: if (containsKey(map, key)) . . .
  * ---------------------------------------
@@ -128,7 +128,7 @@ void *getHashMap(HashMap map, string key);
 
 bool containsKeyHashMap(HashMap map, string key);
 
-/*
+/**
  * Function: remove
  * Usage: remove(map, key);
  * ------------------------
@@ -137,7 +137,7 @@ bool containsKeyHashMap(HashMap map, string key);
 
 void removeHashMap(HashMap map, string key);
 
-/*
+/**
  * Function: map
  * Usage: map(map, fn, data);
  * --------------------------
