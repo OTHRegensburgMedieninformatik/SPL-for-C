@@ -439,64 +439,64 @@ starterprojects: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 clion_windows: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for Clion on Windows"
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/clion/windows StarterProject
-	@cp -r build/$(PLATFORM)/lib StarterProject/lib
-	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp -r build/$(PLATFORM)/lib StarterProject
+	@cp -r build/$(PLATFORM)/include StarterProject
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 clion_linux: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for Clion on Linux";
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/clion/linux StarterProject
-	@cp -r build/$(PLATFORM)/lib StarterProject/lib
-	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp -r build/$(PLATFORM)/lib StarterProject
+	@cp -r build/$(PLATFORM)/include StarterProject
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 clion_macos: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for Clion on MaxOS";
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/clion/macos StarterProject
-	@cp -r build/$(PLATFORM)/lib StarterProject/lib
-	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp -r build/$(PLATFORM)/lib StarterProject
+	@cp -r build/$(PLATFORM)/include StarterProject
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 codeblocks_windows: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for CodeBlocks on Windows";
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/codeblocks/windows StarterProject
-	@cp -r build/$(PLATFORM)/lib StarterProject/lib
-	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp -r build/$(PLATFORM)/lib StarterProject
+	@cp -r build/$(PLATFORM)/include StarterProject
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 codeblocks_linux: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for CodeBlocks on Linux";
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/codeblocks/linux StarterProject
 	@cp -r build/$(PLATFORM)/lib StarterProject/lib
 	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 codeblocks_macos: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for CodeBlocks on MacOS";
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/codeblocks/macos StarterProject
-	@cp -r build/$(PLATFORM)/lib StarterProject/lib
-	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp -r build/$(PLATFORM)/lib StarterProject
+	@cp -r build/$(PLATFORM)/include StarterProject
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 makefile: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build StarterProject for Makefile Project";
 	@rm -rf StarterProject
-	@cp ide/src/HelloGraphics.c StarterProject
 	@cp -r ide/makefile StarterProject
-	@cp -r build/$(PLATFORM)/lib StarterProject/lib
-	@cp -r build/$(PLATFORM)/include StarterProject/include
+	@cp -r build/$(PLATFORM)/lib StarterProject
+	@cp -r build/$(PLATFORM)/include StarterProject
+	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
 # ***************************************************************
