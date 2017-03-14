@@ -17,7 +17,9 @@ LDLIBS = lib/libcs.a
 
 
 ifeq ($(OS),Windows_NT)
-LDLIBS += -lshlwapi 
+LDLIBS += -lshlwapi
+else
+LDLIBS += -lm 
 endif
 
 BUILD = \
