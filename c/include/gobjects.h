@@ -818,6 +818,19 @@ typedef GObject GImage;
 
 GImage newGImage(string filename);
 
+
+/**
+ * Function: newGImagePath
+ */
+string getGImagePath(GImage image);
+
+/**
+ * Function getGPixelArray
+ * Usage: GPixelArray pix = getGPixelArray(image);
+ * -----------------------------------------------
+ */
+GPixelArray getGPixelArray(GImage iamge);
+
 /**
  * Type: GPolygon
  * --------------

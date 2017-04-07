@@ -91,6 +91,7 @@ void setStartPointOp(GObject gobj, double x, double y);
 void setEndPointOp(GObject gobj, double x, double y);
 
 GDimension createGImageOp(GObject gobj, string filename);
+GPixelArray createGPixelArrayOp(GObject gobj);
 
 void createGPolygonOp(GPolygon poly);
 void addVertexOp(GPolygon poly, double x, double y);

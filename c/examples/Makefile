@@ -21,6 +21,7 @@ PROGRAMS = \
     StopSign \
     TestGraphics \
     TestInteractors \
+    TestPixelArray \
     FlipImage \
     CarSimulator \
     BrickPyramid \
@@ -75,6 +76,12 @@ TestGraphics: TestGraphics.o
 
 TestGraphics.o: TestGraphics.c
 	gcc -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
+	
+TestPixelArray: TestPixelArray.o
+	gcc -D$(PLATFORM) -o TestPixelArray TestPixelArray.o $(FLAGS)
+	
+TestPixelArray.o: TestPixelArray.c
+	gcc -D$(PLATFORM) -c -I../include TestPixelArray.c $(CSTD)
 
 TestInteractors: TestInteractors.o
 	gcc -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)

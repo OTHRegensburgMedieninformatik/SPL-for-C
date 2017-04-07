@@ -116,6 +116,7 @@ struct GObjectCDT {
    double y;
    double width;
    double height;
+   string path;
    string color;
    string fillColor;
    bool filled;
@@ -692,7 +693,16 @@ GImage newGImage(string filename) {
    size = createGImageOp(image, filename);
    image->width = size.width;
    image->height = size.height;
+   image->path=filename;
    return image;
+}
+
+string getGImagePath(GImage image){
+	return image->path;
+}
+
+GPixelArray getGPixelArray(GImage image){
+	return createGPixelArrayOp(image);
 }
 
 GPolygon newGPolygon(void) {
