@@ -429,21 +429,21 @@ public class JavaBackEnd implements
 /* KeyListener */
 
    public void keyPressed(KeyEvent e) {
-      if ((eventMask & KEY_EVENT) != 0) {
+      if (eventMask == KEY_PRESSED) {
          printEvent("keyPressed", e);
          acknowledgeEvent();
       }
    }
 
    public void keyReleased(KeyEvent e) {
-      if ((eventMask & KEY_EVENT) != 0) {
+      if (eventMask == KEY_RELEASED) {
          printEvent("keyReleased", e);
          acknowledgeEvent();
       }
    }
 
    public void keyTyped(KeyEvent e) {
-      if ((eventMask & KEY_EVENT) != 0) {
+      if (eventMask == KEY_TYPED) {
          printEvent("keyTyped", e);
          acknowledgeEvent();
       }
