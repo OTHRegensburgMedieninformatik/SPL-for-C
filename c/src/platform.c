@@ -219,9 +219,9 @@ static void startJavaBackendProcess() {
       error(TEXT("CreateProcess"));
    else 
    {
-#ifdef PIPEDEBUG
-	  fprintf(stderr, "%s: %s\n", TEXT("CreateProcess successful"), szCmdline);
-#endif
+   #ifdef PIPEDEBUG
+   	  fprintf(stderr, "%s: %s\n", TEXT("CreateProcess successful"), szCmdline);
+   #endif
 	   
       // Close handles to the child process and its primary thread.
       // Some applications might keep these handles to monitor the status
@@ -272,10 +272,7 @@ static string getResult() {
       char message[200];
       readMessageFromBuffer(message, maxMessageLength);
 
-      if (startsWith(message, "result:")) {
-#ifdef PIPEDEBUG		  
-         fprintf(stderr, "Result contains newLine char at: %d\n", findChar('\n', message, 0));
-#endif		 
+      if (startsWith(message, "result:")) {		 
          result = substring(message, 7, stringLength(message));
 #ifdef PIPEDEBUG		 
          fprintf(stderr, "Parsed result: %s\n", result);
@@ -332,6 +329,9 @@ TCHAR* getApplicationPath(TCHAR* dest, size_t destSize) {
 extern string *getMainArgArray(void);
 
 static void initPipe(void) {
+   #ifdef PIPEDEBUG   
+      fprintf(stderr, "->Initializing pipe.\n");
+   #endif
    int toJBE[2], fromJBE[2], child;
    string option, classpath;
 
@@ -363,6 +363,9 @@ static void initPipe(void) {
       pout = fdopen(toJBE[1], "w");
       close(fromJBE[1]);
       close(toJBE[0]);
+      #ifdef PIPEDEBUG
+        fprintf(stderr, "%s\n", "CreateProcess successful");
+      #endif
    }
 }
 
@@ -384,6 +387,9 @@ static void putPipe(string format, ...) {
       fprintf(stderr, "-> %s\n", cmd);
    }
    fprintf(pout, "%s\n", cmd);
+#ifdef PIPEDEBUG
+   fprintf(stderr, "Sent to pipe: %s\n", cmd);
+#endif
    fflush(pout);
 }
 
@@ -399,10 +405,17 @@ static string getResult() {
       }
       if (startsWith(line, "result:")) {
          result = substring(line, 7, stringLength(line));
+#ifdef PIPEDEBUG      
+         fprintf(stderr, "Parsed result: %s\n", line);
+#endif
          freeBlock(line);
          return result;
       } else if (startsWith(line, "event:")) {
          enqueue(eventQueue, parseEvent(line + 6));
+#ifdef PIPEDEBUG       
+         result = substring(line, 6, stringLength(line));
+         fprintf(stderr, "Parsed event: %s\n", result);
+#endif
          freeBlock(line);
       }
    }
