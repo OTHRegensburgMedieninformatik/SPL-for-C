@@ -47,7 +47,9 @@ The StartProject can be created with one of the following commands
     PLATFORM = ["windows","linux","macos"]
 
     make IDE_PLATFORM
-    >make lion_linux
+    >make clion_windows
+    >make clion_linux
+    >make clion_macos
 
     Or a simple Makefile Project
 

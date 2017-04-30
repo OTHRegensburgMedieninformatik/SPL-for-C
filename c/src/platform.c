@@ -194,6 +194,7 @@ static void startJavaBackendProcess() {
 #ifdef PIPEDEBUG   
 	strncat(szCmdline, TEXT(" -debug"), 7);
 #endif
+<<<<<<< HEAD
 
 	// Set up members of the PROCESS_INFORMATION structure.
 	ZeroMemory( &piProcInfo, sizeof(PROCESS_INFORMATION) );
@@ -227,6 +228,45 @@ static void startJavaBackendProcess() {
 #ifdef PIPEDEBUG
 		fprintf(stderr, "%s: %s\n", TEXT("CreateProcess successful"), szCmdline);
 #endif
+=======
+	
+   // Set up members of the PROCESS_INFORMATION structure. 
+   ZeroMemory( &piProcInfo, sizeof(PROCESS_INFORMATION) );
+ 
+   // Set up members of the STARTUPINFO structure. 
+   // This structure specifies the STDIN and STDOUT handles for redirection.
+   ZeroMemory( &siStartInfo, sizeof(STARTUPINFO) );
+   siStartInfo.cb = sizeof(STARTUPINFO); 
+   siStartInfo.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+   siStartInfo.hStdOutput = g_hChildStd_OUT_Wr;
+   siStartInfo.hStdInput = g_hChildStd_IN_Rd;
+   siStartInfo.dwFlags |= STARTF_USESTDHANDLES;
+ 
+   // Create the child process. 
+   bSuccess = CreateProcess(NULL, 
+      szCmdline,     // command line 
+      NULL,          // process security attributes 
+      NULL,          // primary thread security attributes 
+      TRUE,          // handles are inherited 
+      0,             // creation flags 
+      NULL,          // use parent's environment 
+      NULL,          // use parent's current directory 
+      &siStartInfo,  // STARTUPINFO pointer 
+      &piProcInfo);  // receives PROCESS_INFORMATION 
+   
+   // If an error occurs, exit the application. 
+   if ( ! bSuccess ) 
+      error(TEXT("CreateProcess"));
+   else 
+   {
+   #ifdef PIPEDEBUG
+   	  fprintf(stderr, "%s: %s\n", TEXT("CreateProcess successful"), szCmdline);
+   #endif
+	   
+      // Close handles to the child process and its primary thread.
+      // Some applications might keep these handles to monitor the status
+      // of the child process, for example. 
+>>>>>>> 464dc984d01ab13890ff7e8f97ac77a2321180f6
 
 		// Close handles to the child process and its primary thread.
 		// Some applications might keep these handles to monitor the status
@@ -277,11 +317,16 @@ static string getResult() {
 		char message[200];
 		readMessageFromBuffer(message, maxMessageLength);
 
+<<<<<<< HEAD
 		if (startsWith(message, "result:")) {
 #ifdef PIPEDEBUG		  
 			fprintf(stderr, "Result contains newLine char at: %d\n", findChar('\n', message, 0));
 #endif		 
 			result = substring(message, 7, stringLength(message));
+=======
+      if (startsWith(message, "result:")) {		 
+         result = substring(message, 7, stringLength(message));
+>>>>>>> 464dc984d01ab13890ff7e8f97ac77a2321180f6
 #ifdef PIPEDEBUG		 
 			fprintf(stderr, "Parsed result: %s\n", result);
 #endif
@@ -337,6 +382,7 @@ TCHAR* getApplicationPath(TCHAR* dest, size_t destSize) {
 extern string *getMainArgArray(void);
 
 static void initPipe(void) {
+<<<<<<< HEAD
 	int toJBE[2], fromJBE[2], child;
 	string option, classpath;
 
@@ -356,6 +402,30 @@ static void initPipe(void) {
 		dup2(fromJBE[1], 1);
 		close(fromJBE[0]);
 		close(fromJBE[1]);
+=======
+   #ifdef PIPEDEBUG   
+      fprintf(stderr, "->Initializing pipe.\n");
+   #endif
+   int toJBE[2], fromJBE[2], child;
+   string option, classpath;
+
+   classpath = getenv("CLASSPATH");
+   if (classpath == NULL) {
+      classpath = "./spl.jar";
+   }
+
+   programName = getRoot(getTail(getMainArgArray()[0]));
+   pipe(toJBE);
+   pipe(fromJBE);
+   child = fork();
+   if (child == 0) {
+      dup2(toJBE[0], 0);
+      close(toJBE[0]);
+      close(toJBE[1]);
+      dup2(fromJBE[1], 1);
+      close(fromJBE[0]);
+      close(fromJBE[1]);
+>>>>>>> 464dc984d01ab13890ff7e8f97ac77a2321180f6
 #ifdef __APPLE__
 		option = concat("-Xdock:name=", programName);
 		execlp("java", "java", option, "-classpath", classpath, "stanford/spl/JavaBackEnd", programName, NULL);
@@ -363,6 +433,7 @@ static void initPipe(void) {
 		execlp("java", "java", "-classpath", classpath,
 				"stanford/spl/JavaBackEnd", programName, NULL);
 #endif
+<<<<<<< HEAD
 		error("Could not exec spl.jar");
 	} else {
 		pin = fdopen(fromJBE[0], "r");
@@ -417,6 +488,70 @@ static string getResult() {
 		}
 
 	}
+=======
+      error("Could not exec spl.jar");
+   } else {
+      pin = fdopen(fromJBE[0], "r");
+      pout = fdopen(toJBE[1], "w");
+      close(fromJBE[1]);
+      close(toJBE[0]);
+      #ifdef PIPEDEBUG
+        fprintf(stderr, "%s\n", "CreateProcess successful");
+      #endif
+   }
+}
+
+static void putPipe(string format, ...) {
+   string cmd, jbetrace;
+   va_list args;
+   int capacity;
+
+   clearStringBuffer(psb);
+   va_start(args, format);
+   capacity = printfCapacity(format, args);
+   va_end(args);
+   va_start(args, format);
+   sbFormat(psb, capacity, format, args);
+   va_end(args);
+   cmd = getString(psb);
+   jbetrace = getenv("JBETRACE");
+   if (jbetrace != NULL && (jbetrace[0] == 'T' || jbetrace[0] == 't')) {
+      fprintf(stderr, "-> %s\n", cmd);
+   }
+   fprintf(pout, "%s\n", cmd);
+#ifdef PIPEDEBUG
+   fprintf(stderr, "Sent to pipe: %s\n", cmd);
+#endif
+   fflush(pout);
+}
+
+static string getResult() {
+   string line, result, jbetrace;
+
+   jbetrace = getenv("JBETRACE");
+   while (true) {
+      line = readLine(pin);
+      if (line == NULL) exit(1);
+      if (jbetrace != NULL && (jbetrace[0] == 'T' || jbetrace[0] == 't')) {
+         fprintf(stderr, "<- %s\n", line);
+      }
+      if (startsWith(line, "result:")) {
+         result = substring(line, 7, stringLength(line));
+#ifdef PIPEDEBUG      
+         fprintf(stderr, "Parsed result: %s\n", line);
+#endif
+         freeBlock(line);
+         return result;
+      } else if (startsWith(line, "event:")) {
+         enqueue(eventQueue, parseEvent(line + 6));
+#ifdef PIPEDEBUG       
+         result = substring(line, 6, stringLength(line));
+         fprintf(stderr, "Parsed event: %s\n", result);
+#endif
+         freeBlock(line);
+      }
+   }
+>>>>>>> 464dc984d01ab13890ff7e8f97ac77a2321180f6
 }
 
 #endif
