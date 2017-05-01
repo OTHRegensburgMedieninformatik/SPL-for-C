@@ -15,6 +15,12 @@ endif
 CFLAGS=-std=gnu11 -g -Wall
 LDLIBS = lib/libcs.a 
 
+ifeq ($(OS),Windows_NT)
+LDLIBS+= lib/libFreeImage.a -llibstdc++ -lws2_32
+else
+LDLIBS+= lib/libfreeimage.a -lstdc++
+endif
+
 
 ifeq ($(OS),Windows_NT)
 LDLIBS += -lshlwapi

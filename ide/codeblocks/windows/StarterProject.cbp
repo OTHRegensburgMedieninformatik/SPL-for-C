@@ -18,6 +18,9 @@
 				<Linker>
 					<Add library="lib/libcs.a" />
 					<Add library="shlwapi" />
+					<Add library="lib/libFreeImage.a" />
+					<Add library="libstdc++" />
+					<Add library="ws2_32" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="cmd /c copy $(PROJECT_DIR)lib\spl.jar $(TARGET_OUTPUT_DIR)spl.jar" />
@@ -37,6 +40,9 @@
 					<Add option="-s" />
 					<Add library="lib/libcs.a" />
 					<Add library="shlwapi" />
+					<Add library="lib/libFreeImage.a" />
+					<Add library="libstdc++" />
+					<Add library="ws2_32" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="cmd /c copy $(PROJECT_DIR)lib\spl.jar $(TARGET_OUTPUT_DIR)spl.jar" />

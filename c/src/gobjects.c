@@ -28,6 +28,12 @@
 #include "gobjects.h"
 #include "platform.h"
 #include "vector.h"
+//#include "gtypes.h"
+
+#include <string.h>
+
+#define FREEIMAGE_LIB
+#include "FreeImage.h"
 
 /* Constants */
 
@@ -701,9 +707,103 @@ string getGImagePath(GImage image){
 	return image->path;
 }
 
-GPixelArray getGPixelArray(GImage image){
-	return createGPixelArrayOp(image);
+
+// Start GPixelArray Implementation based on FreeImage
+
+GPixelArray * getGPixelArray(GImage image){
+	GPixelArray * pix = createGPixelArray(getWidth(image),getHeight(image));
+
+    FreeImage_Initialise(true);
+    FREE_IMAGE_FORMAT image_format = FreeImage_GetFileType(getGImagePath(image),0);
+    FIBITMAP * image_map = FreeImage_Load(image_format,getGImagePath(image),0);
+
+    if(image_map!=NULL){
+        for(int height=0;height<pix->dim.height;height++){
+            for(int width=0;width<pix->dim.width;width++){
+                RGBQUAD color;
+                FreeImage_GetPixelColor(image_map,width,height,&color);
+                unsigned int bit_color = (color.rgbRed <<24) | (color.rgbGreen << 16) | (color.rgbBlue << 8) | color.rgbReserved;
+                pix->array[height][width]= bit_color;
+            }
+        }
+        FreeImage_Unload(image_map);
+        FreeImage_DeInitialise();
+        return pix;
+    }
+    else{
+        FreeImage_DeInitialise();
+        error("Couldn't generate GPixelImage");
+    }
 }
+
+GImage updateGImage(GWindow gw, GImage image, GPixelArray array){
+    char buffer[256];
+    strncpy(buffer,getGImagePath(image),256);
+    int image_width = (int) getWidth(image);
+    int image_height = (int) getHeight(image);
+
+    GPoint image_pos = getLocation(image);
+
+    FreeImage_Initialise(true);
+    FREE_IMAGE_FORMAT image_format = FreeImage_GetFileType(getGImagePath(image),0);
+    FIBITMAP * image_map = FreeImage_Allocate(image_width,image_height,32,FI_RGBA_RED_MASK,FI_RGBA_GREEN_MASK,FI_RGBA_BLUE_MASK); //Blank Image
+
+    RGBQUAD color;
+    if(image_map!=NULL) {
+        for(int height=0; height<image_height;height++){
+            for(int width=0; width<image_width;width++){
+                unsigned int value = array.array[height][width];
+                color.rgbRed        = (unsigned char) ((value & 0xFF000000) >> 24);
+                color.rgbGreen      = (unsigned char) ((value & 0x00FF0000) >> 16);
+                color.rgbBlue       = (unsigned char) ((value & 0x0000FF00) >>  8);
+                color.rgbReserved   = (unsigned char) ((value & 0x000000FF) >>  0);
+                if(!FreeImage_SetPixelColor(image_map,width,height,&color))
+                    printf("Error\n");
+            }
+        }
+        if(!FreeImage_Save(image_format,image_map,"temp",0)) error("Could'n write image file");
+        FreeImage_Unload(image_map);
+        FreeImage_DeInitialise();
+        removeGWindow(gw,image);
+        GImage image2 = newGImage("temp");
+        addAt(gw,image2,image_pos.x,image_pos.y);
+        return image2;
+    }
+}
+
+unsigned int setRed(int rgba_value, unsigned char value){
+    return (value << 24) | (0x00FFFFFF & rgba_value);
+}
+
+unsigned int setGreen(int rgba_value, unsigned char value){
+    return (value << 16) | (0xFF00FFFF & rgba_value);
+}
+
+unsigned int setBlue(int rgba_value, unsigned char value){
+    return (value << 8) | (0xFFFF00FF & rgba_value);
+}
+
+unsigned int setAlpha(int rgba_value, unsigned char value){
+    return (value) | (0xFFFFFF00 & rgba_value);
+}
+
+unsigned char getRed(unsigned int rgba_value){
+    return (unsigned char) ((rgba_value & 0xFF000000) >> 24);
+}
+
+unsigned char getGreen(unsigned int rgba_value){
+    return (unsigned char) ((rgba_value & 0x00FF0000) >> 16);
+}
+
+unsigned char getBlue(unsigned int rgba_value){
+    return (unsigned char) ((rgba_value & 0x0000FF00) >> 8);
+}
+
+unsigned char getAlpha(unsigned int rgba_value){
+    return (unsigned char)(rgba_value & 0x000000FF);
+}
+
+// Ende GPixelArray Implementation based on FreeImage
 
 GPolygon newGPolygon(void) {
    GPolygon poly = newGObject(GPOLYGON);

@@ -26,14 +26,17 @@
 #include "generic.h"
 #include "gtypes.h"
 
-GColor getGColor(int value){
+GColor newGColor(int value){
 	GColor c;
-
+    //fprintf(stderr, "Color: %d\n",value);
 	c.alpha = (value & 0xFF000000) >> 24;
+    //fprintf(stderr,"%d,", c.alpha);
 	c.red = (value & 0x00FF0000) >> 16;
-	c.blue = (value & 0x000000FF) >>  0;
-	c.green = (value & 0x0000FF00) >>  8;
-
+	//fprintf(stderr,"%d,", c.red);
+    c.green = (value & 0x0000FF00) >>  8;
+    //fprintf(stderr,"%d,", c.green);
+    c.blue = (value & 0x000000FF) >>  0;
+    //fprintf(stderr,"%d\n", c.blue);
 	return c;
 }
 
@@ -62,16 +65,21 @@ GDimension createGDimension(double width, double height) {
    return dim;
 }
 
-GPixelArray createGPixelArray(double width, double height, unsigned int ** pixmap){
+// Start
+
+GPixelArray * createGPixelArray(double width, double height){
 	//fprintf(stderr, "gtypes.c->createGPixelArray");
 	//fprintf(stderr,"%lg,\t%lg\n",width, height);
-	GPixelArray pix;
-	pix.dim = createGDimension(width,height);
-	pix.array = pixmap;
-	freeBlock(pixmap);
-	return pix;
+	GPixelArray *pix = calloc(1, sizeof(GPixelArray));
+	pix->dim = createGDimension(width,height);
+    pix->array = calloc((pix->dim.height),sizeof(unsigned int *));
+    for(int i=0; i<pix->dim.height;i++){
+        pix->array[i]=calloc(pix->dim.width,sizeof(unsigned int));
+    }
+    return pix;
 }
 
+// End
 double getWidthGDimension(GDimension dim) {
    return dim.width;
 }

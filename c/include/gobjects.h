@@ -820,17 +820,31 @@ GImage newGImage(string filename);
 
 
 /**
- * Function: newGImagePath
+ * Function: getGImagePath
  */
 string getGImagePath(GImage image);
+
+//Start
 
 /**
  * Function getGPixelArray
  * Usage: GPixelArray pix = getGPixelArray(image);
  * -----------------------------------------------
  */
-GPixelArray getGPixelArray(GImage iamge);
+GPixelArray * getGPixelArray(GImage iamge);
 
+
+GImage updateGImage(GWindow gw, GImage image, GPixelArray array);
+unsigned int setRed(int rgba_value, unsigned char value);
+unsigned int setGreen(int rgba_value, unsigned char value);
+unsigned int setBlue(int rgba_value, unsigned char value);
+unsigned int setAlpha(int rgba_value, unsigned char value);
+unsigned char getRed(unsigned int rgba_value);
+unsigned char getGreen(unsigned int rgba_value);
+unsigned char getBlue(unsigned int rgba_value);
+unsigned char getAlpha(unsigned int rgba_value);
+
+//Ende
 /**
  * Type: GPolygon
  * --------------

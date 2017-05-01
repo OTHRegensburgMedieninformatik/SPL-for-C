@@ -34,11 +34,11 @@
  * This type contains integer-values for red, blue, green and alpha
  * It is used to manipulate image colors.
  */
-typedef struct {
-	int red;
-	int blue;
-	int green;
-	int alpha;
+typedef struct Color{
+	unsigned char red;
+	unsigned char blue;
+	unsigned char green;
+	unsigned char alpha;
 } GColor;
 
 /**
@@ -89,13 +89,13 @@ typedef struct {
 
 
 /**
- * Function: getGColor
- * Usage: color = getColor(c);
+ * Function: newGColor
+ * Usage: color = newColor(c);
  * ---------------------------
  * Creates a <code>GColor</code> structure with the specified <code>c</code>
  * color value
  */
-GColor getGColor(int value);
+GColor newGColor(int value);
 
 /**
  * Function: createGPoint
@@ -137,10 +137,10 @@ GDimension createGDimension(double width, double height);
 
 /**
  * Function: createPixelArray
- * Usage: array = createGPixelArray(width, height, arraystring);
+ * Usage: array = createGPixelArray(width, height);
  * -------------------------------------------------------------
  */
-GPixelArray createGPixelArray(double width, double height, unsigned int** pixmap);
+GPixelArray *createGPixelArray(double width, double height);
 
 /**
  * Function: getWidth
