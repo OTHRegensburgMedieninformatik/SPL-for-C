@@ -31,6 +31,7 @@
 //#include "gtypes.h"
 
 #include <string.h>
+
 #define FREEIMAGE_LIB
 #include "FreeImage.h"
 

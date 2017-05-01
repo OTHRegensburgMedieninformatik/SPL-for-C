@@ -5,12 +5,14 @@ SHELL=/bin/bash
 
 # Sets the target platform for SPL
 # Valid values for variable platform are unixlike and windows
+MAKE_PARALLEL=-j5
+
 ifeq ($(OS),Windows_NT)
 PLATFORM=windows
-FREEIMAGE_MAKEFILE=Makefile.mingw
+FREEIMAGE_MAKEFILE=-f Makefile.mingw
 else
 PLATFORM=unixlike
-FREEIMAGE_MAKEFILE=Makefile.gnu
+FREEIMAGE_MAKEFILE=
 endif
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
@@ -18,8 +20,10 @@ CFLAGS=-std=gnu11 #-DPIPEDEBUG
 LDLIBS=
 
 ifeq ($(OS),Windows_NT)
-LDLIBS +=build/$(PLATFORM)/lib/libFreeImage.a
+LDLIBS +=-lFreeImage
 LDLIBS +=-lshlwapi -llibstdc++ -lws2_32 
+else
+LDLIBS +=-lfreeimage -lstdc++
 endif
 
 BUILD = \
@@ -179,13 +183,13 @@ FreeImage:
 	@echo "Build FreeImage started"
 	@echo "This could take some realy long time ..."
 	@echo "Building ..."
-	@-make -s -i -C resources/FreeImage -f $(FREEIMAGE_MAKEFILE) FREEIMAGE_LIBRARY_TYPE=STATIC
+	@make $(MAKE_PARALLEL) -s -C resources/FreeImage $(FREEIMAGE_MAKEFILE) FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Build FreeImage finished"
 
 FreeImage_Clean:
 	@echo "Cleaning FreeImage started"
 	@echo "Cleaning ..."
-	@make -s -C resources/FreeImage -f $(FREEIMAGE_MAKEFILE) clean FREEIMAGE_LIBRARY_TYPE=STATIC
+	@make -s -C resources/FreeImage $(FREEIMAGE_MAKEFILE) clean FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Cleaning FreeImage finished"
 
 build/$(PLATFORM)/obj/gobjects.o: FreeImage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
@@ -369,11 +373,17 @@ build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libFreeImage.
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libFreeImage.a
+ifeq ($(OS),Windows_NT)
+	@-rm -f build/$(PLATFORM)/lib/libFreeImage.a	
 	@cp resources/FreeImage/Dist/libFreeImage.a build/$(PLATFORM)/lib/
+else
+	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
+	@cp resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM)/lib/
+endif
 	@ar cr build/$(PLATFORM)/lib/libcs.a \
-			 $(OBJECTS) \
+			 $(OBJECTS) 
 
-	ranlib build/$(PLATFORM)/lib/libcs.a 
+	@ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/
 	@cp resources/FreeImage/Dist/FreeImage.h build/$(PLATFORM)/include/
 
@@ -387,10 +397,9 @@ build/$(PLATFORM)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/include
 	@gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/TestStanfordCSLib.o -Ic/include \
             c/tests/TestStanfordCSLib.c 
 
-TestStanfordCSLib: $(TESTOBJECTS) build/$(PLATFORM)/lib/libcs.a
+TestStanfordCSLib: $(TESTOBJECTS) resources/FreeImage/Dist/libFreeImage.a build/$(PLATFORM)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
 	@gcc $(CFLAGS) -o build/$(PLATFORM)/tests/TestStanfordCSLib $(TESTOBJECTS) -Lbuild/$(PLATFORM)/lib -lcs -lm $(LDLIBS)
-
 
 # ***************************************************************
 # Java Back End
