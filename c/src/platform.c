@@ -64,7 +64,7 @@
 
 #include <string.h>
 #include <math.h>
-#include <regex.h>
+//#include <regex.h>
 
 /* Constants */
 
@@ -274,7 +274,7 @@ static string getResult() {
 	string result;
 	for(;;)
 	{
-		char message[200];
+		char message[maxMessageLength];
 		readMessageFromBuffer(message, maxMessageLength);
 
 		if (startsWith(message, "result:")) {
@@ -320,6 +320,41 @@ void readMessageFromBuffer(char* message, int maxLength) {
 #ifdef PIPEDEBUG	  
 	fprintf(stderr, "Read message from buffer: %s\n", message);
 #endif	  
+}
+
+void readPixelArrayFromBuffer(unsigned int **array , int width, int height){
+	DWORD dwRead;
+	int bufSize = 1;
+	char messageBuffer[bufSize];
+	BOOL bSuccess = FALSE;
+	HANDLE hParentStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	int x,y = 0;
+	char bufferedChar;
+	DWORD color=0;
+	while(y<height) {
+		while(x < width) {
+			for(int i=3;i>=0;){
+				bSuccess = ReadFile(g_hChildStd_OUT_Rd, messageBuffer, bufSize, &dwRead, NULL);
+				if( bSuccess ){
+					color |= messageBuffer[0]<<8*i; 
+					fprintf(stderr,"%x\n",color);
+					i--;
+				}
+			}
+			array[y][x]= color;
+			//fprintf(stderr, "Get [%d,%d]: %u\n", y,x,color);
+			color=0;
+			x++;
+			if( !bSuccess || dwRead == 0) break;
+		}
+		y++;
+		x=0;
+	}
+#ifdef PIPEDEBUG	  
+	fprintf(stderr, "Read PixelArray from buffer: [%d, %d]\n", y, x);
+#endif	  
+	
 }
 
 TCHAR* getApplicationPath(TCHAR* dest, size_t destSize) {
@@ -415,7 +450,6 @@ static string getResult() {
 			array = substring(line, 6, stringLength(line));
 			return array;
 		}
-
 	}
 }
 
@@ -468,199 +502,6 @@ static int getBool() {
 	result = (str[0] == 'T' || str[0] == 't');
 	freeBlock(str);
 	return result;
-}
-
-static GPixelArray getGPixelArrayOp(GObject gobj) {
-	string str;
-	unsigned int ** pixmap;
-
-	double width, height;
-	unsigned long value, alpha, red, green, blue;
-
-	str = getResult();
-	sscanf(str, "GPixelArray(%lg,%lg)", &width, &height);
-	freeBlock(str);
-
-	//initialisierte PixelMatrix m x n
-	pixmap = (unsigned int **) calloc(height, sizeof(unsigned int*));
-	for (int i = 0; i < height; i++) {
-		pixmap[i] = (int *) calloc(width, sizeof(unsigned int));
-	}
-
-	for (int j = 0; j < height; j++) {
-		putPipe("GImage.getPixel(\"0x%lX\", %d, %d)", (long) gobj, j, 0);
-		/*
-		for (int i = 0; i < width; i++) {
-			//getPixel ( imageid, x,y)
-			//putPipe("GImage.getPixel(\"0x%lX\", %d, %d)", (long) gobj, j, i);
-
-			//sscanf(str, "GPixel(%u)", &value);
-			//pixmap[j][i] = (value);
-
-		}
-		*/
-		str = getResult();
-		//fprintf(stderr, "%s\n",str);
-	}
-	return createGPixelArray(width, height, pixmap);
-}
-
-static GPixelArray getGPixelArrayOp2(GObject gobj) {
-	string str;
-	unsigned int ** pixmap;
-
-	double width, height;
-	unsigned long value, alpha, red, green, blue;
-
-	str = getResult();
-	sscanf(str, "GPixelArray(%lg,%lg)", &width, &height);
-	freeBlock(str);
-
-	//Test speedup Optionen
-
-	unsigned int teiler, result, rest, pixelssent;
-
-
-	for(teiler = 1; teiler<=100;teiler++) {
-		result = (unsigned int) width / teiler;
-		rest = ((unsigned int) width)% teiler;
-		if(result <= 25)
-			if(rest==0){
-				result;
-				break;
-			}
-	}
-
-	fprintf(stderr, "Wähle teiler %u, PixelSendPerRequest: %u bei Weite: %lf \n", teiler, result, width);
-
-
-
-	//initialisierte PixelMatrix m x n
-	pixmap = (unsigned int **) calloc(height, sizeof(unsigned int*));
-	for (int i = 0; i < height; i++) {
-		pixmap[i] = (int *) calloc(width, sizeof(unsigned int));
-	}
-
-
-	// "GPixel( len = 7
-	// %u, first and next len =3 result -1 * 3
-	// %u last len = 2 + 2
-	//)" len = 2 + 2
-	// -----------------------
-	// 7 + (setteiler -1) *3 + 2 +2 = 11 + (result-1) * 3
-
-	//'^(?:GPixel[(])'  	len = 14
-	//'(?:|-)([0-9]+). '	len = 16 * result -1
-	//'(?:|-)([0-9]+).'		len = 15
-	//------------------------------------
-	//		12+10 * result
-
-
-	//"^[A-ZA-Za-z(]+"		len = 14
-	//"(-[0-9]+|[0-9]+)[, ]{2}"	len = 23
-	//"(-[0-9]+|[0-9]+)[)]"		len = 19
-
-	size_t result_size = (11 + (result -1)*3);
-	size_t regex_size = (14 +19 +(result-1)*23);
-
-	fprintf(stderr, "result_size: %d, regex_size: %d\n",result_size,regex_size);
-	string result_str = (string) calloc(result_size, sizeof(char));
-	sprintf(result_str, "%s%s", result_str, "GPixel(");
-
-	string regex_str = (string) calloc(regex_size, sizeof(char));
-	string start = "^[A-ZA-Za-z(]+";
-	string pattern1 = "(-[0-9]+|[0-9]+)[, ]{2}";
-	string pattern2 ="(-[0-9]+|[0-9]+)[)]";
-	//string pattern1 = "([0-9]+)(?:, )";
-	//string pattern2 ="([0-9]+)(?:.)$";
-	sprintf(regex_str, "%s%s", regex_str, start);
-
-	for(int i=0; i<(result - 1);i++){
-		sprintf(result_str, "%s%s", result_str, "%u,");
-		sprintf(regex_str, "%s%s", regex_str, pattern1);
-	}
-
-	sprintf(result_str, "%s%s", result_str, "%u)");
-	sprintf(regex_str, "%s%s", regex_str, pattern2);
-
-
-	fprintf(stderr,"%s\n",result_str);
-	fprintf(stderr,"%s\n",regex_str);
-	int reti;
-	char msgbuf[100];
-
-
-
-	for (int j = 0; j < height; j++) {
-		/*
-		regex_t regex;
-		reti = regcomp(&regex, regex_str, REG_EXTENDED );
-		//reti = regcomp(&regex, "^a[[:alnum:]]", REG_EXTENDED);
-		if (reti) {
-			fprintf(stderr, "Could not compile regex\n");
-			exit(1);
-		}
-		*/
-		// Manual handling of inner for loop
-		for (int i = 0; i < teiler; i++) {
-
-			//getPixel ( imageid, x,y, pixelcount )
-			putPipe("GImage.getPixelT(\"0x%lX\", %d, %d, %d)", (long) gobj, j, i*result, result);
-			//putPipe("GImage.getPixel(\"0x%lX\", %d, %d)", (long) gobj, j, i);
-
-			str = getResult();
-			//fprintf(stderr, "%s\n", str);
-
-			regmatch_t match[(result+1)];
-
-		//printf("Match!\n");
-			//printf("0: [%.*s]\n", match[0].rm_eo - match[0].rm_so, line + match[0].rm_so);
-			//printf("1: [%.*s]\n", match[1].rm_eo - match[1].rm_so, line + match[1].rm_so);
-
-
-			/* Execute regular expression */
-			//reti = regexec(&regex, "abc", result, pmatch, 0);
-			/*
-			reti = regexec(&regex, str, (result+1), match, 0);
-			if (!reti) {
-				//puts("Match");
-
-				for(int k=1;k<result+1;k++){
-			    	//fprintf(stderr," %d | %d\n",match[i].rm_so, match[i].rm_eo);
-			    	//fprintf(stderr,"%d: [%.*s]\n", i, match[i].rm_eo - match[i].rm_so, str + match[i].rm_so);
-			    	//fprintf(stderr,"read [%d|%d] ... ", k, result);
-			    	sscanf(str + match[k].rm_so, "%d", &value);
-			    	//fprintf(stderr,"OK\n");
-			    	//fprintf(stderr, "J:%d, I:%d, K:%d, pixmap[%d][%d] = %d\n", j, i, k,j,(i*result)+(k-1),value);
-			    	pixmap[j][(i*result)+(k-1)] = (value);
-			    }
-
-			}
-			else if (reti == REG_NOMATCH) {
-			    //puts("No match");
-			}
-			else {
-			    regerror(reti, &regex, msgbuf, sizeof(msgbuf));
-			    fprintf(stderr, "Regex match failed: %s\n", msgbuf);
-			}
-			*/
-			/* Free memory allocated to the pattern buffer by regcomp() */
-
-			/*
-			for(int k=0; i< result; i++){
-				//fprintf(stderr, "%s\n", str);
-				sscanf(str, "%d", &value);
-				pixmap[j][(i*result)+k] = (value);
-				str = substring(str, floor(log10(abs(value))) + 3, stringLength(str));
-			}
-			*/
-			//sscanf(str, "GPixel(%u)", &value);
-			//pixmap[j][i] = (value);
-			//fprintf(stderr,"Next J\n");
-		}
-		//regfree(&regex);
-	}
-	return createGPixelArray(width, height, pixmap);
 }
 
 static GEvent parseEvent(string line) {
@@ -1194,12 +1035,6 @@ GDimension createGImageOp(GObject gobj, string filename) {
 	putPipe("GImage.create(\"0x%lX\", %s)", (long) gobj, filename);
 	freeBlock(filename);
 	return getGDimension();
-}
-
-GPixelArray createGPixelArrayOp(GObject gobj) {
-	putPipe("GImage.getPixelArray(\"0x%lX\")", (long) gobj);
-	//return getGPixelArrayOp(gobj);
-	return getGPixelArrayOp(gobj);
 }
 
 /* GPolygon operations */

@@ -7,16 +7,19 @@ SHELL=/bin/bash
 # Valid values for variable platform are unixlike and windows
 ifeq ($(OS),Windows_NT)
 PLATFORM=windows
+FREEIMAGE_MAKEFILE=Makefile.mingw
 else
 PLATFORM=unixlike
+FREEIMAGE_MAKEFILE=Makefile.gnu
 endif
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
-CFLAGS=-std=gnu11 -DPIPEDEBUG
+CFLAGS=-std=gnu11 #-DPIPEDEBUG
 LDLIBS=
 
 ifeq ($(OS),Windows_NT)
-LDLIBS += -lshlwapi
+LDLIBS +=build/$(PLATFORM)/lib/libFreeImage.a
+LDLIBS +=-lshlwapi -llibstdc++ -lws2_32 
 endif
 
 BUILD = \
@@ -66,6 +69,8 @@ OBJECTS = \
     build/$(PLATFORM)/obj/vector.o
 
 LIBRARIES = build/$(PLATFORM)/lib/libcs.a
+
+RESOURCES = FreeImage
 
 TESTOBJECTS = \
     build/$(PLATFORM)/obj/TestStanfordCSLib.o
@@ -170,13 +175,26 @@ build/$(PLATFORM)/obj/gmath.o: c/src/gmath.c c/include/gmath.h
 	@echo "Build gmath.o"
 	@gcc $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gmath.o -Ic/include c/src/gmath.c
 
-build/$(PLATFORM)/obj/gobjects.o: c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
+FreeImage:  
+	@echo "Build FreeImage started"
+	@echo "This could take some realy long time ..."
+	@echo "Building ..."
+	@-make -s -i -C resources/FreeImage -f $(FREEIMAGE_MAKEFILE) FREEIMAGE_LIBRARY_TYPE=STATIC
+	@echo "Build FreeImage finished"
+
+FreeImage_Clean:
+	@echo "Cleaning FreeImage started"
+	@echo "Cleaning ..."
+	@make -s -C resources/FreeImage -f $(FREEIMAGE_MAKEFILE) clean FREEIMAGE_LIBRARY_TYPE=STATIC
+	@echo "Cleaning FreeImage finished"
+
+build/$(PLATFORM)/obj/gobjects.o: FreeImage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                 c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                 c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
-                c/include/sound.h c/include/vector.h
+                c/include/sound.h c/include/vector.h resources/FreeImage/Dist/FreeImage.h 
 	@echo "Build gobjects.o"
-	@gcc $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gobjects.o -Ic/include c/src/gobjects.c
+	@gcc $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gobjects.o -Ic/include -Iresources/FreeImage/Dist/ c/src/gobjects.c
 
 build/$(PLATFORM)/obj/graph.o: c/src/graph.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/foreach.h c/include/generic.h \
@@ -347,12 +365,17 @@ build/$(PLATFORM)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib
 # ***************************************************************
 # Entry to reconstruct the library archive
 
-build/$(PLATFORM)/lib/libcs.a: $(OBJECTS)
+build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libFreeImage.a
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
-	@ar cr build/$(PLATFORM)/lib/libcs.a $(OBJECTS)
-	@ranlib build/$(PLATFORM)/lib/libcs.a
+	@-rm -f build/$(PLATFORM)/lib/libFreeImage.a
+	@cp resources/FreeImage/Dist/libFreeImage.a build/$(PLATFORM)/lib/
+	@ar cr build/$(PLATFORM)/lib/libcs.a \
+			 $(OBJECTS) \
+
+	ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/
+	@cp resources/FreeImage/Dist/FreeImage.h build/$(PLATFORM)/include/
 
 
 # ***************************************************************
@@ -362,7 +385,7 @@ build/$(PLATFORM)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/include
 	c/include/strlib.h c/include/unittest.h
 	@echo "Build TestStanfordCSLib.o"
 	@gcc $(CFLAGS) -c -o build/$(PLATFORM)/obj/TestStanfordCSLib.o -Ic/include \
-            c/tests/TestStanfordCSLib.c
+            c/tests/TestStanfordCSLib.c 
 
 TestStanfordCSLib: $(TESTOBJECTS) build/$(PLATFORM)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
@@ -517,6 +540,6 @@ examples-tidy:
 	@rm -f c/examples/*.o
 	@rm -f c/examples/*.exe
 
-scratch clean: tidy
+scratch clean: tidy FreeImage_Clean
 	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(TESTOBJECTS) $(PROJECT)
 	@echo "Cleaning Done"

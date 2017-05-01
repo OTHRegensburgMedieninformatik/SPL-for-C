@@ -83,9 +83,6 @@ public abstract class JBECommand {
 		cmdTable.put("GEvent.getNextEvent", new GEvent_getNextEvent());
 		cmdTable.put("GEvent.waitForEvent", new GEvent_waitForEvent());
 		cmdTable.put("GImage.create", new GImage_create());
-		cmdTable.put("GImage.getPixelArray", new GImage_getPixelArray());
-		cmdTable.put("GImage.getPixel", new GImage_getPixel());
-		cmdTable.put("GImage.getPixelT", new GImage_getPixelTest());
 		cmdTable.put("GInteractor.setActionCommand", new GInteractor_setActionCommand());
 		cmdTable.put("GInteractor.getSize", new GInteractor_getSize());
 		cmdTable.put("GLabel.create", new GLabel_create());
@@ -670,74 +667,6 @@ class GImage_getPixelArray extends JBECommand {
 	}
 }
 
-class GImage_getPixel extends JBECommand {
-	public void execute(TokenScanner scanner, JavaBackEnd jbe) {
-		scanner.verifyToken("(");
-		String id = nextString(scanner);
-		GObject gobj = jbe.getGObject(id);
-		scanner.verifyToken(",");
-		String zeile = nextString(scanner);
-		scanner.verifyToken(",");
-		String spalte = nextString(scanner);
-		scanner.verifyToken(")");
-		if (gobj != null) {
-			try {
-				GImage img = (GImage) gobj;
-				System.out.print("array:GPixel("); 
-				for (int i = 0; i < img.getWidth(); i++) {
-					int pixel = img.getPixelArray()[Integer.parseInt(zeile)][i];
-					// System.out.println("result:GPixel(" + pixel+ ", "+
-					// GImage.getAlpha(pixel) +", "+GImage.getRed(pixel) +",
-					// "+GImage.getGreen(pixel) +", "+GImage.getBlue(pixel) +
-					// ")");
-					System.out.print(Integer.toHexString(pixel));
-					if (i < img.getWidth() - 1)
-						System.out.print(", ");
-					
-				}
-				System.out.println(")");
-				System.out.flush();
-			} catch (Exception ex) {
-				System.out.println("result:" + ex.getMessage());
-				System.out.flush();
-			}
-		}
-
-	}
-}
-
-class GImage_getPixelTest extends JBECommand {
-	public void execute(TokenScanner scanner, JavaBackEnd jbe) {
-		scanner.verifyToken("(");
-		String id = nextString(scanner);
-		GObject gobj = jbe.getGObject(id);
-		scanner.verifyToken(",");
-		String zeile = nextString(scanner);
-		scanner.verifyToken(",");
-		String spalte = nextString(scanner);
-		scanner.verifyToken(",");
-		String pixels = nextString(scanner);
-		scanner.verifyToken(")");
-		if (gobj != null) {
-			try {
-				GImage img = (GImage) gobj;
-				System.out.print("result:GPixel(");
-				for (int i = 0; i < Integer.parseInt(pixels); i++) {
-					int pixel = img.getPixelArray()[Integer.parseInt(zeile)][Integer.parseInt(spalte) + i];
-					System.out.print(Integer.toHexString(pixel));
-					if (i < (Integer.parseInt(pixels) - 1))
-						System.out.print(", ");
-				}
-				System.out.println(")");
-				System.out.flush();
-			} catch (Exception ex) {
-				System.out.println("result:" + ex.getMessage());
-				System.out.flush();
-			}
-		}
-
-	}
-}
 
 class GOval_create extends JBECommand {
 	public void execute(TokenScanner scanner, JavaBackEnd jbe) {
