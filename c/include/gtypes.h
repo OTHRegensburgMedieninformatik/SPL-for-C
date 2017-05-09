@@ -66,14 +66,6 @@ typedef struct {
 } GDimension;
 
 /**
- * Type: GPixelArray
- */
-typedef struct {
-	GDimension dim;
-	unsigned int ** array;
-} GPixelArray;
-
-/**
  * Type: GRectangle
  * ----------------
  * This type contains real-valued x, y, width, and height fields.  It is
@@ -140,7 +132,7 @@ GDimension createGDimension(double width, double height);
  * Usage: array = createGPixelArray(width, height);
  * -------------------------------------------------------------
  */
-GPixelArray *createGPixelArray(double width, double height);
+int ** createGPixelArray(double width, double height);
 
 /**
  * Function: getWidth

@@ -831,10 +831,10 @@ string getGImagePath(GImage image);
  * Usage: GPixelArray pix = getGPixelArray(image);
  * -----------------------------------------------
  */
-GPixelArray * getGPixelArray(GImage iamge);
+int ** getGPixelArray(GImage iamge);
 
 
-GImage updateGImage(GWindow gw, GImage image, GPixelArray array);
+GImage updateGImage(GWindow gw, GImage image, int ** array);
 unsigned int setRed(int rgba_value, unsigned char value);
 unsigned int setGreen(int rgba_value, unsigned char value);
 unsigned int setBlue(int rgba_value, unsigned char value);
@@ -843,6 +843,7 @@ unsigned char getRed(unsigned int rgba_value);
 unsigned char getGreen(unsigned int rgba_value);
 unsigned char getBlue(unsigned int rgba_value);
 unsigned char getAlpha(unsigned int rgba_value);
+unsigned int getRGBValue(unsigned int rgba_value);
 
 //Ende
 /**

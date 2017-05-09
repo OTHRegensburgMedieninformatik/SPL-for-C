@@ -710,25 +710,29 @@ string getGImagePath(GImage image){
 
 // Start GPixelArray Implementation based on FreeImage
 
-GPixelArray * getGPixelArray(GImage image){
-	GPixelArray * pix = createGPixelArray(getWidth(image),getHeight(image));
+int ** getGPixelArray(GImage image){
+    int ** array = createGPixelArray(getWidth(image),getHeight(image));
+
+    int height = (int)getHeight(image);
+    int width = (int)getWidth(image);
 
     FreeImage_Initialise(true);
     FREE_IMAGE_FORMAT image_format = FreeImage_GetFileType(getGImagePath(image),0);
     FIBITMAP * image_map = FreeImage_Load(image_format,getGImagePath(image),0);
 
     if(image_map!=NULL){
-        for(int height=0;height<pix->dim.height;height++){
-            for(int width=0;width<pix->dim.width;width++){
+        for(int line=0;line<height;line++){
+            for(int pixel=0;pixel<width;pixel++){
                 RGBQUAD color;
-                FreeImage_GetPixelColor(image_map,width,height,&color);
+                FreeImage_GetPixelColor(image_map,pixel,line,&color);
+                //fprintf(stderr,"%03d|%03d %02x %02x %02x %02x\n", line, pixel, color.rgbReserved, color.rgbRed, color.rgbGreen, color.rgbBlue);
                 unsigned int bit_color = (color.rgbRed <<24) | (color.rgbGreen << 16) | (color.rgbBlue << 8) | color.rgbReserved;
-                pix->array[height][width]= bit_color;
+                array[line][pixel]= bit_color;
             }
         }
         FreeImage_Unload(image_map);
         FreeImage_DeInitialise();
-        return pix;
+        return array;
     }
     else{
         FreeImage_DeInitialise();
@@ -736,7 +740,7 @@ GPixelArray * getGPixelArray(GImage image){
     }
 }
 
-GImage updateGImage(GWindow gw, GImage image, GPixelArray array){
+GImage updateGImage(GWindow gw, GImage image, int** array){
     char buffer[256];
     strncpy(buffer,getGImagePath(image),256);
     int image_width = (int) getWidth(image);
@@ -752,7 +756,7 @@ GImage updateGImage(GWindow gw, GImage image, GPixelArray array){
     if(image_map!=NULL) {
         for(int height=0; height<image_height;height++){
             for(int width=0; width<image_width;width++){
-                unsigned int value = array.array[height][width];
+                unsigned int value = array[height][width];
                 color.rgbRed        = (unsigned char) ((value & 0xFF000000) >> 24);
                 color.rgbGreen      = (unsigned char) ((value & 0x00FF0000) >> 16);
                 color.rgbBlue       = (unsigned char) ((value & 0x0000FF00) >>  8);
@@ -801,6 +805,10 @@ unsigned char getBlue(unsigned int rgba_value){
 
 unsigned char getAlpha(unsigned int rgba_value){
     return (unsigned char)(rgba_value & 0x000000FF);
+}
+
+unsigned int getRGBValue(unsigned int rgba_value){
+    return (unsigned int)(rgba_value & 0xFFFFFF00)>>8;
 }
 
 // Ende GPixelArray Implementation based on FreeImage

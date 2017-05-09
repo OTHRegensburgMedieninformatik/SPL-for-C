@@ -67,16 +67,12 @@ GDimension createGDimension(double width, double height) {
 
 // Start
 
-GPixelArray * createGPixelArray(double width, double height){
-	//fprintf(stderr, "gtypes.c->createGPixelArray");
-	//fprintf(stderr,"%lg,\t%lg\n",width, height);
-	GPixelArray *pix = calloc(1, sizeof(GPixelArray));
-	pix->dim = createGDimension(width,height);
-    pix->array = calloc((pix->dim.height),sizeof(unsigned int *));
-    for(int i=0; i<pix->dim.height;i++){
-        pix->array[i]=calloc(pix->dim.width,sizeof(unsigned int));
+int ** createGPixelArray(double width, double height){
+	int ** array = calloc((int)height,sizeof(unsigned int *));
+    for(int i=0; i<((int)height);i++){
+        array[i]=calloc((int)width,sizeof(unsigned int));
     }
-    return pix;
+    return array;
 }
 
 // End
