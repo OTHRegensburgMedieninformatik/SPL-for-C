@@ -16,7 +16,7 @@ FREEIMAGE_MAKEFILE=
 endif
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
-CFLAGS=-std=gnu11 #-DPIPEDEBUG
+CFLAGS=-std=gnu11 #-DPIPEDEBUG -march=x86-64
 LDLIBS=
 
 ifeq ($(OS),Windows_NT)
@@ -373,19 +373,13 @@ build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libFreeImage.
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libFreeImage.a
-ifeq ($(OS),Windows_NT)
-	@-rm -f build/$(PLATFORM)/lib/libFreeImage.a	
-	@cp resources/FreeImage/Dist/libFreeImage.a build/$(PLATFORM)/lib/
-else
-	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
-	@cp resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM)/lib/
-endif
 	@ar cr build/$(PLATFORM)/lib/libcs.a \
 			 $(OBJECTS) 
 
 	@ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/
 	@cp resources/FreeImage/Dist/FreeImage.h build/$(PLATFORM)/include/
+	@cp resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM)/lib/
 
 
 # ***************************************************************

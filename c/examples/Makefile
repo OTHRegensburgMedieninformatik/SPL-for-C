@@ -9,8 +9,12 @@ CSTD =
 else
 PLATFORM=unixlike
 FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
-CSTD = -std=c99
+FLAGS += -lfreeimage
+CSTD = -std=c99 -arch=x86_64 -stdlib=libstdc++
 endif
+CC = clang -v 
+CPP = clang++
+
 
 PROGRAMS = \
     Breakout \
@@ -36,94 +40,94 @@ PROGRAMS = \
 all: $(PROGRAMS)
 
 Breakout: Breakout.o
-	gcc -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
 
 Breakout.o: Breakout.c
-	gcc -D$(PLATFORM) -c -I../include Breakout.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include Breakout.c $(CSTD)
 
 DrawLines: DrawLines.o
-	gcc -D$(PLATFORM) -o DrawLines DrawLines.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o DrawLines DrawLines.o $(FLAGS)
 
 DrawLines.o: DrawLines.c
-	gcc -D$(PLATFORM) -c -I../include DrawLines.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include DrawLines.c $(CSTD)
 
 DrawRectangles: DrawRectangles.o
-	gcc -D$(PLATFORM) -o DrawRectangles DrawRectangles.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o DrawRectangles DrawRectangles.o $(FLAGS)
 
 DrawRectangles.o: DrawRectangles.c
-	gcc -D$(PLATFORM) -c -I../include DrawRectangles.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include DrawRectangles.c $(CSTD)
 
 GHelloWorld: GHelloWorld.o
-	gcc -D$(PLATFORM) -o GHelloWorld GHelloWorld.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o GHelloWorld GHelloWorld.o $(FLAGS)
 
 GHelloWorld.o: GHelloWorld.c
-	gcc -D$(PLATFORM) -c -I../include GHelloWorld.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include GHelloWorld.c $(CSTD)
 
 PacMan: PacMan.o
-	gcc -D$(PLATFORM) -o PacMan PacMan.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o PacMan PacMan.o $(FLAGS)
 
 PacMan.o: PacMan.c
-	gcc -D$(PLATFORM) -c -I../include PacMan.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include PacMan.c $(CSTD)
 
 StopSign: StopSign.o
-	gcc -D$(PLATFORM) -o StopSign StopSign.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o StopSign StopSign.o $(FLAGS)
 
 StopSign.o: StopSign.c
-	gcc -D$(PLATFORM) -c -I../include StopSign.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include StopSign.c $(CSTD)
 
 TestGraphics: TestGraphics.o
-	gcc -D$(PLATFORM) -o TestGraphics TestGraphics.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o TestGraphics TestGraphics.o $(FLAGS)
 
 TestGraphics.o: TestGraphics.c
-	gcc -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
 	
 TestPixelArray: TestPixelArray.o
-	gcc -D$(PLATFORM) -o TestPixelArray TestPixelArray.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o TestPixelArray TestPixelArray.o $(FLAGS)
 	
 TestPixelArray.o: TestPixelArray.c
-	gcc -D$(PLATFORM) -c -I../include TestPixelArray.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include TestPixelArray.c $(CSTD)
 
 TestInteractors: TestInteractors.o
-	gcc -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)
 
 TestInteractors.o: TestInteractors.c
-	gcc -D$(PLATFORM) -c -I../include TestInteractors.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include TestInteractors.c $(CSTD)
 
 USFlag: USFlag.o
-	gcc -D$(PLATFORM) -o USFlag USFlag.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o USFlag USFlag.o $(FLAGS)
 
 USFlag.o: USFlag.c
-	gcc -D$(PLATFORM) -c -I../include USFlag.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include USFlag.c $(CSTD)
 
 FlipImage.o: FlipImage.c
-	gcc -D$(PLATFORM) -c -I../include FlipImage.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include FlipImage.c $(CSTD)
 
 FlipImage: FlipImage.o
-	gcc -D$(PLATFORM) -o FlipImage FlipImage.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o FlipImage FlipImage.o $(FLAGS)
 
 CarSimulator.o: CarSimulator.c
-	gcc -D$(PLATFORM) -c -I../include CarSimulator.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include CarSimulator.c $(CSTD)
 
 CarSimulator: CarSimulator.o
-	gcc -o CarSimulator CarSimulator.o $(FLAGS)
+	$(CC) -o CarSimulator CarSimulator.o $(FLAGS)
 
 BrickPyramid.o: BrickPyramid.c
-	gcc -D$(PLATFORM) -c -I../include BrickPyramid.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include BrickPyramid.c $(CSTD)
 
 BrickPyramid: BrickPyramid.o
-	gcc -D$(PLATFORM) -o BrickPyramid BrickPyramid.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o BrickPyramid BrickPyramid.o $(FLAGS)
 
 DrawTarget.o: DrawTarget.c
-	gcc -D$(PLATFORM) -c -I../include DrawTarget.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include DrawTarget.c $(CSTD)
 
 DrawTarget: DrawTarget.o
-	gcc -D$(PLATFORM) -o DrawTarget DrawTarget.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o DrawTarget DrawTarget.o $(FLAGS)
 
 CarSimulatorStructs: CarSimulatorStructs.o
-	gcc -D$(PLATFORM) -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
+	$(CC) -D$(PLATFORM) -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
 
 CarSimulatorStructs.o: CarSimulatorStructs.c
-	gcc -D$(PLATFORM) -c -I../include CarSimulatorStructs.c $(CSTD)
+	$(CC) -D$(PLATFORM) -c -I../include CarSimulatorStructs.c $(CSTD)
 
 # ***************************************************************
 # Standard entries to remove files from the directories

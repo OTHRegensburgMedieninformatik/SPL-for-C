@@ -773,6 +773,7 @@ GImage updateGImage(GWindow gw, GImage image, int** array){
         addAt(gw,image2,image_pos.x,image_pos.y);
         return image2;
     }
+    return image; //on error return old image;
 }
 
 unsigned int setRed(int rgba_value, unsigned char value){
