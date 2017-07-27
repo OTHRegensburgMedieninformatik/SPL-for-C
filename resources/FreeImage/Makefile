@@ -16,6 +16,9 @@ endif
 ifeq ($(OS), windows32)
     MAKEFILE = mingw
 endif
+ifeq ($(OS), Windows_NT)
+    MAKEFILE = mingw
+endif
 
 default:
 	$(MAKE) -f Makefile.$(MAKEFILE) 

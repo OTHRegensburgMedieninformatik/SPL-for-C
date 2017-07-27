@@ -8,12 +8,15 @@ FLAGS += -lshlwapi
 CSTD =
 else
 PLATFORM=unixlike
-FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
-FLAGS += -lfreeimage
-CSTD = -std=c99 -arch=x86_64 -stdlib=libstdc++
+FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm -lfreeimage -lstdc++
+#FLAGS += -syslibroot $(SDK_PATH)
+CSTD = -std=c11 -stdlib=libstdc++ 
 endif
-CC = clang -v 
-CPP = clang++
+SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk
+INCFLAGS = -I../../build/$(PLATFORM)/include -I../include -isysroot $(SDK_PATH)
+
+CC = gcc
+CPP = g++
 
 
 PROGRAMS = \
@@ -40,94 +43,124 @@ PROGRAMS = \
 all: $(PROGRAMS)
 
 Breakout: Breakout.o
-	$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
 
 Breakout.o: Breakout.c
-	$(CC) -D$(PLATFORM) -c -I../include Breakout.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c Breakout.c  $(INCFLAGS) $(CSTD)
 
 DrawLines: DrawLines.o
-	$(CC) -D$(PLATFORM) -o DrawLines DrawLines.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o DrawLines DrawLines.o $(FLAGS)
 
 DrawLines.o: DrawLines.c
-	$(CC) -D$(PLATFORM) -c -I../include DrawLines.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include DrawLines.c $(CSTD)
 
 DrawRectangles: DrawRectangles.o
-	$(CC) -D$(PLATFORM) -o DrawRectangles DrawRectangles.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o DrawRectangles DrawRectangles.o $(FLAGS)
 
 DrawRectangles.o: DrawRectangles.c
-	$(CC) -D$(PLATFORM) -c -I../include DrawRectangles.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include DrawRectangles.c $(CSTD)
 
 GHelloWorld: GHelloWorld.o
-	$(CC) -D$(PLATFORM) -o GHelloWorld GHelloWorld.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o GHelloWorld GHelloWorld.o $(FLAGS)
 
 GHelloWorld.o: GHelloWorld.c
-	$(CC) -D$(PLATFORM) -c -I../include GHelloWorld.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include GHelloWorld.c $(CSTD)
 
 PacMan: PacMan.o
-	$(CC) -D$(PLATFORM) -o PacMan PacMan.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o PacMan PacMan.o $(FLAGS)
 
 PacMan.o: PacMan.c
-	$(CC) -D$(PLATFORM) -c -I../include PacMan.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include PacMan.c $(CSTD)
 
 StopSign: StopSign.o
-	$(CC) -D$(PLATFORM) -o StopSign StopSign.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o StopSign StopSign.o $(FLAGS)
 
 StopSign.o: StopSign.c
-	$(CC) -D$(PLATFORM) -c -I../include StopSign.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include StopSign.c $(CSTD)
 
 TestGraphics: TestGraphics.o
-	$(CC) -D$(PLATFORM) -o TestGraphics TestGraphics.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o TestGraphics TestGraphics.o $(FLAGS)
 
 TestGraphics.o: TestGraphics.c
-	$(CC) -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
 	
 TestPixelArray: TestPixelArray.o
-	$(CC) -D$(PLATFORM) -o TestPixelArray TestPixelArray.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o TestPixelArray TestPixelArray.o $(FLAGS)
 	
 TestPixelArray.o: TestPixelArray.c
-	$(CC) -D$(PLATFORM) -c -I../include TestPixelArray.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include TestPixelArray.c $(CSTD)
 
 TestInteractors: TestInteractors.o
-	$(CC) -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)
 
 TestInteractors.o: TestInteractors.c
-	$(CC) -D$(PLATFORM) -c -I../include TestInteractors.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include TestInteractors.c $(CSTD)
 
 USFlag: USFlag.o
-	$(CC) -D$(PLATFORM) -o USFlag USFlag.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o USFlag USFlag.o $(FLAGS)
 
 USFlag.o: USFlag.c
-	$(CC) -D$(PLATFORM) -c -I../include USFlag.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include USFlag.c $(CSTD)
 
 FlipImage.o: FlipImage.c
-	$(CC) -D$(PLATFORM) -c -I../include FlipImage.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include FlipImage.c $(CSTD)
 
 FlipImage: FlipImage.o
-	$(CC) -D$(PLATFORM) -o FlipImage FlipImage.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o FlipImage FlipImage.o $(FLAGS)
 
 CarSimulator.o: CarSimulator.c
-	$(CC) -D$(PLATFORM) -c -I../include CarSimulator.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include CarSimulator.c $(CSTD)
 
 CarSimulator: CarSimulator.o
-	$(CC) -o CarSimulator CarSimulator.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -o CarSimulator CarSimulator.o $(FLAGS)
 
 BrickPyramid.o: BrickPyramid.c
-	$(CC) -D$(PLATFORM) -c -I../include BrickPyramid.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include BrickPyramid.c $(CSTD)
 
 BrickPyramid: BrickPyramid.o
-	$(CC) -D$(PLATFORM) -o BrickPyramid BrickPyramid.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o BrickPyramid BrickPyramid.o $(FLAGS)
 
 DrawTarget.o: DrawTarget.c
-	$(CC) -D$(PLATFORM) -c -I../include DrawTarget.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include DrawTarget.c $(CSTD)
 
 DrawTarget: DrawTarget.o
-	$(CC) -D$(PLATFORM) -o DrawTarget DrawTarget.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o DrawTarget DrawTarget.o $(FLAGS)
 
 CarSimulatorStructs: CarSimulatorStructs.o
-	$(CC) -D$(PLATFORM) -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
 
 CarSimulatorStructs.o: CarSimulatorStructs.c
-	$(CC) -D$(PLATFORM) -c -I../include CarSimulatorStructs.c $(CSTD)
+	@echo Build $@
+	@$(CC) -D$(PLATFORM) -c -I../include CarSimulatorStructs.c $(CSTD)
 
 # ***************************************************************
 # Standard entries to remove files from the directories
