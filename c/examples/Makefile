@@ -3,7 +3,7 @@
 
 PLATFORM = unixlike
 FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm -lfreeimage -lstdc++
-CSTD = -std=c11 -stdlib=libstdc++
+CSTD = -std=c11 
 INCFLAGS = 
 
 ifeq ($(OS), Windows_NT)
