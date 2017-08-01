@@ -1,19 +1,26 @@
 # Makefile for spl
 #****************************************************************
 
-ifeq ($(OS),Windows_NT)
+PLATFORM = unixlike
+FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm -lfreeimage -lstdc++
+CSTD = -std=c11 -stdlib=libstdc++
+INCFLAGS = 
+
+ifeq ($(OS), Windows_NT)
 PLATFORM=windows
 FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
 FLAGS += -lshlwapi
 CSTD =
-else
-PLATFORM=unixlike
+endif
+
+ifeq ($(OS), Darwin)
+PLATFORM = macosx
+SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+INCFLAGS = -I../../build/$(PLATFORM)/include -I../include -isysroot $(SDK_PATH)
 FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm -lfreeimage -lstdc++
-#FLAGS += -syslibroot $(SDK_PATH)
+FLAGS += -syslibroot $(SDK_PATH)
 CSTD = -std=c11 -stdlib=libstdc++ 
 endif
-SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk
-INCFLAGS = -I../../build/$(PLATFORM)/include -I../include -isysroot $(SDK_PATH)
 
 CC = gcc
 CPP = g++
