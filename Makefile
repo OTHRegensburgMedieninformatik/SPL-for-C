@@ -6,7 +6,7 @@ SHELL=/bin/bash
 # Sets the target platform for SPL
 # Valid values for variable platform are unixlike and windows
 MAKE_PARALLEL=-j5
-CC=clang
+CC=gcc
 
 
 ifeq ($(OS),Windows_NT)
