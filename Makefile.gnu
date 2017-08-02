@@ -293,7 +293,7 @@ build/$(PLATFORM)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib
 # ***************************************************************
 # Entry to reconstruct the library archive
 
-build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libFreeImage.a
+build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libfreeimage.a
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
