@@ -313,7 +313,7 @@ build/$(PLATFORM)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/include
 	@echo "Build TestStanfordCSLib.o"
 	@$(CC) $(CFLAGS) -c -o build/$(PLATFORM)/obj/TestStanfordCSLib.o $(INCFLAGS) c/tests/TestStanfordCSLib.c 
 
-TestStanfordCSLib: $(TESTOBJECTS) resources/FreeImage/Dist/libFreeImage.a build/$(PLATFORM)/lib/libcs.a
+TestStanfordCSLib: $(TESTOBJECTS) resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
 	@$(CC) $(CFLAGS) -o build/$(PLATFORM)/tests/TestStanfordCSLib $(TESTOBJECTS) -Lbuild/$(PLATFORM)/lib -lcs -lm $(LDLIBS)
 
