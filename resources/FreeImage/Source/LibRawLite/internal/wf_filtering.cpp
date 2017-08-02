@@ -1144,8 +1144,7 @@ void LibRaw::wf_bayer4_igauss_filter(int radius, void* src_image, int src_imgmod
 	int width_d2  = S.width  / 2;
 	int height_d2 = S.height / 2;
 
-	int i=0;
-	int j=0;
+	int i, j;
 
 	for (j=0; j<=radius; j++)
 	{
@@ -1196,7 +1195,7 @@ void LibRaw::wf_bayer4_igauss_filter(int radius, void* src_image, int src_imgmod
 
 		colf = radius;
 
-		for (int j=0; j<line_memory_len; j++)
+		for (j=0; j<line_memory_len; j++)
 		{
 			for(i=0;i<4;i++)
 				line_filtered[j][i]=0;
@@ -1215,7 +1214,7 @@ void LibRaw::wf_bayer4_igauss_filter(int radius, void* src_image, int src_imgmod
 			for (i=0; i<4; i++)
 				line_filtered[colf][i]+=gauss_conv_kernel[0][i]*(src_c[i]);
 
-			for(int j=1; j<=radius; j++)
+			for(j=1; j<=radius; j++)
 			{
 				col1++;
 				col2--;
