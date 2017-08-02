@@ -1,0 +1,59 @@
+BUILD = \
+    build \
+    build/$(PLATFORM) \
+    build/$(PLATFORM)/classes \
+    build/$(PLATFORM)/lib \
+    build/$(PLATFORM)/obj \
+    build/$(PLATFORM)/tests
+
+OBJECTS = \
+    build/$(PLATFORM)/obj/bst.o \
+    build/$(PLATFORM)/obj/charset.o \
+    build/$(PLATFORM)/obj/cmpfn.o \
+    build/$(PLATFORM)/obj/cslib.o \
+    build/$(PLATFORM)/obj/exception.o \
+    build/$(PLATFORM)/obj/filelib.o \
+    build/$(PLATFORM)/obj/foreach.o \
+    build/$(PLATFORM)/obj/generic.o \
+    build/$(PLATFORM)/obj/gevents.o \
+    build/$(PLATFORM)/obj/gobjects.o \
+    build/$(PLATFORM)/obj/gmath.o \
+    build/$(PLATFORM)/obj/graph.o \
+    build/$(PLATFORM)/obj/gtimer.o \
+    build/$(PLATFORM)/obj/gtypes.o \
+    build/$(PLATFORM)/obj/gwindow.o \
+    build/$(PLATFORM)/obj/hashmap.o \
+    build/$(PLATFORM)/obj/iterator.o \
+    build/$(PLATFORM)/obj/loadobj.o \
+    build/$(PLATFORM)/obj/map.o \
+    build/$(PLATFORM)/obj/options.o \
+    build/$(PLATFORM)/obj/platform.o \
+    build/$(PLATFORM)/obj/pqueue.o \
+    build/$(PLATFORM)/obj/queue.o \
+    build/$(PLATFORM)/obj/random.o \
+    build/$(PLATFORM)/obj/ref.o \
+    build/$(PLATFORM)/obj/set.o \
+    build/$(PLATFORM)/obj/simpio.o \
+    build/$(PLATFORM)/obj/sound.o \
+    build/$(PLATFORM)/obj/stack.o \
+    build/$(PLATFORM)/obj/strbuf.o \
+    build/$(PLATFORM)/obj/strlib.o \
+    build/$(PLATFORM)/obj/tokenscanner.o \
+    build/$(PLATFORM)/obj/unittest.o \
+    build/$(PLATFORM)/obj/unixfile.o \
+    build/$(PLATFORM)/obj/vector.o \
+
+LIBRARIES = build/$(PLATFORM)/lib/libcs.a
+
+RESOURCES = freeimage
+
+TESTOBJECTS = \
+    build/$(PLATFORM)/obj/TestStanfordCSLib.o
+
+TESTS = \
+    TestStanfordCSLib
+
+JAR = spl.jar
+
+PROJECT = StarterProject \
+		  StarterProjects
