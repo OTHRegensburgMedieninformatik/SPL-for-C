@@ -116,7 +116,7 @@ build/$(PLATFORM)/obj/gmath.o: c/src/gmath.c c/include/gmath.h
 	@echo "Build gmath.o"
 	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gmath.o -Ic/include c/src/gmath.c
 
-build/$(PLATFORM)/obj/gobjects.o: FreeImage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM)/obj/gobjects.o: freeimage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                 c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                 c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
@@ -296,7 +296,7 @@ build/$(PLATFORM)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib
 build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libFreeImage.a
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
-	@-rm -f build/$(PLATFORM)/lib/libFreeImage.a
+	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
 	@ar cr build/$(PLATFORM)/lib/libcs.a \
 			 $(OBJECTS) 
 
