@@ -4,7 +4,7 @@
 PLATFORM = unixlike
 FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm -lfreeimage -lstdc++
 CSTD = -std=c11 
-INCFLAGS = 
+INCFLAGS = -I../../build/$(PLATFORM)/include -I../include
 
 ifeq ($(OS), Windows_NT)
 PLATFORM=windows
@@ -16,7 +16,7 @@ endif
 ifeq ($(OS), Darwin)
 PLATFORM = macosx
 SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
-INCFLAGS = -I../../build/$(PLATFORM)/include -I../include -isysroot $(SDK_PATH)
+INCFLAGS +=  -isysroot $(SDK_PATH)
 FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm -lfreeimage -lstdc++
 FLAGS += -syslibroot $(SDK_PATH)
 CSTD = -std=c11 -stdlib=libstdc++ 
