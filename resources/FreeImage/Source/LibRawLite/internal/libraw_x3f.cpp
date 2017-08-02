@@ -617,6 +617,7 @@ static x3f_huffman_t *new_huffman(x3f_huffman_t **HUFP)
   x3f_info_t *I = NULL;
   x3f_header_t *H = NULL;
   x3f_directory_section_t *DS = NULL;
+  char * no_file = "No infile";
   int i, d;
 
   I = &x3f->info;
@@ -625,7 +626,7 @@ static x3f_huffman_t *new_huffman(x3f_huffman_t **HUFP)
   I->output.file = NULL;
 
   if (infile == NULL) {
-    I->error = "No infile";
+    I->error = no_file;
     return x3f;
   }
 
