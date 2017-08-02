@@ -55,7 +55,7 @@ Breakout: Breakout.o
 
 Breakout.o: Breakout.c
 	@echo Build $@
-	@$(CC) -D$(PLATFORM) -c Breakout.c  $(INCFLAGS) $(CSTD)
+	$(CC) -D$(PLATFORM) -c Breakout.c $(INCFLAGS) $(CSTD)
 
 DrawLines: DrawLines.o
 	@echo Build $@
