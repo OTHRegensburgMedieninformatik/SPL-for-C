@@ -13,8 +13,8 @@ include Makefile.srcs
 CC=gcc
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
-CFLAGS=-std=gnu11 #-DPIPEDEBUG 
-LDLIBS =-lfreeimage -lstdc++
+CFLAGS=-std=gnu11 #-DPIPEDEBUG -march=x86-64
+LDLIBS = -lfreeimage -llibstdc++
 
 .PHONY: freeimage
 
@@ -25,13 +25,13 @@ freeimage:
 	@echo "Build FreeImage started"
 	@echo "This could take some realy long time ..."
 	@echo "Building ..."
-	make -j$(MAKE_PARALLEL) -s -C resources/FreeImage FREEIMAGE_LIBRARY_TYPE=STATIC
+	@make $(MAKE_PARALLEL) -s -C resources/FreeImage FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Build FreeImage finished"
 
 freeimage_clean:
 	@echo "Cleaning FreeImage started"
 	@echo "Cleaning ..."
-	make -s -C resources/FreeImage clean FREEIMAGE_LIBRARY_TYPE=STATIC
+	@make -s -C resources/FreeImage clean FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Cleaning FreeImage finished"
 
 # ***************************************************************
@@ -195,7 +195,7 @@ build/$(PLATFORM)/obj/platform.o: c/src/platform.c c/include/cmpfn.h c/include/c
                 c/include/simpio.h c/include/sound.h c/include/strbuf.h \
                 c/include/strlib.h c/include/tokenscanner.h c/include/vector.h
 	@echo "Build platform.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/platform.o -Ic/include c/src/platform.c
+	$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/platform.o -Ic/include c/src/platform.c
 
 build/$(PLATFORM)/obj/pqueue.o: c/src/pqueue.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/pqueue.h \
