@@ -69,3 +69,21 @@ scratch clean:
 	@echo Build $@ on $(PLATFORM)
 	$(CALL) -fMakefile.$(MAKE_FILE) $@
 
+help:
+	@echo The following command could be called 
+	@echo make all => Builds the SPL-for-C library with examples
+	@echo make lib => Builds the SPL-for-C library
+	@echo make freeimage => Build the freeimage library
+	@echo make freeimage_clean => Cleans the freeimage library
+	@echo make install => Install the library 
+	@echo make examples => Build the examples
+	@echo make starter => Create all starter project
+	@echo make clion => Create as clion starter project
+	@echo make codeblocks => Create as codeblocks starter project
+	@echo make makefile => Create as makefile starter project
+	@echo make clean => Cleans the whole project
+	@echo make help => Show this message
+
+
+
+
