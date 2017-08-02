@@ -1144,7 +1144,8 @@ void LibRaw::wf_bayer4_igauss_filter(int radius, void* src_image, int src_imgmod
 	int width_d2  = S.width  / 2;
 	int height_d2 = S.height / 2;
 
-	int i, j;
+	int i=0;
+	int j=0;
 
 	for (j=0; j<=radius; j++)
 	{
