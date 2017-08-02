@@ -25,13 +25,13 @@ freeimage:
 	@echo "Build FreeImage started"
 	@echo "This could take some realy long time ..."
 	@echo "Building ..."
-	@make -j$(MAKE_PARALLEL) -s -C resources/FreeImage FREEIMAGE_LIBRARY_TYPE=STATIC
+	make -j$(MAKE_PARALLEL) -s -C resources/FreeImage FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Build FreeImage finished"
 
 freeimage_clean:
 	@echo "Cleaning FreeImage started"
 	@echo "Cleaning ..."
-	@make -s -C resources/FreeImage clean FREEIMAGE_LIBRARY_TYPE=STATIC
+	make -s -C resources/FreeImage clean FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Cleaning FreeImage finished"
 
 # ***************************************************************
