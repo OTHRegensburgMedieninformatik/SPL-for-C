@@ -44,56 +44,56 @@ $(BUILD):
 # ***************************************************************
 # Entryies to build the library
 
-build/$(PLATFORM)/obj/bst.o: c/src/bst.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/bst.o: c/src/bst.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
            c/include/exception.h c/include/foreach.h c/include/generic.h \
            c/include/iterator.h c/include/itertype.h c/include/strlib.h \
            c/include/unittest.h
 	@echo "Build bst.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/bst.o $(INCFLAGS) c/src/bst.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/bst.c -o build/$(PLATFORM_FOLDER)/obj/bst.o 
 
-build/$(PLATFORM)/obj/charset.o: c/src/charset.c c/include/charset.h c/include/cmpfn.h \
+build/$(PLATFORM_FOLDER)/obj/charset.o: c/src/charset.c c/include/charset.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/foreach.h \
                c/include/generic.h c/include/iterator.h c/include/itertype.h \
                c/include/strlib.h c/include/unittest.h
 	@echo "Build charset.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/charset.o $(INCFLAGS) c/src/charset.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/charset.c -o build/$(PLATFORM_FOLDER)/obj/charset.o 
 
-build/$(PLATFORM)/obj/cmdscan.o: c/src/cmdscan.c c/include/cmdscan.h c/include/cmpfn.h \
+build/$(PLATFORM_FOLDER)/obj/cmdscan.o: c/src/cmdscan.c c/include/cmdscan.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/generic.h \
                c/include/hashmap.h c/include/iterator.h c/include/itertype.h \
                c/include/private/tokenpatch.h c/include/simpio.h \
                c/include/strlib.h c/include/tokenscanner.h
 	@echo "Build cmdscan.o"               
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/cmdscan.o $(INCFLAGS) c/src/cmdscan.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/cmdscan.c -o build/$(PLATFORM_FOLDER)/obj/cmdscan.o
 
-build/$(PLATFORM)/obj/cmpfn.o: c/src/cmpfn.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
+build/$(PLATFORM_FOLDER)/obj/cmpfn.o: c/src/cmpfn.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
              c/include/strlib.h
 	@echo "Build cmpfn.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/cmpfn.o $(INCFLAGS) c/src/cmpfn.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/cmpfn.c -o build/$(PLATFORM_FOLDER)/obj/cmpfn.o
 
-build/$(PLATFORM)/obj/cslib.o: c/src/cslib.c c/include/cslib.h c/include/exception.h
+build/$(PLATFORM_FOLDER)/obj/cslib.o: c/src/cslib.c c/include/cslib.h c/include/exception.h
 	@echo "Build cslib.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/cslib.o $(INCFLAGS) c/src/cslib.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/cslib.c -o build/$(PLATFORM_FOLDER)/obj/cslib.o
 
-build/$(PLATFORM)/obj/exception.o: c/src/exception.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/exception.o: c/src/exception.c c/include/cmpfn.h c/include/cslib.h \
                  c/include/exception.h c/include/generic.h c/include/strlib.h \
                  c/include/unittest.h
 	@echo "Build exception.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/exception.o $(INCFLAGS) c/src/exception.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/exception.c -o build/$(PLATFORM_FOLDER)/obj/exception.o
 
-build/$(PLATFORM)/obj/filelib.o: c/src/filelib.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/filelib.o: c/src/filelib.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/filelib.h c/include/generic.h \
                c/include/iterator.h c/include/itertype.h c/include/strlib.h \
                c/include/unittest.h
 	@echo "Build filelib.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/filelib.o $(INCFLAGS) c/src/filelib.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/filelib.c -o build/$(PLATFORM_FOLDER)/obj/filelib.o
 
-build/$(PLATFORM)/obj/foreach.o: c/src/foreach.c c/include/cslib.h c/include/foreach.h \
+build/$(PLATFORM_FOLDER)/obj/foreach.o: c/src/foreach.c c/include/cslib.h c/include/foreach.h \
                c/include/iterator.h
 	@echo "Build foreach.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/foreach.o $(INCFLAGS) c/src/foreach.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/foreach.c -o build/$(PLATFORM_FOLDER)/obj/foreach.o
 
-build/$(PLATFORM)/obj/generic.o: c/src/generic.c c/include/charset.h c/include/cmpfn.h \
+build/$(PLATFORM_FOLDER)/obj/generic.o: c/src/generic.c c/include/charset.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/generic.h \
                c/include/gevents.h c/include/gobjects.h c/include/gtimer.h \
                c/include/gtypes.h c/include/gwindow.h c/include/hashmap.h \
@@ -101,92 +101,92 @@ build/$(PLATFORM)/obj/generic.o: c/src/generic.c c/include/charset.h c/include/c
                c/include/queue.h c/include/ref.h c/include/set.h c/include/stack.h \
                c/include/strbuf.h c/include/strlib.h c/include/vector.h
 	@echo "Build generic.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/generic.o $(INCFLAGS) c/src/generic.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/generic.c -o build/$(PLATFORM_FOLDER)/obj/generic.o 
 
-build/$(PLATFORM)/obj/gevents.o: c/src/gevents.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/gevents.o: c/src/gevents.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/generic.h c/include/gevents.h \
                c/include/ginteractors.h c/include/gobjects.h c/include/gtimer.h \
                c/include/gtypes.h c/include/gwindow.h c/include/hashmap.h \
                c/include/iterator.h c/include/platform.h c/include/sound.h \
                c/include/strlib.h c/include/unittest.h c/include/vector.h
 	@echo "Build gevents.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gevents.o $(INCFLAGS) c/src/gevents.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/gevents.c -o build/$(PLATFORM_FOLDER)/obj/gevents.o
 
-build/$(PLATFORM)/obj/gmath.o: c/src/gmath.c c/include/gmath.h
+build/$(PLATFORM_FOLDER)/obj/gmath.o: c/src/gmath.c c/include/gmath.h
 	@echo "Build gmath.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gmath.o $(INCFLAGS) c/src/gmath.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/gmath.c -o build/$(PLATFORM_FOLDER)/obj/gmath.o
 
-build/$(PLATFORM)/obj/gobjects.o: freeimage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/gobjects.o: freeimage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                 c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                 c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
                 c/include/sound.h c/include/vector.h  resources/FreeImage/Source/FreeImage.h
 	@echo "Build gobjects.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gobjects.o $(INCFLAGS) -Iresources/FreeImage/Dist/ c/src/gobjects.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/gobjects.c -o build/$(PLATFORM_FOLDER)/obj/gobjects.o
 
-build/$(PLATFORM)/obj/graph.o: c/src/graph.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/graph.o: c/src/graph.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/foreach.h c/include/generic.h \
              c/include/graph.h c/include/hashmap.h c/include/iterator.h \
              c/include/itertype.h c/include/set.h c/include/strlib.h \
              c/include/unittest.h
 	@echo "Build graph.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/graph.o $(INCFLAGS) c/src/graph.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/graph.c -o build/$(PLATFORM_FOLDER)/obj/graph.o
 
-build/$(PLATFORM)/obj/gtimer.o: c/src/gtimer.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/gtimer.o: c/src/gtimer.c c/include/cmpfn.h c/include/cslib.h \
               c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
               c/include/gobjects.h c/include/gtimer.h c/include/gtypes.h \
               c/include/gwindow.h c/include/platform.h c/include/sound.h \
               c/include/vector.h
 	@echo "Build gtimer.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gtimer.o $(INCFLAGS) c/src/gtimer.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/gtimer.c -o build/$(PLATFORM_FOLDER)/obj/gtimer.o
 
-build/$(PLATFORM)/obj/gtypes.o: c/src/gtypes.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/gtypes.o: c/src/gtypes.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/gtypes.h \
               c/include/unittest.h
 	@echo "Build gtypes.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gtypes.o $(INCFLAGS) c/src/gtypes.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/gtypes.c -o build/$(PLATFORM_FOLDER)/obj/gtypes.o
 
-build/$(PLATFORM)/obj/gwindow.o: c/src/gwindow.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/gwindow.o: c/src/gwindow.c c/include/cmpfn.h c/include/cslib.h \
                c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
                c/include/sound.h c/include/vector.h
 	@echo "Build gwindow.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gwindow.o $(INCFLAGS) c/src/gwindow.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/gwindow.c -o build/$(PLATFORM_FOLDER)/obj/gwindow.o
 
-build/$(PLATFORM)/obj/hashmap.o: c/src/hashmap.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/hashmap.o: c/src/hashmap.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/foreach.h c/include/generic.h \
                c/include/hashmap.h c/include/iterator.h c/include/itertype.h \
                c/include/strlib.h c/include/unittest.h
 	@echo "Build hashmap.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/hashmap.o $(INCFLAGS) c/src/hashmap.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/hashmap.c -o build/$(PLATFORM_FOLDER)/obj/hashmap.o 
 
-build/$(PLATFORM)/obj/iterator.o: c/src/iterator.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/iterator.o: c/src/iterator.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/iterator.h c/include/itertype.h
 	@echo "Build iterator.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/iterator.o $(INCFLAGS) c/src/iterator.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/iterator.c -o build/$(PLATFORM_FOLDER)/obj/iterator.o
 
-build/$(PLATFORM)/obj/loadobj.o: c/src/loadobj.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/loadobj.o: c/src/loadobj.c c/include/cmpfn.h c/include/cslib.h \
                c/include/filelib.h c/include/generic.h c/include/iterator.h \
                c/include/loadobj.h c/include/strlib.h
 	@echo "Build loadobj.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/loadobj.o $(INCFLAGS) c/src/loadobj.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/loadobj.c -o build/$(PLATFORM_FOLDER)/obj/loadobj.o
 
-build/$(PLATFORM)/obj/map.o: c/src/map.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/map.o: c/src/map.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
            c/include/exception.h c/include/foreach.h c/include/generic.h \
            c/include/iterator.h c/include/itertype.h c/include/map.h \
            c/include/strlib.h c/include/unittest.h
 	@echo "Build map.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/map.o $(INCFLAGS) c/src/map.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/map.c -o build/$(PLATFORM_FOLDER)/obj/map.o
 
-build/$(PLATFORM)/obj/options.o: c/src/options.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/options.o: c/src/options.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/generic.h c/include/hashmap.h \
                c/include/iterator.h c/include/options.h c/include/strlib.h \
                c/include/unittest.h c/include/vector.h
 	@echo "Build options.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/options.o $(INCFLAGS) c/src/options.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/options.c -o build/$(PLATFORM_FOLDER)/obj/options.o
 
-build/$(PLATFORM)/obj/platform.o: c/src/platform.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/platform.o: c/src/platform.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/filelib.h c/include/generic.h c/include/gevents.h \
                 c/include/ginteractors.h c/include/gobjects.h c/include/gtimer.h \
                 c/include/gtypes.h c/include/gwindow.h c/include/hashmap.h \
@@ -195,99 +195,99 @@ build/$(PLATFORM)/obj/platform.o: c/src/platform.c c/include/cmpfn.h c/include/c
                 c/include/simpio.h c/include/sound.h c/include/strbuf.h \
                 c/include/strlib.h c/include/tokenscanner.h c/include/vector.h
 	@echo "Build platform.o"
-	$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/platform.o $(INCFLAGS) c/src/platform.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/platform.c -o build/$(PLATFORM_FOLDER)/obj/platform.o
 
-build/$(PLATFORM)/obj/pqueue.o: c/src/pqueue.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/pqueue.o: c/src/pqueue.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/pqueue.h \
               c/include/unittest.h c/include/vector.h
 	@echo "Build pqueue.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/pqueue.o $(INCFLAGS) c/src/pqueue.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/pqueue.c -o build/$(PLATFORM_FOLDER)/obj/pqueue.o
 
-build/$(PLATFORM)/obj/queue.o: c/src/queue.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/queue.o: c/src/queue.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/generic.h c/include/queue.h \
              c/include/unittest.h
 	@echo "Build queue.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/queue.o $(INCFLAGS) c/src/queue.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/queue.c -o build/$(PLATFORM_FOLDER)/obj/queue.o
 
-build/$(PLATFORM)/obj/random.o: c/src/random.c c/include/cslib.h c/include/exception.h \
+build/$(PLATFORM_FOLDER)/obj/random.o: c/src/random.c c/include/cslib.h c/include/exception.h \
               c/include/private/randompatch.h c/include/random.h \
               c/include/unittest.h
 	@echo "Build random.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/random.o $(INCFLAGS) c/src/random.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/random.c -o build/$(PLATFORM_FOLDER)/obj/random.o
 
-build/$(PLATFORM)/obj/ref.o: c/src/ref.c c/include/cslib.h c/include/ref.h
+build/$(PLATFORM_FOLDER)/obj/ref.o: c/src/ref.c c/include/cslib.h c/include/ref.h
 	@echo "Build ref.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/ref.o $(INCFLAGS) c/src/ref.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/ref.c -o build/$(PLATFORM_FOLDER)/obj/ref.o
 
-build/$(PLATFORM)/obj/set.o: c/src/set.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/set.o: c/src/set.c c/include/bst.h c/include/cmpfn.h c/include/cslib.h \
            c/include/exception.h c/include/foreach.h c/include/generic.h \
            c/include/iterator.h c/include/itertype.h c/include/map.h \
            c/include/set.h c/include/strlib.h c/include/unittest.h
 	@echo "Build set.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/set.o $(INCFLAGS) c/src/set.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/set.c -o build/$(PLATFORM_FOLDER)/obj/set.o
 
-build/$(PLATFORM)/obj/simpio.o: c/src/simpio.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/simpio.o: c/src/simpio.c c/include/cmpfn.h c/include/cslib.h \
               c/include/generic.h c/include/simpio.h c/include/strlib.h
 	@echo "Build simpio.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/simpio.o $(INCFLAGS) c/src/simpio.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/simpio.c -o build/$(PLATFORM_FOLDER)/obj/simpio.o
 
-build/$(PLATFORM)/obj/sound.o: c/src/sound.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
+build/$(PLATFORM_FOLDER)/obj/sound.o: c/src/sound.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
              c/include/gevents.h c/include/ginteractors.h c/include/gobjects.h \
              c/include/gtimer.h c/include/gtypes.h c/include/gwindow.h \
              c/include/platform.h c/include/sound.h c/include/vector.h
 	@echo "Build sound.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/sound.o $(INCFLAGS) c/src/sound.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/sound.c -o build/$(PLATFORM_FOLDER)/obj/sound.o
 
-build/$(PLATFORM)/obj/stack.o: c/src/stack.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/stack.o: c/src/stack.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/generic.h c/include/stack.h \
              c/include/unittest.h
 	@echo "Build stack.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/stack.o $(INCFLAGS) c/src/stack.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/stack.c -o build/$(PLATFORM_FOLDER)/obj/stack.o
 
-build/$(PLATFORM)/obj/strbuf.o: c/src/strbuf.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/strbuf.o: c/src/strbuf.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/strbuf.h \
               c/include/strlib.h c/include/unittest.h
 	@echo "Build strbuf.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/strbuf.o $(INCFLAGS) c/src/strbuf.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/strbuf.c -o build/$(PLATFORM_FOLDER)/obj/strbuf.o
 
-build/$(PLATFORM)/obj/strlib.o: c/src/strlib.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/strlib.o: c/src/strlib.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/strlib.h \
               c/include/unittest.h
 	@echo "Build strlib.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/strlib.o $(INCFLAGS) c/src/strlib.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/strlib.c -o build/$(PLATFORM_FOLDER)/obj/strlib.o
 
-build/$(PLATFORM)/obj/tokenscanner.o: c/src/tokenscanner.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/tokenscanner.o: c/src/tokenscanner.c c/include/cmpfn.h c/include/cslib.h \
                     c/include/exception.h c/include/generic.h \
                     c/include/private/tokenpatch.h c/include/strbuf.h \
                     c/include/strlib.h c/include/tokenscanner.h \
                     c/include/unittest.h
 	@echo "Build tokenscanner.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/tokenscanner.o $(INCFLAGS) c/src/tokenscanner.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/tokenscanner.c -o build/$(PLATFORM_FOLDER)/obj/tokenscanner.o
 
-build/$(PLATFORM)/obj/unittest.o: c/src/unittest.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/unittest.o: c/src/unittest.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/exception.h c/include/generic.h c/include/strlib.h \
                 c/include/unittest.h
 	@echo "Build unittest.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/unittest.o $(INCFLAGS) c/src/unittest.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/unittest.c -o build/$(PLATFORM_FOLDER)/obj/unittest.o
 
-build/$(PLATFORM)/obj/unixfile.o: c/src/unixfile.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/unixfile.o: c/src/unixfile.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/filelib.h c/include/generic.h c/include/iterator.h \
                 c/include/strlib.h c/include/vector.h
 	@echo "Build unixfile.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/unixfile.o $(INCFLAGS) c/src/unixfile.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/unixfile.c -o build/$(PLATFORM_FOLDER)/obj/unixfile.o
 
-build/$(PLATFORM)/obj/winfile.o: c/src/unixfile.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/winfile.o: c/src/unixfile.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/filelib.h c/include/generic.h c/include/iterator.h \
                 c/include/strlib.h c/include/vector.h
 	@echo "Build winfile.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/winfile.o $(INCFLAGS) c/src/winfile.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/winfile.c -o build/$(PLATFORM_FOLDER)/obj/winfile.o
 
-build/$(PLATFORM)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib.h \
               c/include/exception.h c/include/generic.h c/include/iterator.h \
               c/include/itertype.h c/include/strlib.h c/include/unittest.h \
               c/include/vector.h
 	@echo "Build vector.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/vector.o $(INCFLAGS) c/src/vector.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/vector.c -o build/$(PLATFORM_FOLDER)/obj/vector.o
 
 
 # ***************************************************************
@@ -295,58 +295,58 @@ build/$(PLATFORM)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib
 
 $(LIBRARIES): $(RESOURCES) $(OBJECTS)
 	@echo "Build libcs.a"
-	@-rm -f build/$(PLATFORM)/lib/libcs.a
-	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
-	@ar rs build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
+	@-rm -f build/$(PLATFORM_FOLDER)/lib/libcs.a
+	@-rm -f build/$(PLATFORM_FOLDER)/lib/libfreeimage.a
+	@ar rs build/$(PLATFORM_FOLDER)/lib/libcs.a $(OBJECTS) 
 
-	@ranlib build/$(PLATFORM)/lib/libcs.a 
-	@cp -r c/include build/$(PLATFORM)/
-	@cp resources/FreeImage/Dist/FreeImage.h build/$(PLATFORM)/include/
-	@cp resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM)/lib/
+	@ranlib build/$(PLATFORM_FOLDER)/lib/libcs.a 
+	@cp -r c/include build/$(PLATFORM_FOLDER)/
+	@cp resources/FreeImage/Source/FreeImage.h build/$(PLATFORM_FOLDER)/include/
+	@cp resources/FreeImage/libfreeimage.a build/$(PLATFORM_FOLDER)/lib/
 
 # ***************************************************************
 # Entry to build Test program
 
-build/$(PLATFORM)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/include/cslib.h \
+build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/include/cslib.h \
 				c/include/strlib.h c/include/unittest.h
 	@echo "Build TestStanfordCSLib.o"
-	@$(CC) $(CFLAGS) -c -o build/$(PLATFORM)/obj/TestStanfordCSLib.o $(INCFLAGS) c/tests/TestStanfordCSLib.c 
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/tests/TestStanfordCSLib.c -o build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o
 
-TestStanfordCSLib: $(RESOURCES) $(TESTOBJECTS)  build/$(PLATFORM)/lib/libcs.a
+$(TESTS): $(LIBRARIES) build/$(PLATFORM_FOLDER)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
-	@$(CC) $(CFLAGS) -o build/$(PLATFORM)/tests/TestStanfordCSLib $(TESTOBJECTS) -Lbuild/$(PLATFORM)/lib -lcs -lm $(LDLIBS)
+	@$(CC) -D$(PLATFORM) $(INCFLAGS) $(CFLAGS) $(TESTOBJECTS) -Lbuild/$(PLATFORM_FOLDER)/lib -lcs -lm $(LDLIBS) -o build/$(PLATFORM_FOLDER)/tests/TestStanfordCSLib
 
 # ***************************************************************
 # Entry to build Java Back End
 
 $(JAR): stanford/spl/JavaBackEnd.class
 	@echo "Build spl.jar"
-	@cp java/lib/acm.jar build/$(PLATFORM)/lib/spl.jar
-	@(cd build/$(PLATFORM)/classes; jar ufm ../lib/spl.jar ../../../java/include/JBEManifest.txt \
+	@cp java/lib/acm.jar build/$(PLATFORM_FOLDER)/lib/spl.jar
+	@(cd build/$(PLATFORM_FOLDER)/classes; jar ufm ../lib/spl.jar ../../../java/include/JBEManifest.txt \
 		`find stanford -name '*.class'`)
 
 stanford/spl/JavaBackEnd.class: java/src/stanford/spl/*.java
 	@echo "Build JavaBackEnd.class"
-	@javac -d build/$(PLATFORM)/classes -classpath java/lib/acm.jar -sourcepath java/src \
+	@javac -d build/$(PLATFORM_FOLDER)/classes -classpath java/lib/acm.jar -sourcepath java/src \
 		java/src/stanford/spl/JavaBackEnd.java
 
 
 # ***************************************************************
 # Entry to install the library
 
-install: build/$(PLATFORM)/lib/libcs.a $(JAR)
+install: build/$(PLATFORM_FOLDER)/lib/libcs.a $(JAR)
 	rm -rf /usr/local/include/spl
-	cp -r build/$(PLATFORM)/include /usr/local/include/spl
+	cp -r build/$(PLATFORM_FOLDER)/include /usr/local/include/spl
 	chmod -R a+rX /usr/local/include/spl
-	cp build/$(PLATFORM)/lib/{libcs.a,spl.jar} /usr/local/lib/
+	cp build/$(PLATFORM_FOLDER)/lib/{libcs.a,spl.jar} /usr/local/lib/
 	chmod -R a+r /usr/local/lib/{libcs.a,spl.jar}
 
 # ***************************************************************
 # Entry to build the examples
 
-examples: build/$(PLATFORM)/lib/libcs.a $(JAR)
+examples: build/$(PLATFORM_FOLDER)/lib/libcs.a $(JAR)
 	@echo "Build Examples"
-	@cp build/$(PLATFORM)/lib/spl.jar c/examples/
+	@cp build/$(PLATFORM_FOLDER)/lib/spl.jar c/examples/
 	@$(MAKE) $(MAKE_PARALLEL) -C c/examples
 
 # ***************************************************************
