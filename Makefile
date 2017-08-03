@@ -80,6 +80,6 @@ help:
 	@echo "make starter => Create all starter project"
 	@echo "make clion => Create as clion starter project"
 	@echo "make codeblocks => Create as codeblocks starter project"
-	@echo "make makefile => Create as makefile starter project"
+	@echo "make mfile => Create as makefile starter project"
 	@echo "make clean => Cleans the whole project"
 	@echo "make help => Show this message"
