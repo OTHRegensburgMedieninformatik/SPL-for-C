@@ -297,7 +297,7 @@ $(LIBRARIES): $(RESOURCES) $(OBJECTS)
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
-	@ar cr build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
+	@ar rs build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
 
 	@ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/

@@ -300,11 +300,11 @@ $(LIBRARIES): $(RESOURCES) $(OBJECTS)
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
-	@ar cr build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
+	@ar rs build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
 
 	@ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/
-	@cp resources/FreeImage/Dist/FreeImage.h build/$(PLATFORM)/include/
+	@cp resources/FreeImage/Source/FreeImage.h build/$(PLATFORM)/include/
 	@cp resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM)/lib/
 
 # ***************************************************************
@@ -325,14 +325,11 @@ TestStanfordCSLib: $(RESOURCES) $(TESTOBJECTS)  build/$(PLATFORM)/lib/libcs.a
 $(JAR): stanford/spl/JavaBackEnd.class
 	@echo "Build spl.jar"
 	@cp java/lib/acm.jar build/$(PLATFORM)/lib/spl.jar
-	@(cd build/$(PLATFORM)/classes; jar ufm ../lib/spl.jar ../../../java/include/JBEManifest.txt \
-		`find stanford -name '*.class'`)
+	@(cd build/$(PLATFORM)/classes; jar ufm ../lib/spl.jar ../../../java/include/JBEManifest.txt `find stanford -name '*.class'`)
 
 stanford/spl/JavaBackEnd.class: java/src/stanford/spl/*.java
 	@echo "Build JavaBackEnd.class"
-	@javac -d build/$(PLATFORM)/classes -classpath java/lib/acm.jar -sourcepath java/src \
-		java/src/stanford/spl/JavaBackEnd.java
-
+	@javac -d build/$(PLATFORM)/classes -classpath java/lib/acm.jar -sourcepath java/src java/src/stanford/spl/JavaBackEnd.java
 
 # ***************************************************************
 # Entry to install the library

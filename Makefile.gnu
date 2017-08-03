@@ -297,7 +297,7 @@ $(LIBRARIES): $(RESOURCES) $(OBJECTS)
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
-	@ar cr build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
+	@ar rs build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
 
 	@ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/
@@ -412,7 +412,7 @@ codeblocks: lib
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-makefile: lib
+mfile: lib
 	@echo "Build StarterProject for Makefile Project";
 	@rm -rf StarterProject
 	@cp -r ide/makefile StarterProject
