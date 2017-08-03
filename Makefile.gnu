@@ -5,6 +5,7 @@ include Makefile.srcs
 
 # Base variables for the build process
 PLATFORM = unixlike
+PLATFORM_FOLDER = unixlike
 MAKE_PARALLEL = -j$(J)
 
 # Sets the target platform for SPL
@@ -14,7 +15,7 @@ CC = gcc
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
 CFLAGS = -std=gnu11 #-DPIPEDEBUG 
 LDLIBS = -lfreeimage -lstdc++
-INCFLAGS = -Ic/include
+INCFLAGS = -Ic/include -Iresource/FreeImage/Source
 
 .PHONY: freeimage
 
