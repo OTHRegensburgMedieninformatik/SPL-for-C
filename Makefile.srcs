@@ -49,11 +49,9 @@ LIBRARIES = \
 RESOURCES = \
     freeimage 
 
-TESTOBJECTS = \
-    build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o 
+#TESTOBJECTS = build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o 
 
-TESTS = \
-    TestStanfordCSLib 
+#TESTS = TestStanfordCSLib 
 
 JAR = \
     spl.jar 
