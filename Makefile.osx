@@ -1,11 +1,11 @@
 # ****************************************************************
-# Makefile for SPL on Linux
+# Makefile for SPL on MacOSX
 
 include Makefile.srcs
 
 # Base variables for the build process
-PLATFORM = unixlike
-MAKE_PARALLEL = -j4
+PLATFORM = macosx
+MAKE_PARALLEL = -j$(J)
 
 # Sets the target platform for SPL
 # Valid values for variable platform are unixlike and windows
@@ -25,13 +25,13 @@ freeimage:
 	@echo "Build FreeImage started"
 	@echo "This could take some realy long time ..."
 	@echo "Building ..."
-	@make $(MAKE_PARALLEL) -s -C resources/FreeImage FREEIMAGE_LIBRARY_TYPE=STATIC
+	@$(MAKE) $(MAKE_PARALLEL) -s -C resources/FreeImage FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Build FreeImage finished"
 
 freeimage_clean:
 	@echo "Cleaning FreeImage started"
 	@echo "Cleaning ..."
-	@make -s -C resources/FreeImage clean FREEIMAGE_LIBRARY_TYPE=STATIC
+	@$(MAKE) $(MAKE_PARALLEL) -s -C resources/FreeImage clean FREEIMAGE_LIBRARY_TYPE=STATIC
 	@echo "Cleaning FreeImage finished"
 
 # ***************************************************************
@@ -120,7 +120,7 @@ build/$(PLATFORM)/obj/gobjects.o: freeimage c/src/gobjects.c c/include/cmpfn.h c
                 c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
                 c/include/gmath.h c/include/gobjects.h c/include/gtimer.h \
                 c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
-                c/include/sound.h c/include/vector.h  resources/FreeImage/Dist/FreeImage.h
+                c/include/sound.h c/include/vector.h  resources/FreeImage/Source/FreeImage.h
 	@echo "Build gobjects.o"
 	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gobjects.o $(INCFLAGS) -Iresources/FreeImage/Dist/ c/src/gobjects.c
 
@@ -293,12 +293,11 @@ build/$(PLATFORM)/obj/vector.o: c/src/vector.c c/include/cmpfn.h c/include/cslib
 # ***************************************************************
 # Entry to reconstruct the library archive
 
-build/$(PLATFORM)/lib/libcs.a: $(OBJECTS) resources/FreeImage/Dist/libfreeimage.a
+$(LIBRARIES): $(RESOURCES) $(OBJECTS)
 	@echo "Build libcs.a"
 	@-rm -f build/$(PLATFORM)/lib/libcs.a
 	@-rm -f build/$(PLATFORM)/lib/libfreeimage.a
-	@ar cr build/$(PLATFORM)/lib/libcs.a \
-			 $(OBJECTS) 
+	@ar cr build/$(PLATFORM)/lib/libcs.a $(OBJECTS) 
 
 	@ranlib build/$(PLATFORM)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM)/
@@ -313,7 +312,7 @@ build/$(PLATFORM)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/include
 	@echo "Build TestStanfordCSLib.o"
 	@$(CC) $(CFLAGS) -c -o build/$(PLATFORM)/obj/TestStanfordCSLib.o $(INCFLAGS) c/tests/TestStanfordCSLib.c 
 
-TestStanfordCSLib: $(TESTOBJECTS) resources/FreeImage/Dist/libFreeImage.a build/$(PLATFORM)/lib/libcs.a
+TestStanfordCSLib: $(RESOURCES) $(TESTOBJECTS)  build/$(PLATFORM)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
 	@$(CC) $(CFLAGS) -o build/$(PLATFORM)/tests/TestStanfordCSLib $(TESTOBJECTS) -Lbuild/$(PLATFORM)/lib -lcs -lm $(LDLIBS)
 
@@ -325,7 +324,6 @@ $(JAR): stanford/spl/JavaBackEnd.class
 	@cp java/lib/acm.jar build/$(PLATFORM)/lib/spl.jar
 	@(cd build/$(PLATFORM)/classes; jar ufm ../lib/spl.jar ../../../java/include/JBEManifest.txt \
 		`find stanford -name '*.class'`)
-#	@echo jar cf build/$(PLATFORM)/lib/spl.jar . . .
 
 stanford/spl/JavaBackEnd.class: java/src/stanford/spl/*.java
 	@echo "Build JavaBackEnd.class"
@@ -349,7 +347,7 @@ install: build/$(PLATFORM)/lib/libcs.a $(JAR)
 examples: build/$(PLATFORM)/lib/libcs.a $(JAR)
 	@echo "Build Examples"
 	@cp build/$(PLATFORM)/lib/spl.jar c/examples/
-	@make -C c/examples
+	@$(MAKE) $(MAKE_PARALLEL) -C c/examples
 
 # ***************************************************************
 # Entry to bring the package up to date
