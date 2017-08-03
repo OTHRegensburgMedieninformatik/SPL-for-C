@@ -21,55 +21,53 @@ else
     endif
 endif
 
-
-
 all:
 	@echo Build $@ on $(PLATFORM) 
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 freeimage:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 freeimage_clean:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 lib:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 install:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 examples:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 starter:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 makefile:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 codeblocks:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 clion:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 tidy:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 scratch clean:
 	@echo Build $@ on $(PLATFORM)
-	$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
+	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
 help:
 	@echo "The following command could be called"
@@ -85,7 +83,3 @@ help:
 	@echo "make makefile => Create as makefile starter project"
 	@echo "make clean => Cleans the whole project"
 	@echo "make help => Show this message"
-
-
-
-
