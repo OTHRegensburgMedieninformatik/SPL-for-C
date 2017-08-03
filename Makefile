@@ -49,7 +49,7 @@ starter:
 	@echo Build $@ on $(PLATFORM)
 	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
-makefile:
+mfile:
 	@echo Build $@ on $(PLATFORM)
 	@$(MAKE) $(SILENT) -fMakefile.$(MAKE_FILE) $@
 
