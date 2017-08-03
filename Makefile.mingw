@@ -20,7 +20,7 @@ INCFLAGS = -Ic/include -Iresources/FreeImage/Source/
 # Modify sources for os
 OBJECTS += build/$(PLATFORM)/obj/winfile.o \
 
-.PHONY: freeimage
+.PHONY: freeimage 
 
 # ***************************************************************
 # Entryies to build the resources
@@ -416,7 +416,7 @@ codeblocks: lib
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-makefile: lib
+mfile: lib
 	@echo "Build StarterProject for Makefile Project";
 	@rm -rf StarterProject
 	@cp -r ide/makefile StarterProject

@@ -414,7 +414,7 @@ codeblocks: lib
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-makefile: lib
+mfile: lib
 	@echo "Build StarterProject for Makefile Project";
 	@rm -rf StarterProject
 	@cp -r ide/makefile StarterProject

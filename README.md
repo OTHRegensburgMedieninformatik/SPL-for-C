@@ -47,7 +47,7 @@ The library comes with a StartProject for Clion that have all needed files inclu
 
 The StartProject can be created with one of the following commands
 
-    IDE = [ "clion", "codeblocks", "makefile"]
+    IDE = [ "clion", "codeblocks", "mfile"]
     
     make IDE
     >make clion     or
