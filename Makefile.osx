@@ -357,7 +357,7 @@ all: $(RESOURCES) $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR) $(EXAMPLES)
 
 lib: $(RESOURCES) $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 
-starterprojects: lib
+starter: lib
 	@echo "Build StarterProjects"
 	@rm -rf StarterProjects
 	@mkdir StarterProjects
