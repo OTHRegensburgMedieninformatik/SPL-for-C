@@ -8,6 +8,8 @@ PLATFORM = unixlike
 PLATFORM_FOLDER = macos
 MAKE_PARALLEL = -j$(J)
 
+LIBRARIES = build/$(PLATFORM_FOLDER)/lib/libcs.a 
+
 # Sets the target platform for SPL
 # Valid values for variable platform are unixlike and windows
 CC = gcc
