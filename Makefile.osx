@@ -313,7 +313,7 @@ build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/
 	@echo "Build TestStanfordCSLib.o"
 	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/tests/TestStanfordCSLib.c -o build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o
 
-$(TESTS): lib build/$(PLATFORM_FOLDER)/lib/libcs.a
+$(TESTS): $(LIBRARIES) build/$(PLATFORM_FOLDER)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
 	@$(CC) -D$(PLATFORM) $(INCFLAGS) $(CFLAGS) $(TESTOBJECTS) -Lbuild/$(PLATFORM_FOLDER)/lib -lcs -lm $(LDLIBS) -o build/$(PLATFORM_FOLDER)/tests/TestStanfordCSLib
 
