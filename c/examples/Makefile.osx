@@ -5,17 +5,18 @@ include Makefile.srcs
 
 # Base variables for the build process
 PLATFORM = unixlike
-PLATFORM_FOLDER = macosx
+PLATFORM_FOLDER = macos
 
 # Sets the target platform for SPL
 # Valid values for variable platform are unixlike and windows
 CC = gcc
 
-SDK_PATH = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
-FLAGS = -L../../build/$(PLATFORM_FOLDER)/lib -lcs -lm -lfreeimage -lstdc++ -lshlwapi -lws2_32
-FLAGS = -L../../build/$(PLATFORM_FOLDER)/lib -lcs -lm -lfreeimage -lstdc++ -syslibroot $(SDK_PATH)
+#SDK_BASE = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+
+FLAGS = -L../../build/$(PLATFORM_FOLDER)/lib -lcs -lm -lfreeimage -lstdc++ 
+FLAGS = -L../../build/$(PLATFORM_FOLDER)/lib -lcs -lm -lfreeimage -lstdc++ #-isyslibroot $(SDK_BASE)
 CSTD = -std=c11 -stdlib=libstdc++ 
-INCFLAGS = -I../../build/$(PLATFORM_FOLDER)/include -I../include -isysroot $(SDK_PATH)
+INCFLAGS = -I../../build/$(PLATFORM_FOLDER)/include -I../include #-isysroot $(SDK_BASE)
 
 
 # ***************************************************************
@@ -26,7 +27,7 @@ all: $(PROGRAMS)
 
 Breakout: Breakout.o
 	@echo Build $@
-	@$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS) -lfreeimage 
+	@$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
 
 Breakout.o: Breakout.c
 	@echo Build $@
