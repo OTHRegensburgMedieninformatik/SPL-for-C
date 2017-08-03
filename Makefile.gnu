@@ -15,7 +15,7 @@ CC = gcc
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
 CFLAGS = -std=gnu11 #-DPIPEDEBUG 
 LDLIBS = -lfreeimage -lstdc++
-INCFLAGS = -Ic/include -Iresource/FreeImage/Source
+INCFLAGS = -Ic/include -Iresources/FreeImage/Source/
 
 .PHONY: freeimage
 
@@ -413,7 +413,7 @@ codeblocks: lib
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-mfile: lib
+makefile: lib
 	@echo "Build StarterProject for Makefile Project";
 	@rm -rf StarterProject
 	@cp -r ide/makefile StarterProject
