@@ -1,62 +1,62 @@
 BUILD = \
     build \
-    build/$(PLATFORM) \
-    build/$(PLATFORM)/classes \
-    build/$(PLATFORM)/lib \
-    build/$(PLATFORM)/obj \
-    build/$(PLATFORM)/tests \
+    build/$(PLATFORM_FOLDER) \
+    build/$(PLATFORM_FOLDER)/classes \
+    build/$(PLATFORM_FOLDER)/lib \
+    build/$(PLATFORM_FOLDER)/obj \
+    build/$(PLATFORM_FOLDER)/tests 
 
 OBJECTS = \
-    build/$(PLATFORM)/obj/bst.o \
-    build/$(PLATFORM)/obj/charset.o \
-    build/$(PLATFORM)/obj/cmpfn.o \
-    build/$(PLATFORM)/obj/cslib.o \
-    build/$(PLATFORM)/obj/exception.o \
-    build/$(PLATFORM)/obj/filelib.o \
-    build/$(PLATFORM)/obj/foreach.o \
-    build/$(PLATFORM)/obj/generic.o \
-    build/$(PLATFORM)/obj/gevents.o \
-    build/$(PLATFORM)/obj/gobjects.o \
-    build/$(PLATFORM)/obj/gmath.o \
-    build/$(PLATFORM)/obj/graph.o \
-    build/$(PLATFORM)/obj/gtimer.o \
-    build/$(PLATFORM)/obj/gtypes.o \
-    build/$(PLATFORM)/obj/gwindow.o \
-    build/$(PLATFORM)/obj/hashmap.o \
-    build/$(PLATFORM)/obj/iterator.o \
-    build/$(PLATFORM)/obj/loadobj.o \
-    build/$(PLATFORM)/obj/map.o \
-    build/$(PLATFORM)/obj/options.o \
-    build/$(PLATFORM)/obj/platform.o \
-    build/$(PLATFORM)/obj/pqueue.o \
-    build/$(PLATFORM)/obj/queue.o \
-    build/$(PLATFORM)/obj/random.o \
-    build/$(PLATFORM)/obj/ref.o \
-    build/$(PLATFORM)/obj/set.o \
-    build/$(PLATFORM)/obj/simpio.o \
-    build/$(PLATFORM)/obj/sound.o \
-    build/$(PLATFORM)/obj/stack.o \
-    build/$(PLATFORM)/obj/strbuf.o \
-    build/$(PLATFORM)/obj/strlib.o \
-    build/$(PLATFORM)/obj/tokenscanner.o \
-    build/$(PLATFORM)/obj/unittest.o \
-    build/$(PLATFORM)/obj/unixfile.o \
-    build/$(PLATFORM)/obj/vector.o \
+    build/$(PLATFORM_FOLDER)/obj/bst.o \
+    build/$(PLATFORM_FOLDER)/obj/charset.o \
+    build/$(PLATFORM_FOLDER)/obj/cmpfn.o \
+    build/$(PLATFORM_FOLDER)/obj/cslib.o \
+    build/$(PLATFORM_FOLDER)/obj/exception.o \
+    build/$(PLATFORM_FOLDER)/obj/filelib.o \
+    build/$(PLATFORM_FOLDER)/obj/foreach.o \
+    build/$(PLATFORM_FOLDER)/obj/generic.o \
+    build/$(PLATFORM_FOLDER)/obj/gevents.o \
+    build/$(PLATFORM_FOLDER)/obj/gobjects.o \
+    build/$(PLATFORM_FOLDER)/obj/gmath.o \
+    build/$(PLATFORM_FOLDER)/obj/graph.o \
+    build/$(PLATFORM_FOLDER)/obj/gtimer.o \
+    build/$(PLATFORM_FOLDER)/obj/gtypes.o \
+    build/$(PLATFORM_FOLDER)/obj/gwindow.o \
+    build/$(PLATFORM_FOLDER)/obj/hashmap.o \
+    build/$(PLATFORM_FOLDER)/obj/iterator.o \
+    build/$(PLATFORM_FOLDER)/obj/loadobj.o \
+    build/$(PLATFORM_FOLDER)/obj/map.o \
+    build/$(PLATFORM_FOLDER)/obj/options.o \
+    build/$(PLATFORM_FOLDER)/obj/platform.o \
+    build/$(PLATFORM_FOLDER)/obj/pqueue.o \
+    build/$(PLATFORM_FOLDER)/obj/queue.o \
+    build/$(PLATFORM_FOLDER)/obj/random.o \
+    build/$(PLATFORM_FOLDER)/obj/ref.o \
+    build/$(PLATFORM_FOLDER)/obj/set.o \
+    build/$(PLATFORM_FOLDER)/obj/simpio.o \
+    build/$(PLATFORM_FOLDER)/obj/sound.o \
+    build/$(PLATFORM_FOLDER)/obj/stack.o \
+    build/$(PLATFORM_FOLDER)/obj/strbuf.o \
+    build/$(PLATFORM_FOLDER)/obj/strlib.o \
+    build/$(PLATFORM_FOLDER)/obj/tokenscanner.o \
+    build/$(PLATFORM_FOLDER)/obj/unittest.o \
+    build/$(PLATFORM_FOLDER)/obj/unixfile.o \
+    build/$(PLATFORM_FOLDER)/obj/vector.o 
 
 LIBRARIES = \
-    build/$(PLATFORM)/lib/libcs.a \
+    build/$(PLATFORM_FOLDER)/lib/libcs.a 
 
 RESOURCES = \
-    freeimage \
+    freeimage 
 
 TESTOBJECTS = \
-    build/$(PLATFORM)/obj/TestStanfordCSLib.o \
+    build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o 
 
 TESTS = \
-    TestStanfordCSLib \
+    TestStanfordCSLib 
 
 JAR = \
-    spl.jar \
+    spl.jar 
 
 PROJECT = \
     StarterProject \

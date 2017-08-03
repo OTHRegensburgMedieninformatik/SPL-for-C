@@ -1,6 +1,5 @@
 # ****************************************************************
 # Makefile for SPL on MacOSX
-
 include Makefile.srcs
 
 # Base variables for the build process
@@ -304,8 +303,8 @@ $(LIBRARIES): $(RESOURCES) $(OBJECTS)
 
 	@ranlib build/$(PLATFORM_FOLDER)/lib/libcs.a 
 	@cp -r c/include build/$(PLATFORM_FOLDER)/
-	@cp resources/FreeImage/Dist/FreeImage.h build/$(PLATFORM_FOLDER)/include/
-	@cp resources/FreeImage/Dist/libfreeimage.a build/$(PLATFORM_FOLDER)/lib/
+	@cp resources/FreeImage/Source/FreeImage.h build/$(PLATFORM_FOLDER)/include/
+	@cp resources/FreeImage/libfreeimage.a build/$(PLATFORM_FOLDER)/lib/
 
 # ***************************************************************
 # Entry to build Test program

@@ -72,4 +72,4 @@ install:
 	ln -sf $(SHAREDLIB) $(INSTALLDIR)/$(LIBNAME)
 
 clean:
-	rm -f core Dist/*.* u2dtmp* $(MODULES) $(STATICLIB) $(STATICLIB)-$(ARCH) $(SHAREDLIB) $(SHAREDLIB)-$(ARCH)
+	rm -f core Dist u2dtmp* $(MODULES) $(STATICLIB) $(STATICLIB)-$(ARCH) $(SHAREDLIB) $(SHAREDLIB)-$(ARCH)
