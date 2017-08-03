@@ -313,7 +313,7 @@ build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o: c/tests/TestStanfordCSLib.c c/
 	@echo "Build TestStanfordCSLib.o"
 	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/tests/TestStanfordCSLib.c -o build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o
 
-TestStanfordCSLib: $(RESOURCES) $(TESTOBJECTS)  build/$(PLATFORM_FOLDER)/lib/libcs.a
+$(TESTS): lib build/$(PLATFORM_FOLDER)/lib/libcs.a
 	@echo "Build TestStanfordCSLib"
 	@$(CC) -D$(PLATFORM) $(INCFLAGS) $(CFLAGS) $(TESTOBJECTS) -Lbuild/$(PLATFORM_FOLDER)/lib -lcs -lm $(LDLIBS) -o build/$(PLATFORM_FOLDER)/tests/TestStanfordCSLib
 
@@ -354,9 +354,9 @@ examples: build/$(PLATFORM_FOLDER)/lib/libcs.a $(JAR)
 # Entry to bring the package up to date
 #    The "make all" entry should be the first real entry
 
-all: $(RESOURCES) $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR) $(EXAMPLES)
+all: $(RESOURCES) $(BUILD) $(OBJECTS) $(LIBRARIES) $(JAR) $(TESTS) $(EXAMPLES)
 
-lib: $(RESOURCES) $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
+lib: $(RESOURCES) $(BUILD) $(OBJECTS) $(LIBRARIES) $(JAR) $(TESTS)
 
 starter: lib
 	@echo "Build StarterProjects"
