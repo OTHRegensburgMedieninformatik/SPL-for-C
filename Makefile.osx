@@ -12,9 +12,9 @@ MAKE_PARALLEL = -j$(J)
 CC = gcc
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
-CFLAGS = -std=gnu11 #-DPIPEDEBUG 
+CFLAGS = -std=gnu11 -D__ANSI__
 LDLIBS = -lfreeimage -lstdc++
-INCFLAGS = -Ic/include
+INCFLAGS = -Ic/include -Iresources/FreeImage/Source/
 
 .PHONY: freeimage
 
@@ -49,14 +49,14 @@ build/$(PLATFORM)/obj/bst.o: c/src/bst.c c/include/bst.h c/include/cmpfn.h c/inc
            c/include/iterator.h c/include/itertype.h c/include/strlib.h \
            c/include/unittest.h
 	@echo "Build bst.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/bst.o $(INCFLAGS) c/src/bst.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/bst.c -o build/$(PLATFORM)/obj/bst.o 
 
 build/$(PLATFORM)/obj/charset.o: c/src/charset.c c/include/charset.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/foreach.h \
                c/include/generic.h c/include/iterator.h c/include/itertype.h \
                c/include/strlib.h c/include/unittest.h
 	@echo "Build charset.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/charset.o $(INCFLAGS) c/src/charset.c
+	@$(CC) -D$(PLATFORM) -c $(INCFLAGS) $(CFLAGS) c/src/charset.c -o build/$(PLATFORM)/obj/charset.o 
 
 build/$(PLATFORM)/obj/cmdscan.o: c/src/cmdscan.c c/include/cmdscan.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/generic.h \
@@ -64,34 +64,34 @@ build/$(PLATFORM)/obj/cmdscan.o: c/src/cmdscan.c c/include/cmdscan.h c/include/c
                c/include/private/tokenpatch.h c/include/simpio.h \
                c/include/strlib.h c/include/tokenscanner.h
 	@echo "Build cmdscan.o"               
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/cmdscan.o $(INCFLAGS) c/src/cmdscan.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c $(INCFLAGS) c/src/cmdscan.c -o build/$(PLATFORM)/obj/cmdscan.o
 
 build/$(PLATFORM)/obj/cmpfn.o: c/src/cmpfn.c c/include/cmpfn.h c/include/cslib.h c/include/generic.h \
              c/include/strlib.h
 	@echo "Build cmpfn.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/cmpfn.o $(INCFLAGS) c/src/cmpfn.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/cmpfn.c -o build/$(PLATFORM)/obj/cmpfn.o
 
 build/$(PLATFORM)/obj/cslib.o: c/src/cslib.c c/include/cslib.h c/include/exception.h
 	@echo "Build cslib.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/cslib.o $(INCFLAGS) c/src/cslib.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/cslib.c -o build/$(PLATFORM)/obj/cslib.o
 
 build/$(PLATFORM)/obj/exception.o: c/src/exception.c c/include/cmpfn.h c/include/cslib.h \
                  c/include/exception.h c/include/generic.h c/include/strlib.h \
                  c/include/unittest.h
 	@echo "Build exception.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/exception.o $(INCFLAGS) c/src/exception.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/exception.c -o build/$(PLATFORM)/obj/exception.o
 
 build/$(PLATFORM)/obj/filelib.o: c/src/filelib.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/filelib.h c/include/generic.h \
                c/include/iterator.h c/include/itertype.h c/include/strlib.h \
                c/include/unittest.h
 	@echo "Build filelib.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/filelib.o $(INCFLAGS) c/src/filelib.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/filelib.c -o build/$(PLATFORM)/obj/filelib.o
 
 build/$(PLATFORM)/obj/foreach.o: c/src/foreach.c c/include/cslib.h c/include/foreach.h \
                c/include/iterator.h
 	@echo "Build foreach.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/foreach.o $(INCFLAGS) c/src/foreach.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/foreach.c -o build/$(PLATFORM)/obj/foreach.o
 
 build/$(PLATFORM)/obj/generic.o: c/src/generic.c c/include/charset.h c/include/cmpfn.h \
                c/include/cslib.h c/include/exception.h c/include/generic.h \
@@ -101,7 +101,7 @@ build/$(PLATFORM)/obj/generic.o: c/src/generic.c c/include/charset.h c/include/c
                c/include/queue.h c/include/ref.h c/include/set.h c/include/stack.h \
                c/include/strbuf.h c/include/strlib.h c/include/vector.h
 	@echo "Build generic.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/generic.o $(INCFLAGS) c/src/generic.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  c/src/generic.c -o build/$(PLATFORM)/obj/generic.o $(INCFLAGS)
 
 build/$(PLATFORM)/obj/gevents.o: c/src/gevents.c c/include/cmpfn.h c/include/cslib.h \
                c/include/exception.h c/include/generic.h c/include/gevents.h \
@@ -110,11 +110,11 @@ build/$(PLATFORM)/obj/gevents.o: c/src/gevents.c c/include/cmpfn.h c/include/csl
                c/include/iterator.h c/include/platform.h c/include/sound.h \
                c/include/strlib.h c/include/unittest.h c/include/vector.h
 	@echo "Build gevents.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gevents.o $(INCFLAGS) c/src/gevents.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/gevents.c -o build/$(PLATFORM)/obj/gevents.o
 
 build/$(PLATFORM)/obj/gmath.o: c/src/gmath.c c/include/gmath.h
 	@echo "Build gmath.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gmath.o $(INCFLAGS) c/src/gmath.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS) c/src/gmath.c -o build/$(PLATFORM)/obj/gmath.o
 
 build/$(PLATFORM)/obj/gobjects.o: freeimage c/src/gobjects.c c/include/cmpfn.h c/include/cslib.h \
                 c/include/generic.h c/include/gevents.h c/include/ginteractors.h \
@@ -122,7 +122,7 @@ build/$(PLATFORM)/obj/gobjects.o: freeimage c/src/gobjects.c c/include/cmpfn.h c
                 c/include/gtypes.h c/include/gwindow.h c/include/platform.h \
                 c/include/sound.h c/include/vector.h  resources/FreeImage/Source/FreeImage.h
 	@echo "Build gobjects.o"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o build/$(PLATFORM)/obj/gobjects.o $(INCFLAGS) -Iresources/FreeImage/Dist/ c/src/gobjects.c
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c  $(INCFLAGS)  c/src/gobjects.c -o build/$(PLATFORM)/obj/gobjects.o
 
 build/$(PLATFORM)/obj/graph.o: c/src/graph.c c/include/cmpfn.h c/include/cslib.h \
              c/include/exception.h c/include/foreach.h c/include/generic.h \
