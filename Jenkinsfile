@@ -7,9 +7,27 @@ pipeline {
                 sh 'make clean'
             }
         }
-        stage('Build') { 
+        stage('Build FreeImage') { 
             steps { 
-                sh 'make -j6'
+                sh 'make -j6 freeimage'
+            }
+        }
+        stage('Build Lib') { 
+            steps { 
+                sh 'make -j6 lib'
+            }
+        }
+        stage('Build Examples') { 
+            steps { 
+                sh 'make -j6 examples'
+            }
+        }
+        stage('Build Starter') { 
+            steps { 
+                sh 'make -j6 clion'
+                sh 'make -j6 codeblocks'
+                sh 'make -j6 mfile'
+                sh 'make -j6 starter'
             }
         }
     }
