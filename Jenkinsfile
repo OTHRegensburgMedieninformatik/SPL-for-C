@@ -22,14 +22,6 @@ pipeline {
                 sh 'make -j6 examples'
             }
         }
-        stage('Build Starter') { 
-            steps { 
-                sh 'make -j6 clion'
-                sh 'make -j6 codeblocks'
-                sh 'make -j6 mfile'
-                sh 'make -j6 starter'
-            }
-        }
         stage('Build Clion') { 
             steps { 
                 sh 'make -j6 clion'
