@@ -30,5 +30,25 @@ pipeline {
                 sh 'make -j6 starter'
             }
         }
+        stage('Build Clion') { 
+            steps { 
+                sh 'make -j6 clion'
+            }
+        }
+        stage('Build Codeblocks') { 
+            steps { 
+                sh 'make -j6 codeblocks'
+            }
+        }
+        stage('Build Makefile') { 
+            steps { 
+                sh 'make -j6 mfile'
+            }
+        }
+        stage('Build Starter') { 
+            steps { 
+                sh 'make -j6 starter'
+            }
+        }
     }
 }
