@@ -1,0 +1,16 @@
+PROGRAMS = \
+    Breakout \
+    DrawLines \
+    DrawRectangles \
+    GHelloWorld \
+    PacMan \
+    StopSign \
+    TestGraphics \
+    TestInteractors \
+    TestPixelArray \
+    FlipImage \
+    CarSimulator \
+    BrickPyramid \
+    DrawTarget \
+    CarSimulatorStructs \
+    USFlag

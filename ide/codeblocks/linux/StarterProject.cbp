@@ -17,6 +17,8 @@
 				</Compiler>
 				<Linker>
 					<Add library="lib/libcs.a" />
+					<Add library="lib/lifreeimage.a" />
+					<Add library="stdc++" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="cmd /c copy $(PROJECT_DIR)lib\spl.jar $(TARGET_OUTPUT_DIR)spl.jar" />
@@ -35,6 +37,8 @@
 				<Linker>
 					<Add option="-s" />
 					<Add library="lib/libcs.a" />
+					<Add library="lib/lifreeimage.a" />
+					<Add library="stdc++" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="cmd /c copy $(PROJECT_DIR)lib\spl.jar $(TARGET_OUTPUT_DIR)spl.jar" />

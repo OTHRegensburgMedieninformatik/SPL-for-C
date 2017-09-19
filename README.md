@@ -9,7 +9,7 @@ Robert's original version so that the library can also be compiled under Windows
 The Makefile automatically detects your system and switches between the 
 Windows and Linux version (no configuration required).
 
-### MacOS (also tested with Ubuntu and Fedora)
+### MacOS (also tested with Debian, Ubuntu and Fedora)
 
     git clone https://github.com/OTHRegensburgMedieninformatik/SPL-for-C.git
     cd Spl-for-C
@@ -17,6 +17,8 @@ Windows and Linux version (no configuration required).
     sudo make install
 
 ### Windows
+
+>Tested with MinGW  V6.2
 
 The Windows version needs MSYS (http://www.mingw.org/wiki/MSYS) in order for 
 make to run. Once MSYS is installed, make sure to edit the PATH variable, so 
@@ -35,31 +37,28 @@ capability of the library but can also be used as student assignments.
 The examples are automatically compiled together with the library by running 
 make from the top level directory of the code.
 
+From top level run make examples to compile.
+
 Examples can be compiled seperately from c/examples.
 From there run make to compile.
 
-## Create StartProject
+## Create StartProject's
 The library comes with a StartProject for Clion that have all needed files included.
 
 The StartProject can be created with one of the following commands
 
-    IDE = [ "clion", "codeblocks"]
-    PLATFORM = ["windows","linux","macos"]
-
-    make IDE_PLATFORM
-    >make clion_windows
-    >make clion_linux
-    >make clion_macos
-
-    Or a simple Makefile Project
-
-    >make makefile
+    IDE = [ "clion", "codeblocks", "mfile"]
+    
+    make IDE
+    >make clion     or
+    >make codeblocks    or
+    >make mfile
 
 And is located in Spl-for-C/StartProject
 
 Additional you can also build all StarterProjects with
 
->make starterprojects
+    >make starter
 
 ## Notes
 
@@ -72,3 +71,5 @@ immediately after the main routine is finished
 ## TODO
 
 * Fix display bug that seems to omit drawing graphical objects at the start of the program
+* Fix Tests that comes with SPL-for-C
+* Fix Redundance in Makefiles

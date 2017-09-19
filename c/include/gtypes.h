@@ -29,6 +29,19 @@
 #include "generic.h"
 
 /**
+ * Type: GColor
+ * ------------
+ * This type contains integer-values for red, blue, green and alpha
+ * It is used to manipulate image colors.
+ */
+typedef struct Color{
+	unsigned char red;
+	unsigned char blue;
+	unsigned char green;
+	unsigned char alpha;
+} GColor;
+
+/**
  * Type: GPoint
  * ------------
  * This type contains real-valued x and y fields.  It is used to
@@ -65,6 +78,16 @@ typedef struct {
    double width;
    double height;
 } GRectangle;
+
+
+/**
+ * Function: newGColor
+ * Usage: color = newColor(c);
+ * ---------------------------
+ * Creates a <code>GColor</code> structure with the specified <code>c</code>
+ * color value
+ */
+GColor newGColor(int value);
 
 /**
  * Function: createGPoint
@@ -103,6 +126,13 @@ double getYGPoint(GPoint pt);
  */
 
 GDimension createGDimension(double width, double height);
+
+/**
+ * Function: createPixelArray
+ * Usage: array = createGPixelArray(width, height);
+ * -------------------------------------------------------------
+ */
+int ** createGPixelArray(double width, double height);
 
 /**
  * Function: getWidth

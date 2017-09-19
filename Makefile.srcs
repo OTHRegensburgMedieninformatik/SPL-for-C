@@ -1,0 +1,63 @@
+BUILD = \
+    build \
+    build/$(PLATFORM_FOLDER) \
+    build/$(PLATFORM_FOLDER)/classes \
+    build/$(PLATFORM_FOLDER)/lib \
+    build/$(PLATFORM_FOLDER)/obj \
+    build/$(PLATFORM_FOLDER)/tests 
+
+OBJECTS = \
+    build/$(PLATFORM_FOLDER)/obj/bst.o \
+    build/$(PLATFORM_FOLDER)/obj/charset.o \
+    build/$(PLATFORM_FOLDER)/obj/cmpfn.o \
+    build/$(PLATFORM_FOLDER)/obj/cslib.o \
+    build/$(PLATFORM_FOLDER)/obj/exception.o \
+    build/$(PLATFORM_FOLDER)/obj/filelib.o \
+    build/$(PLATFORM_FOLDER)/obj/foreach.o \
+    build/$(PLATFORM_FOLDER)/obj/generic.o \
+    build/$(PLATFORM_FOLDER)/obj/gevents.o \
+    build/$(PLATFORM_FOLDER)/obj/gobjects.o \
+    build/$(PLATFORM_FOLDER)/obj/gmath.o \
+    build/$(PLATFORM_FOLDER)/obj/graph.o \
+    build/$(PLATFORM_FOLDER)/obj/gtimer.o \
+    build/$(PLATFORM_FOLDER)/obj/gtypes.o \
+    build/$(PLATFORM_FOLDER)/obj/gwindow.o \
+    build/$(PLATFORM_FOLDER)/obj/hashmap.o \
+    build/$(PLATFORM_FOLDER)/obj/iterator.o \
+    build/$(PLATFORM_FOLDER)/obj/loadobj.o \
+    build/$(PLATFORM_FOLDER)/obj/map.o \
+    build/$(PLATFORM_FOLDER)/obj/options.o \
+    build/$(PLATFORM_FOLDER)/obj/platform.o \
+    build/$(PLATFORM_FOLDER)/obj/pqueue.o \
+    build/$(PLATFORM_FOLDER)/obj/queue.o \
+    build/$(PLATFORM_FOLDER)/obj/random.o \
+    build/$(PLATFORM_FOLDER)/obj/ref.o \
+    build/$(PLATFORM_FOLDER)/obj/set.o \
+    build/$(PLATFORM_FOLDER)/obj/simpio.o \
+    build/$(PLATFORM_FOLDER)/obj/sound.o \
+    build/$(PLATFORM_FOLDER)/obj/stack.o \
+    build/$(PLATFORM_FOLDER)/obj/strbuf.o \
+    build/$(PLATFORM_FOLDER)/obj/strlib.o \
+    build/$(PLATFORM_FOLDER)/obj/tokenscanner.o \
+    build/$(PLATFORM_FOLDER)/obj/unittest.o \
+    build/$(PLATFORM_FOLDER)/obj/unixfile.o \
+    build/$(PLATFORM_FOLDER)/obj/vector.o 
+
+LIBRARIES = \
+    build/$(PLATFORM_FOLDER)/lib/libcs.a 
+
+RESOURCES = \
+    freeimage 
+
+#TESTOBJECTS = build/$(PLATFORM_FOLDER)/obj/TestStanfordCSLib.o 
+
+#TESTS = TestStanfordCSLib 
+
+JAR = \
+    spl.jar 
+
+PROJECT = \
+    StarterProject \
+    StarterProjects
+
+EXAMPLES = examples

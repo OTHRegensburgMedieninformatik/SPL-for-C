@@ -26,8 +26,15 @@
 #include <math.h>
 #include "gmath.h"
 #include "gobjects.h"
+#include "gimage.h"
 #include "platform.h"
 #include "vector.h"
+//#include "gtypes.h"
+
+#include <string.h>
+
+#define FREEIMAGE_LIB
+#include "FreeImage.h"
 
 /* Constants */
 
@@ -116,6 +123,7 @@ struct GObjectCDT {
    double y;
    double width;
    double height;
+   string path;
    string color;
    string fillColor;
    bool filled;
@@ -692,8 +700,120 @@ GImage newGImage(string filename) {
    size = createGImageOp(image, filename);
    image->width = size.width;
    image->height = size.height;
+   image->path=filename;
    return image;
 }
+
+string getGImagePath(GImage image){
+	return image->path;
+}
+
+
+// Start GPixelArray Implementation based on FreeImage
+
+int ** getGPixelArray(GImage image){
+    int ** array = createGPixelArray(getWidth(image),getHeight(image));
+
+    int height = (int)getHeight(image);
+    int width = (int)getWidth(image);
+
+    FreeImage_Initialise(true);
+    FREE_IMAGE_FORMAT image_format = FreeImage_GetFileType(getGImagePath(image),0);
+    FIBITMAP * image_map = FreeImage_Load(image_format,getGImagePath(image),0);
+
+    if(image_map!=NULL){
+        for(int line=0;line<height;line++){
+            for(int pixel=0;pixel<width;pixel++){
+                RGBQUAD color;
+                FreeImage_GetPixelColor(image_map,pixel,line,&color);
+                //fprintf(stderr,"%03d|%03d %02x %02x %02x %02x\n", line, pixel, color.rgbReserved, color.rgbRed, color.rgbGreen, color.rgbBlue);
+                unsigned int bit_color = (color.rgbRed <<24) | (color.rgbGreen << 16) | (color.rgbBlue << 8) | color.rgbReserved;
+                array[line][pixel]= bit_color;
+            }
+        }
+        FreeImage_Unload(image_map);
+        FreeImage_DeInitialise();
+        return array;
+    }
+    else{
+        FreeImage_DeInitialise();
+        error("Couldn't generate GPixelImage");
+    }
+}
+
+GImage updateGImage(GWindow gw, GImage image, int** array){
+    char buffer[256];
+    strncpy(buffer,getGImagePath(image),256);
+    int image_width = (int) getWidth(image);
+    int image_height = (int) getHeight(image);
+
+    GPoint image_pos = getLocation(image);
+
+    FreeImage_Initialise(true);
+    FREE_IMAGE_FORMAT image_format = FreeImage_GetFileType(getGImagePath(image),0);
+    FIBITMAP * image_map = FreeImage_Allocate(image_width,image_height,32,FI_RGBA_RED_MASK,FI_RGBA_GREEN_MASK,FI_RGBA_BLUE_MASK); //Blank Image
+
+    RGBQUAD color;
+    if(image_map!=NULL) {
+        for(int height=0; height<image_height;height++){
+            for(int width=0; width<image_width;width++){
+                unsigned int value = array[height][width];
+                color.rgbRed        = (unsigned char) ((value & 0xFF000000) >> 24);
+                color.rgbGreen      = (unsigned char) ((value & 0x00FF0000) >> 16);
+                color.rgbBlue       = (unsigned char) ((value & 0x0000FF00) >>  8);
+                color.rgbReserved   = (unsigned char) ((value & 0x000000FF) >>  0);
+                if(!FreeImage_SetPixelColor(image_map,width,height,&color))
+                    printf("Error\n");
+            }
+        }
+        if(!FreeImage_Save(image_format,image_map,"temp",0)) error("Could'n write image file");
+        FreeImage_Unload(image_map);
+        FreeImage_DeInitialise();
+        removeGWindow(gw,image);
+        GImage image2 = newGImage("temp");
+        addAt(gw,image2,image_pos.x,image_pos.y);
+        return image2;
+    }
+    return image; //on error return old image;
+}
+
+unsigned int setRed(int rgba_value, unsigned char value){
+    return (value << 24) | (0x00FFFFFF & rgba_value);
+}
+
+unsigned int setGreen(int rgba_value, unsigned char value){
+    return (value << 16) | (0xFF00FFFF & rgba_value);
+}
+
+unsigned int setBlue(int rgba_value, unsigned char value){
+    return (value << 8) | (0xFFFF00FF & rgba_value);
+}
+
+unsigned int setAlpha(int rgba_value, unsigned char value){
+    return (value) | (0xFFFFFF00 & rgba_value);
+}
+
+unsigned char getRed(unsigned int rgba_value){
+    return (unsigned char) ((rgba_value & 0xFF000000) >> 24);
+}
+
+unsigned char getGreen(unsigned int rgba_value){
+    return (unsigned char) ((rgba_value & 0x00FF0000) >> 16);
+}
+
+unsigned char getBlue(unsigned int rgba_value){
+    return (unsigned char) ((rgba_value & 0x0000FF00) >> 8);
+}
+
+unsigned char getAlpha(unsigned int rgba_value){
+    return (unsigned char)(rgba_value & 0x000000FF);
+}
+
+unsigned int getRGBValue(unsigned int rgba_value){
+    return (unsigned int)(rgba_value & 0xFFFFFF00)>>8;
+}
+
+// Ende GPixelArray Implementation based on FreeImage
 
 GPolygon newGPolygon(void) {
    GPolygon poly = newGObject(GPOLYGON);

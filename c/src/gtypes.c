@@ -26,6 +26,21 @@
 #include "generic.h"
 #include "gtypes.h"
 
+GColor newGColor(int value){
+	GColor c;
+    //fprintf(stderr, "Color: %d\n",value);
+	c.alpha = (value & 0xFF000000) >> 24;
+    //fprintf(stderr,"%d,", c.alpha);
+	c.red = (value & 0x00FF0000) >> 16;
+	//fprintf(stderr,"%d,", c.red);
+    c.green = (value & 0x0000FF00) >>  8;
+    //fprintf(stderr,"%d,", c.green);
+    c.blue = (value & 0x000000FF) >>  0;
+    //fprintf(stderr,"%d\n", c.blue);
+	return c;
+}
+
+
 GPoint createGPoint(double x, double y) {
    GPoint pt;
 
@@ -50,6 +65,17 @@ GDimension createGDimension(double width, double height) {
    return dim;
 }
 
+// Start
+
+int ** createGPixelArray(double width, double height){
+	int ** array = calloc((int)height,sizeof(unsigned int *));
+    for(int i=0; i<((int)height);i++){
+        array[i]=calloc((int)width,sizeof(unsigned int));
+    }
+    return array;
+}
+
+// End
 double getWidthGDimension(GDimension dim) {
    return dim.width;
 }

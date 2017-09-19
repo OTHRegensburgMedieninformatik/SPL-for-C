@@ -14,6 +14,7 @@
 #include "cslib.h"
 #include "gmath.h"
 #include "gobjects.h"
+#include "gimage.h"
 #include "gevents.h"
 #include "gwindow.h"
 
@@ -36,7 +37,6 @@ int main() {
 
 
 void drawImage(GWindow gw) {
-   double width = getWidth(gw);
    GImage obama = newGImage("images/Obama.png");
    addAt(gw, obama, 0, 0);
 }
