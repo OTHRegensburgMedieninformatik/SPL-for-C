@@ -32,7 +32,7 @@ all: $(PROGRAMS)
 
 Breakout: Breakout.o
 	@echo Build $@
-	@$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS) -lfreeimage 
+	@$(CC) -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS) 
 
 Breakout.o: Breakout.c
 	@echo Build $@

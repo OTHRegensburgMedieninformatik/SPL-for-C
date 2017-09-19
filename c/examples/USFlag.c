@@ -27,6 +27,7 @@
 #include "cslib.h"
 #include "gmath.h"
 #include "gobjects.h"
+#include "gimage.h"
 #include "gevents.h"
 #include "gwindow.h"
 

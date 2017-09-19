@@ -784,69 +784,6 @@ double getFontAscent(GLabel label);
 double getFontDescent(GLabel label);
 
 /**
- * Type: GImage
- * ------------
- * This subtype represents an image from a file.  For example, the
- * following code adds a <code>GImage</code> containing the Stanford
- * tree at the center of the window, assuming that the image file
- * <code>StanfordTree.png</code> exists, either in the current
- * directory or an <code>images</code> subdirectory:
- *
- *<pre>
- *    main() {
- *       printf("This program draws the Stanford tree.\n");
- *       GWindow gw = newGWindow(600, 400);
- *       GImage tree = newGImage("StanfordTree.png");
- *       double x = (getWidth(gw) - getWidth(tree)) / 2;
- *       double y = (getHeight(gw) - getHeight(tree)) / 2;
- *       add(gw, tree, x, y);
- *    }
- *</pre>
- */
-
-typedef GObject GImage;
-
-/**
- * Function: newGImage
- * Usage: GImage image = newGImage(filename);
- * ------------------------------------------
- * Constructs a new image by loading the image from the specified
- * file, which is either in the current directory or a subdirectory named
- * <code>images</code>.  The upper left corner of the image is positioned
- * at the origin.
- */
-
-GImage newGImage(string filename);
-
-
-/**
- * Function: getGImagePath
- */
-string getGImagePath(GImage image);
-
-//Start
-
-/**
- * Function getGPixelArray
- * Usage: GPixelArray pix = getGPixelArray(image);
- * -----------------------------------------------
- */
-int ** getGPixelArray(GImage iamge);
-
-
-GImage updateGImage(GWindow gw, GImage image, int ** array);
-unsigned int setRed(int rgba_value, unsigned char value);
-unsigned int setGreen(int rgba_value, unsigned char value);
-unsigned int setBlue(int rgba_value, unsigned char value);
-unsigned int setAlpha(int rgba_value, unsigned char value);
-unsigned char getRed(unsigned int rgba_value);
-unsigned char getGreen(unsigned int rgba_value);
-unsigned char getBlue(unsigned int rgba_value);
-unsigned char getAlpha(unsigned int rgba_value);
-unsigned int getRGBValue(unsigned int rgba_value);
-
-//Ende
-/**
  * Type: GPolygon
  * --------------
  * This subtype represents a polygon bounded by line segments.
