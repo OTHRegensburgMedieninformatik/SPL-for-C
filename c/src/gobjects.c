@@ -26,6 +26,7 @@
 #include <math.h>
 #include "gmath.h"
 #include "gobjects.h"
+#include "gimage.h"
 #include "platform.h"
 #include "vector.h"
 //#include "gtypes.h"

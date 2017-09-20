@@ -25,18 +25,38 @@
 #include <stdio.h>
 #include "cslib.h"
 #include "gobjects.h"
+#include "gimage.h"
 #include "gwindow.h"
 
+int checkPixelArray(int width, int height, int *const *array);
+
 int main() {
-	   double width, height;
-	   GWindow gw;
+	   GWindow gw = newGWindow(640, 480);
 	   GImage image = newGImage("images/Obama.png");
-	   //GPixelArray pix = newGPixelArray(image);
+	   int width = (int) getWidth(image);
+	   int height = (int) getHeight(image);
 
-	   gw = newGWindow(640, 480);
-	   width = getWidth(gw);
-	   height = getHeight(gw);
-
+	   int **array = getGPixelArray(image);
+	   if(checkPixelArray(width, height, array))
+		   error("Image format\n");
+	   
 	   addAt(gw, image, 0, 0);
 	   return 0;
+}
+
+
+int checkPixelArray(int width, int height, int *const *array) {//check if image is normalized gray
+    for(int y=0;y<height;y++) {
+        for (int x = 1; x < width; x++) {
+            unsigned char red, green, blue,alpha;
+
+            red = getRed(array[y][x]);
+            green = getGreen(array[y][x]);
+            blue = getBlue(array[y][x]);
+            alpha = getAlpha(array[y][x]);
+
+			error("ARGB(%d,%d,%d,%d)\n",alpha,red,green,blue);
+        }
+    }
+    return 0;
 }
