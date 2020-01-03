@@ -946,10 +946,14 @@ void setSweepAngleOp(GArc arc, double angle) {
 
 /* GLabel operations */
 
+// ref #2
 void createGLabelOp(GLabel label, string str) {
-   str = quotedString(str);
-   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, str);
-   freeBlock(str);
+    // FIXME: fixed string if nothing changed revert changes
+    // TODO: check if creating new dtring might have fixed issue #9
+   string tmp_str = quotedString(str);
+   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, tmp_str);
+   // NOTE: freed block str -> is undefined in all functions after this one
+   freeBlock(tmp_str);
 }
 
 void setFontOp(GLabel label, string font) {
