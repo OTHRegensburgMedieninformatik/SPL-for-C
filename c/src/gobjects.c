@@ -630,7 +630,7 @@ static bool containsAngle(GArc arc, double theta) {
 
 GLabel newGLabel(string str) {
    GObject label;
-   GDimension size;
+   GDimension size; // size never been used in this function
 
    label = newGObject(GLABEL);
    label->u.labelRep.str = str;
@@ -651,6 +651,7 @@ void setFont(GLabel label, string font) {
    setFontOp(label, font); // def at ref #4
    label->u.labelRep.ascent = getFontAscentOp(label);
    label->u.labelRep.descent = getFontDescentOp(label);
+   // Why gets the size of GLabel get set here again?
    size = getGLabelSizeOp(label);
    label->width = size.width;
    label->height = size.height;
@@ -665,9 +666,9 @@ void setLabel(GLabel label, string str) {
    GDimension size;
 
    label->u.labelRep.str = str;
-   setLabelOp(label, str);
-   size = getGLabelSizeOp(label);
-   label->width = size.width;
+   setLabelOp(label, str); // def at ref #4
+   size = getGLabelSizeOp(label); // def at ref #5
+   label->width = size.width; // is already set in setFont
    label->height = size.height;
 }
 

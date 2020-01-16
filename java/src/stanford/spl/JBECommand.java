@@ -86,12 +86,14 @@ public abstract class JBECommand {
       cmdTable.put("GInteractor.setActionCommand",
                    new GInteractor_setActionCommand());
       cmdTable.put("GInteractor.getSize", new GInteractor_getSize());
+      // start GLabel - pipe
       cmdTable.put("GLabel.create", new GLabel_create());
       cmdTable.put("GLabel.getFontAscent", new GLabel_getFontAscent());
       cmdTable.put("GLabel.getFontDescent", new GLabel_getFontDescent());
       cmdTable.put("GLabel.getGLabelSize", new GLabel_getGLabelSize());
       cmdTable.put("GLabel.setFont", new GLabel_setFont());
       cmdTable.put("GLabel.setLabel", new GLabel_setLabel());
+      // end GLabel - pipe
       cmdTable.put("GLine.create", new GLine_create());
       cmdTable.put("GLine.setEndPoint", new GLine_setEndPoint());
       cmdTable.put("GLine.setStartPoint", new GLine_setStartPoint());
@@ -660,6 +662,7 @@ class GLabel_create extends JBECommand {
       scanner.verifyToken(",");
       String str = nextString(scanner);
       scanner.verifyToken(")");
+      System.err.println("JBECommand: GLabel_create: command got defrased to <" + id + ", " + str + ">");
       JBELabel gobj = new JBELabel(str);
       jbe.defineGObject(id, gobj);
    }
@@ -1006,6 +1009,7 @@ class GLabel_setFont extends JBECommand {
       scanner.verifyToken(",");
       String font = nextString(scanner);
       scanner.verifyToken(")");
+      System.err.println("JBECommand: GLabel_setFont: command got defrased to <" + id + ", " + font + ">");
       GLabel label = (GLabel) jbe.getGObject(id);
       if (label != null) label.setFont(font);
    }
@@ -1018,6 +1022,7 @@ class GLabel_setLabel extends JBECommand {
       scanner.verifyToken(",");
       String str = nextString(scanner);
       scanner.verifyToken(")");
+      System.err.println("JBECommand: GLabel_setLabel: command got defrased to <" + id + ", " + str + ">");
       GLabel label = (GLabel) jbe.getGObject(id);
       if (label != null) label.setLabel(str);
    }
@@ -1052,6 +1057,8 @@ class GLabel_getGLabelSize extends JBECommand {
       scanner.verifyToken(")");
       GLabel label = (GLabel) jbe.getGObject(id);
       GDimension size = label.getSize();
+      System.err.println("JBECommand: GLabel_setGLabelSize: <result:GDimension(" + size.getWidth()
+                       + ", " + size.getHeight() + ")>");
       System.out.println("result:GDimension(" + size.getWidth()
                        + ", " + size.getHeight() + ")");
       System.out.flush();
@@ -1077,6 +1084,7 @@ class GInteractor_getSize extends JBECommand {
       scanner.verifyToken("(");
       String id = nextString(scanner);
       scanner.verifyToken(")");
+      // TODO: maybe id is not correctly set (refrence to null)
       GObject gobj = jbe.getGObject(id);
       if (gobj != null) {
          JComponent jcomp = ((GInteractor) gobj).getInteractor();

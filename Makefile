@@ -12,7 +12,7 @@ PLATFORM=unixlike
 endif
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
-CFLAGS=-std=gnu11
+CFLAGS=-std=gnu11 -DPIPEDEBUG
 LDLIBS=
 
 ifeq ($(OS),Windows_NT)
