@@ -1,5 +1,7 @@
+.vs-code
 build/
 StarterProject/
+UnitTestGLabel/
 StarterProjects/
 *.swp
 *.exe

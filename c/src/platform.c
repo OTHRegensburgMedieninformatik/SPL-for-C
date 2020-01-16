@@ -992,8 +992,9 @@ double getFontAscentOp(GLabel label) {
    return getDouble();
 }
 
+// INFO: Fixed name of opertion written into pipe
 double getFontDescentOp(GLabel label) {
-   putPipe("GLabel.initDescent(\"0x%lX\")", (long) label);
+   putPipe("GLabel.getFontDescent(\"0x%lX\")", (long) label);
    return getDouble();
 }
 

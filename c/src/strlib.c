@@ -282,12 +282,13 @@ string realToString(double d) {
    return copyString(buffer);
 }
 
+// Fixed stringToReal sscanf-operation 
 double stringToReal(string s) {
    double result;
    char dummy;
 
    if (s == NULL) error("stringToReal: String value is NULL");
-   if (sscanf(s, " %lg %c", &result, &dummy) != 1) {
+   if (sscanf(s, "%lf %c", &result, &dummy) != 1) {
       error("stringToReal: Illegal number %s", s);
    }
    return result;

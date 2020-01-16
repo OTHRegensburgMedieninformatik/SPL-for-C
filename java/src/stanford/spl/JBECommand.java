@@ -1035,6 +1035,7 @@ class GLabel_getFontAscent extends JBECommand {
       scanner.verifyToken(")");
       GLabel label = (GLabel) jbe.getGObject(id);
       System.out.println("result:" + label.getAscent());
+      System.err.println("JBECommand: GLabel_getFontAscent: pushed to pipe <result:" + label.getAscent() + ">");
       System.out.flush();
    }
 }
@@ -1046,6 +1047,7 @@ class GLabel_getFontDescent extends JBECommand {
       scanner.verifyToken(")");
       GLabel label = (GLabel) jbe.getGObject(id);
       System.out.println("result:" + label.getDescent());
+      System.err.println("JBECommand: GLabel_getFontDescent: pushed to pipe <result:" + label.getDescent() + ">");
       System.out.flush();
    }
 }
