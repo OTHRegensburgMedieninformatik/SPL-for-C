@@ -630,25 +630,20 @@ static bool containsAngle(GArc arc, double theta) {
 
 GLabel newGLabel(string str) {
    GObject label;
-   GDimension size;
 
    label = newGObject(GLABEL);
    label->u.labelRep.str = str;
    label->u.labelRep.font = DEFAULT_GLABEL_FONT;
-   createGLabelOp(label, str); // def at ref #2
-   // TODO: Find out, why font is set 2 times
-   setFont(label, DEFAULT_GLABEL_FONT); // def at ref #3
-   setLabel(label, str); // def at ref #1
+   createGLabelOp(label, copyString(str));
+   setFont(label, DEFAULT_GLABEL_FONT);
    return label;
 }
 
-// ref #3
 void setFont(GLabel label, string font) {
    GDimension size;
 
    label->u.labelRep.font = font;
-   // TODO: Find Function setFontOp
-   setFontOp(label, font); // def at ref #4
+   setFontOp(label, font);
    label->u.labelRep.ascent = getFontAscentOp(label);
    label->u.labelRep.descent = getFontDescentOp(label);
    size = getGLabelSizeOp(label);
@@ -660,12 +655,11 @@ string getFont(GLabel label) {
    return label->u.labelRep.font;
 }
 
-// ref #1
 void setLabel(GLabel label, string str) {
    GDimension size;
 
    label->u.labelRep.str = str;
-   setLabelOp(label, str);
+   setLabelOp(label, copyString(str));
    size = getGLabelSizeOp(label);
    label->width = size.width;
    label->height = size.height;

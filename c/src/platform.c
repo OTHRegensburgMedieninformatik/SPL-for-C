@@ -946,14 +946,10 @@ void setSweepAngleOp(GArc arc, double angle) {
 
 /* GLabel operations */
 
-// ref #2
 void createGLabelOp(GLabel label, string str) {
-    // FIXME: fixed string if nothing changed revert changes
-    // TODO: check if creating new dtring might have fixed issue #9
-   string tmp_str = quotedString(str);
-   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, tmp_str);
-   // NOTE: freed block str -> is undefined in all functions after this one
-   freeBlock(tmp_str);
+   str = quotedString(str);
+   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, str);
+   freeBlock(str);
 }
 
 void setFontOp(GLabel label, string font) {
@@ -972,7 +968,7 @@ double getFontAscentOp(GLabel label) {
 }
 
 double getFontDescentOp(GLabel label) {
-   putPipe("GLabel.initDescent(\"0x%lX\")", (long) label);
+   putPipe("GLabel.getFontDescent(\"0x%lX\")", (long) label);
    return getDouble();
 }
 
