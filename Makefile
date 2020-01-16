@@ -503,7 +503,7 @@ makefile: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 UnitTestGLabelMake: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@echo "Build UnitTestGLabel for Makefile Project";
 	@rm -rf UnitTestGLabel
-	@cp -r ide/UnitTestGLabel/makefile UnitTestGLabel
+	@cp -r ide/UTGL/makefile UnitTestGLabel
 	@cp -r build/$(PLATFORM)/lib UnitTestGLabel
 	@cp -r build/$(PLATFORM)/include UnitTestGLabel
 	@cp ide/UnitTestGLabel/src/UnitTestGLabel.c UnitTestGLabel
