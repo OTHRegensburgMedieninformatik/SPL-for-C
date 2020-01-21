@@ -630,14 +630,12 @@ static bool containsAngle(GArc arc, double theta) {
 
 GLabel newGLabel(string str) {
    GObject label;
-   GDimension size;
 
    label = newGObject(GLABEL);
    label->u.labelRep.str = str;
    label->u.labelRep.font = DEFAULT_GLABEL_FONT;
-   createGLabelOp(label, str);
+   createGLabelOp(label, copyString(str));
    setFont(label, DEFAULT_GLABEL_FONT);
-   setLabel(label, str);
    return label;
 }
 
@@ -661,7 +659,7 @@ void setLabel(GLabel label, string str) {
    GDimension size;
 
    label->u.labelRep.str = str;
-   setLabelOp(label, str);
+   setLabelOp(label, copyString(str));
    size = getGLabelSizeOp(label);
    label->width = size.width;
    label->height = size.height;

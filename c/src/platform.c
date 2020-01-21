@@ -968,7 +968,7 @@ double getFontAscentOp(GLabel label) {
 }
 
 double getFontDescentOp(GLabel label) {
-   putPipe("GLabel.initDescent(\"0x%lX\")", (long) label);
+   putPipe("GLabel.getFontDescent(\"0x%lX\")", (long) label);
    return getDouble();
 }
 
