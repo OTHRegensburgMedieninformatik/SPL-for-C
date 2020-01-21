@@ -644,7 +644,6 @@ void setFont(GLabel label, string font) {
 
    label->u.labelRep.font = font;
    setFontOp(label, font);
-   // INFO: Major problem has been in following 2 lines
    label->u.labelRep.ascent = getFontAscentOp(label);
    label->u.labelRep.descent = getFontDescentOp(label);
    size = getGLabelSizeOp(label);
