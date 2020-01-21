@@ -282,7 +282,6 @@ string realToString(double d) {
    return copyString(buffer);
 }
 
-// Fixed stringToReal sscanf-operation 
 double stringToReal(string s) {
    double result;
    char dummy;

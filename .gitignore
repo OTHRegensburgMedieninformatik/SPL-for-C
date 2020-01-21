@@ -1,7 +1,6 @@
-.vs-code
+.vscode/
 build/
 StarterProject/
-UnitTestGLabel/
 StarterProjects/
 *.swp
 *.exe

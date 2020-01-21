@@ -12,7 +12,7 @@ PLATFORM=unixlike
 endif
 
 # Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
-CFLAGS=-std=gnu11 -DPIPEDEBUG
+CFLAGS=-std=gnu11
 LDLIBS=
 
 ifeq ($(OS),Windows_NT)
@@ -76,7 +76,6 @@ TESTS = \
 JAR = spl.jar
 
 PROJECT = StarterProject \
-		  UnitTestGLabel \
 		  StarterProjects
 
 
@@ -499,22 +498,6 @@ makefile: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
 	@cp -r build/$(PLATFORM)/include StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
-
-UnitTestGLabelMake: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JAR)
-	@echo "Build UnitTestGLabel for Makefile Project";
-	@rm -rf UnitTestGLabel
-	@cp -r ide/UTGL/makefile UnitTestGLabel
-	@cp -r build/$(PLATFORM)/lib UnitTestGLabel
-	@cp -r build/$(PLATFORM)/include UnitTestGLabel
-	@cp ide/UnitTestGLabel/src/UnitTestGLabel.c UnitTestGLabel
-	@echo "Check the UnitTestGLabel folder"
-
-.ONESHELL: UnitTestGLabelMakeRun
-UnitTestGLabelMakeRun: UnitTestGLabelMake
-	cd UnitTestGLabel
-	make
-	cd build/unixlike
-	clear && ./UnitTestGLabel
 
 # ***************************************************************
 # Standard entries to remove files from the directories

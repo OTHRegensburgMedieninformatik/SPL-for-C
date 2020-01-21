@@ -353,8 +353,7 @@ static void initPipe(void) {
       close(fromJBE[1]);
 #ifdef __APPLE__
       option = concat("-Xdock:name=", programName);
-      // TODO: remove -debug FLAG
-      execlp("java", "java", option, "-classpath", classpath, "-debug", "stanford/spl/JavaBackEnd", programName, NULL);
+      execlp("java", "java", option, "-classpath", classpath, "stanford/spl/JavaBackEnd", programName, NULL);
 #else
       execlp("java", "java", "-classpath", classpath, "stanford/spl/JavaBackEnd", programName, NULL);
 #endif
@@ -947,44 +946,20 @@ void setSweepAngleOp(GArc arc, double angle) {
 
 /* GLabel operations */
 
-// ref #2
-/*
- * NOTE: Problem liegt in dieser Funktion GLabel.create wird erst aufgarufen, wenn Fenster geschlossen
- *       wird. Befehl muss irgendwo festhängen. Dadurch wird der Befehl nicht an das JavaBackEnd ge-
- *       schickt. --> TODO: weiter suchen Location, where the command goes.
- */
 void createGLabelOp(GLabel label, string str) {
-   // FIXME: fixed string if nothing changed revert changes
-   // TODO: check if creating new dtring might have fixed issue #9
-   string tmp_str;
-
-   tmp_str = copyString(str);
-   tmp_str = quotedString(tmp_str);
-   // FIXME: does not print out the following line 
-   //fprintf(stdout, "DEGUB: GLabel.create(\"0x%lX\", %s)", (long) label, tmp_str);
-   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, tmp_str);
-   // NOTE: freed block str -> is undefined in all functions after this one
-   freeBlock(tmp_str);
+   str = quotedString(str);
+   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, str);
+   freeBlock(str);
 }
 
-// ref #4
 void setFontOp(GLabel label, string font) {
    putPipe("GLabel.setFont(\"0x%lX\", \"%s\")", (long) label, font);
 }
 
-// TODO: where is this function been used?
 void setLabelOp(GLabel label, string str) {
-   // FIXME: fixed string if nothing changed revert changes
-   // TODO: check if creating new dtring might have fixed issue #9
-   string tmp_str;
-
-   tmp_str = copyString(str);
-   tmp_str = quotedString(tmp_str);
-   // FIXME: does not print out the following line 
-   //fprintf(stdout, "DEGUB: GLabel.setLabel(\"0x%lX\", %s)", (long) label, tmp_str);
-   putPipe("GLabel.setLabel(\"0x%lX\", %s)", (long) label, tmp_str);
-   // NOTE: freed block str -> is undefined in all functions after this one
-   freeBlock(tmp_str);
+   str = quotedString(str);
+   putPipe("GLabel.setLabel(\"0x%lX\", %s)", (long) label, str);
+   freeBlock(str);
 }
 
 double getFontAscentOp(GLabel label) {
@@ -992,7 +967,6 @@ double getFontAscentOp(GLabel label) {
    return getDouble();
 }
 
-// INFO: Fixed name of opertion written into pipe
 double getFontDescentOp(GLabel label) {
    putPipe("GLabel.getFontDescent(\"0x%lX\")", (long) label);
    return getDouble();
