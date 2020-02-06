@@ -947,9 +947,12 @@ void setSweepAngleOp(GArc arc, double angle) {
 /* GLabel operations */
 
 void createGLabelOp(GLabel label, string str) {
-   str = quotedString(str);
-   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, str);
-   freeBlock(str);
+   string tmp;
+
+   tmp = copyString(str);
+   tmp = quotedString(tmp);
+   putPipe("GLabel.create(\"0x%lX\", %s)", (long) label, tmp);
+   freeBlock(tmp);
 }
 
 void setFontOp(GLabel label, string font) {
@@ -957,9 +960,12 @@ void setFontOp(GLabel label, string font) {
 }
 
 void setLabelOp(GLabel label, string str) {
-   str = quotedString(str);
-   putPipe("GLabel.setLabel(\"0x%lX\", %s)", (long) label, str);
-   freeBlock(str);
+   string tmp;
+
+   tmp = copyString(str);
+   tmp = quotedString(tmp);
+   putPipe("GLabel.setLabel(\"0x%lX\", %s)", (long) label, tmp);
+   freeBlock(tmp);
 }
 
 double getFontAscentOp(GLabel label) {
