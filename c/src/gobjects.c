@@ -634,7 +634,7 @@ GLabel newGLabel(string str) {
    label = newGObject(GLABEL);
    label->u.labelRep.str = str;
    label->u.labelRep.font = DEFAULT_GLABEL_FONT;
-   createGLabelOp(label, copyString(str));
+   createGLabelOp(label, str);
    setFont(label, DEFAULT_GLABEL_FONT);
    return label;
 }
@@ -659,7 +659,7 @@ void setLabel(GLabel label, string str) {
    GDimension size;
 
    label->u.labelRep.str = str;
-   setLabelOp(label, copyString(str));
+   setLabelOp(label, str);
    size = getGLabelSizeOp(label);
    label->width = size.width;
    label->height = size.height;
