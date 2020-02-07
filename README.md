@@ -63,10 +63,10 @@ Additional you can also build all StarterProjects with
 
 ## Notes
 
->Tue to Clion use PTY for running Code the graphical window will closed 
+>Clion use PTY for running Code, this means the graphical window will be closed 
 immediately after the main routine is finished
 >
->As a workaround set the run.processes.with.pty to flase
+>As a workaround set the run.processes.with.pty to false in CLion
 >Help -> Find Action ... -> Registry -> uncheck run.processes.with.pty -> close 
 
 ## TODO
