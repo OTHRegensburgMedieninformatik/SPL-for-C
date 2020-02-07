@@ -145,8 +145,7 @@ public class JavaBackEnd implements
       windowTable = new HashMap<String,JBEWindow>();
       gobjTable = new HashMap<String,GObject>();
       timerTable = new HashMap<String,GTimer>();
-      clipTable = new HashMap<String,Clip>();
-      clipIdTable = new HashMap<String,Clip>();
+      soundIdTable = new HashMap<String,Sound>();
       sourceTable = new HashMap<JComponent,String>();
       eventMask = 0;
       eventAcknowledged = false;
@@ -303,21 +302,17 @@ public class JavaBackEnd implements
    }
 
    protected void createSound(String id, String filename) {
-      Clip clip = getClip(filename);
-      clipIdTable.put(id, clip);
+      Sound sound = new Sound(filename, debug);
+      soundIdTable.put(id, sound);
    }
 
    protected void deleteSound(String id) {
-      clipIdTable.remove(id);
+      soundIdTable.remove(id);
    }
 
    protected void playSound(String id) {
-      Clip clip = clipIdTable.get(id);
-      if (clip != null) {
-         clip.stop();
-         clip.setFramePosition(0);
-         clip.start();
-      }
+      Sound sound = soundIdTable.get(id);
+      if (sound != null) sound.play();
    }
 
    protected void createTimer(String id, double msec) {
@@ -705,35 +700,6 @@ public class JavaBackEnd implements
       return image;
    }
 
-   protected Clip getClip(String name) {
-      Clip clip = clipTable.get(name);
-      if (clip != null) return clip;
-      try {
-         File file = new File(name);
-         if (!file.exists()) {
-            if (!name.startsWith("/") && !name.startsWith(".")) {
-               file = new File("sounds/" + name);
-            }
-         }
-         if (!file.exists()) {
-            throw new ErrorException("createClip: File not found");
-         }
-         AudioInputStream ais = AudioSystem.getAudioInputStream(file);
-         Info info = new Info(Clip.class, ais.getFormat());
-         clip = (Clip)AudioSystem.getLine(info);
-		 clip.open(ais);
-      } catch (IllegalArgumentException ex) {
-		 if (debug) System.err.println("JavaBackEnd: getClip: " + ex);
-         // do not throw this exception, because it occurs when no audio device is available		 
-      } catch (IOException ex) {
-         throw new ErrorException("getClip: File not found");
-      } catch (Exception ex) {
-         throw new ErrorException("getClip: " + ex);
-      }
-      clipTable.put(name, clip);
-      return clip;
-   }
-
 /* Instance variables */
 
    private String appName;
@@ -750,8 +716,7 @@ public class JavaBackEnd implements
    private HashMap<String,GObject> gobjTable;
    private HashMap<String,GTimer> timerTable;
    private HashMap<String,Image> imageTable;
-   private HashMap<String,Clip> clipTable;
-   private HashMap<String,Clip> clipIdTable;
+   private HashMap<String,Sound> soundIdTable;
    private HashMap<JComponent,String> sourceTable;
    private Container empty = JTFTools.createEmptyContainer();
    private int activeWindowCount;
