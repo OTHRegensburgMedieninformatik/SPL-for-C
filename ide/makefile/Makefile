@@ -30,7 +30,7 @@ BUILD = \
 OBJECTS = \
     build/$(PLATFORM)/obj/HelloGraphics.o
 
-PROGRAMMS = \
+PROGRAMM_EXE = \
 	build/$(PLATFORM)/HelloGraphics
 
 
@@ -53,7 +53,7 @@ $(BUILD):
 
 build/$(PLATFORM)/HelloGraphics:
 	@echo "Build HelloGraphics"
-	@gcc -o build/$(PLATFORM)/HelloGraphics build/$(PLATFORM)/obj/HelloGraphics.o $(LDLIBS)
+	@gcc -o ${PROGRAMM_EXE} ${OBJECTS} $(LDLIBS)
 
 build/$(PLATFORM)/obj/HelloGraphics.o: HelloGraphics.c
 	@echo "Build HelloGraphics.o"

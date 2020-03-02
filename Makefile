@@ -373,7 +373,12 @@ TestStanfordCSLib: $(TESTOBJECTS) build/$(PLATFORM)/lib/libcs.a
 
 $(JAR): stanford/spl/JavaBackEnd.class
 	@echo "Build spl.jar"
-	@cp java/prepacked_spl_libs.jar build/$(PLATFORM)/lib/spl.jar
+	@mkdir build/$(PLATFORM)/lib/.tmp
+	@(cd build/$(PLATFORM)/lib/.tmp; unzip -uo ../../../../java/lib/acm.jar)
+	@(cd build/$(PLATFORM)/lib/.tmp; unzip -uo ../../../../java/lib/jl1.0.1.jar)
+	@(cd build/$(PLATFORM)/lib/.tmp; unzip -uo ../../../../java/lib/zeromq.jar)
+	@jar -cvf build/$(PLATFORM)/lib/spl.jar -C build/$(PLATFORM)/lib/.tmp .
+	@rm -rf build/$(PLATFORM)/lib/.tmp
 	@(cd build/$(PLATFORM)/classes; jar ufm ../lib/spl.jar  ../../../java/include/JBEManifest.txt \
 		`find stanford -name '*.class'`)
 #	@echo jar cf build/$(PLATFORM)/lib/spl.jar . . .
