@@ -1,79 +1,117 @@
-# ****************************************************************
-# Makefile for Makefile StartProject
+#########################################################################
+# Stanford Portable Library                                             #
+# Copyright (C) 2013 by Eric Roberts <eroberts@cs.stanford.edu>         #
+#                                                                       #
+# This program is free software: you can redistribute it and/or modify  #
+# it under the terms of the GNU General Public License as published by  #
+# the Free Software Foundation, either version 3 of the License, or     #
+# (at your option) any later version.                                   #
+#                                                                       #
+# This program is distributed in the hope that it will be useful,       #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of        #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         #
+# GNU General Public License for more details.                          #
+#                                                                       #
+# You should have received a copy of the GNU General Public License     #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>. #
+#########################################################################
 
-SHELL=/bin/bash
+##
+# Filename: Makefile
+# Project : StarterProject for SPL-FOR-C
+# Version : 2020/03/03-R1
+#
 
-# Sets the target platform for SPL
-# Valid values for variable platform are unixlike and windows
+# SETTINGS - OPERATING SYSTEM
+# Sets the target platform for the SPL
 ifeq ($(OS),Windows_NT)
-PLATFORM=windows
+PLATFORM = windows
 else
-PLATFORM=unixlike
+PLATFORM = unixlike
 endif
 
-# Additional compiler flags
-CFLAGS=-std=gnu11 -g -Wall
-LDLIBS = lib/libcs.a 
+# SETTINGS - C COMPILER
+CC       = gcc
+CFLAGS   = -std=gnu11 -g -Wall
 
+# SETTINGS - C++ COMPILER
+CXX		 = g++
+CXXFLAGS = -std=gnu++17 -g -Wall
 
+# SETTINGS - LINKER, LIBRARIES
+LDLIBS   = lib/libcs.a
 ifeq ($(OS),Windows_NT)
-LDLIBS += -lshlwapi
+LDLIBS   += -lshlwapi
 else
-LDLIBS += -lm 
+LDLIBS   += -lm
 endif
 
-BUILD = \
-	build \
-    build/$(PLATFORM) \
-    build/$(PLATFORM)/obj
+# SETTINGS - APPLICATION
+APPNAME  = HelloGraphics
 
-OBJECTS = \
-    build/$(PLATFORM)/obj/HelloGraphics.o
+# FILES - SOURCE
+SRCDIR   = .
+SRCFILES = \
+	$(SRCDIR)/HelloGraphics.c
 
-PROGRAMM_EXE = \
-	build/$(PLATFORM)/HelloGraphics
+# FILES - BUILD
+BUILDDIR = build/$(PLATFORM)
+OBJDIR   = $(BUILDDIR)/obj
+OBJFILES = $(SRCFILES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+DIRS     = build $(BUILDDIR) $(OBJDIR)
 
+##
+# INFO-TARGET OF MAKEFILE
+#
 
-# ***************************************************************
-# Entry to bring the package up to date
-#    The "make all" entry should be the first real entry
+# Variables for styling font inside CI
+bold := $(shell tput bold)
+sgr0 := $(shell tput sgr0)
 
-all: $(BUILD) $(OBJECTS) $(PROGRAMMS) 
+.PHONY: info
+info:
+	@echo "$(bold)DESCRIPTION$(sgr0)"
+	@echo ""
+	@echo "    No target has been specified. Use one of the targets below."
+	@echo ""
+	@echo "$(bold)TARGETS$(sgr0)"
+	@echo ""
+	@echo "    $(bold)info$(sgr0)          Shows this message"
+	@echo "    $(bold)all$(sgr0)           Builds all targets, except clean and tidy"
+	@echo "    $(bold)directories$(sgr0)   Builds the export-directories"
+	@echo "    $(bold)tidy$(sgr0)          Eliminates unwanted files"
+	@echo "    $(bold)clean$(sgr0)         Deletes derived files in preparation for rebuild"
 
-# ***************************************************************
-# Directories
+##
+# TARGETS OF MAKEFILE
+#
 
-$(BUILD):
+all: directories $(BUILDDIR)/$(APPNAME)
+
+$(BUILDDIR)/$(APPNAME): $(OBJFILES)
+	@echo "Build $@"
+	@$(CXX) $(CXXFLAGS) -o $@ $^ $(LDLIBS) -lpthread -lunwind -ldl
+	@cp lib/spl.jar $(BUILDDIR)
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@echo "Build $@"
+	@$(CC) $(CFLAGS) -o $@ -c $^ -Iinclude
+
+# Building the export-directories 
+.PHONY: directories 
+directories:
 	@echo "Build Directories"
-	@mkdir -p $(BUILD)
+	@mkdir -p $(DIRS)
 
-# ***************************************************************
-# Programm
-
-
-build/$(PLATFORM)/HelloGraphics:
-	@echo "Build HelloGraphics"
-	@gcc -o ${PROGRAMM_EXE} ${OBJECTS} $(LDLIBS)
-
-build/$(PLATFORM)/obj/HelloGraphics.o: HelloGraphics.c
-	@echo "Build HelloGraphics.o"
-	@gcc $(CFLAGS) -Iinclude -c -o build/$(PLATFORM)/obj/HelloGraphics.o HelloGraphics.c
-	@cp lib/spl.jar build/$(PLATFORM)/
-
-
-
-# ***************************************************************
-# Standard entries to remove files from the directories
-#    tidy    -- eliminate unwanted files
-#    scratch -- delete derived files in preparation for rebuild
-
+.PHONY: tidy
 tidy:
 	@echo "Clean Project Directory"
-	@rm -f `find . -name ',*' -o -name '.,*' -o -name '*~'`
-	@rm -f `find . -name '*.tmp' -o -name '*.err'`
+	@rm -f `find . -name ',#' -o -name '.,#' -o -name '#~'`
+	@rm -f `find . -name '#.tmp' -o -name '#.err'`
 	@rm -f `find . -name core -o -name a.out`
-	@rm -rf build/obj
-	
+	@rm -rf $(OBJDIR)
+
+.PHONY: scratch clean
 scratch clean: tidy
-	@rm -f -r $(BUILD) $(OBJECTS) $(LIBRARIES) $(PROJECT)
+	@rm -f -r build
 	@echo "Cleaning Done"
