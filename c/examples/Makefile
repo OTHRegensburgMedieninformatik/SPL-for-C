@@ -1,149 +1,142 @@
-# Makefile for spl
-#****************************************************************
+#########################################################################
+# Stanford Portable Library                                             #
+# Copyright (C) 2013 by Eric Roberts <eroberts@cs.stanford.edu>         #
+#                                                                       #
+# This program is free software: you can redistribute it and/or modify  #
+# it under the terms of the GNU General Public License as published by  #
+# the Free Software Foundation, either version 3 of the License, or     #
+# (at your option) any later version.                                   #
+#                                                                       #
+# This program is distributed in the hope that it will be useful,       #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of        #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         #
+# GNU General Public License for more details.                          #
+#                                                                       #
+# You should have received a copy of the GNU General Public License     #
+# along with this program.  If not, see <http://www.gnu.org/licenses/>. #
+#########################################################################
+
+##
+# Filename: Makefile
+# Project : Makefile for building examples for SPL
+# Version : 2020/03/05-R1
+#
+
+#############################################################################
+#                        SETTINGS, CONFIGURATIONS                           #
+#############################################################################
+
+# SETTINGS - OPERATING SYSTEM
+# ---------------------------
+#     Evaluates the target platform for SPL. Valid values for variable platform 
+#     are unixlike and windows
 
 ifeq ($(OS),Windows_NT)
-PLATFORM=windows
-FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
-FLAGS += -lshlwapi
-CSTD =
+PLATFORM = windows
 else
-PLATFORM=unixlike
-FLAGS = -L../../build/$(PLATFORM)/lib -lcs -lm 
-CSTD = -std=c99
+PLATFORM = unixlike
 endif
 
-PROGRAMS = \
-    Breakout \
-    DrawLines \
-    DrawRectangles \
-    GHelloWorld \
-    PacMan \
-    StopSign \
-    TestGraphics \
-    TestInteractors \
-    FlipImage \
-    CarSimulator \
-    BrickPyramid \
-    DrawTarget \
-    CarSimulatorStructs \
-    USFlag
+# SETTINGS - C COMPILER
+# ---------------------
+#     General settings for which C-Compiler to use and which flags should be 
+#     added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
+#     showing piped commands.
 
-# ***************************************************************
-# Entry to bring the package up to date
-#    The "make all" entry should be the first real entry
+CC       = gcc
+CFLAGS   = -std=c99
 
-all: $(PROGRAMS)
+# SETTINGS - C++ COMPILER
+# -----------------------
+#     General settings for which C++-Compiler to use and which flags should 
+#     be added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
+#     showing piped commands.
 
-Breakout: Breakout.o
+# TODO: -I may cause Problems
+CXX      = g++
+CXXFLAGS = -g -std=gnu++17
+
+# SETTINGS - LINKER, LIBRARIES
+# ----------------------------
+#     The variable LDLIBS is used to specify global C/C++-Libraries, which 
+#     have to be included, in order to get all dependencies.
+
+LDFLAGS = -lcs -lm -lpthread -lunwind -ldl
+ifeq ($(OS),Windows_NT)
+LDFLAGS += -lshlwapi
+endif
+
+# FILES - SOURCE
+# --------------
+#     All the paths to the sourcefiles and their directories (C and Java) 
+#     will be stored in variables. The variable PROJECT_DIR is used to get
+#     the path the project is currently stored in.
+
+PROJECT_DIR = $(shell pwd)
+C_SRCDIR    = .
+C_SRCFILES  = $(wildcard $(C_SRCDIR)/*.c)
+C_INCLUDE   = $(PROJECT_DIR)/../include
+LIBRARIES   = $(PROJECT_DIR)/../../build/$(PLATFORM)/lib
+
+# FILE BUILD - TARGETGROUPS
+# -------------------------
+#     In every specific group of files are the filenames (also targetnames)
+#     stored. Only the filenames are stored not the path to the files.
+
+C_OBJFILES   = $(C_SRCFILES:$(C_SRCDIR)/%.c=%.o)
+C_BINFILES   = $(C_SRCFILES:$(C_SRCDIR)/%.c=%)
+
+# DIRECTORIES - BUILD
+# -------------------
+#     The path in the variable BUILDDIR has to be relative. If the path is
+#     however an absolute one, the VARIABLE PROJECT_DIR has to be declared
+#     as empty manualy.
+
+BUILDDIR     = $(PROJECT_DIR)
+OBJ_BUILDDIR = $(BUILDDIR)
+BIN_BUILDDIR = $(BUILDDIR)
+
+#############################################################################
+#                            DEFAULT - TARGET                               #
+#############################################################################
+
+# TARGET: all
+# -----------
+#     This is the default target (will be called, if no target has been 
+#     specified). Specifies how the project should be build/rebuild. 
+
+all: directories $(C_OBJFILES) $(C_BINFILES) 
+
+#############################################################################
+#                                C - TARGETS                                #
+#############################################################################
+
+# TARGET: C_BINFILES
+# ------------------
+#     This target specifies, how the binaries (executables) for all examples, 
+#     will be build.
+
+$(C_BINFILES): %: %.o
 	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o Breakout Breakout.o $(FLAGS)
+	@$(CXX) -D$(PLATFORM) $(CXXFLAGS) -o $(BIN_BUILDDIR)/$@ \
+		-L$(LIBRARIES) -I$(C_INCLUDE) $(OBJ_BUILDDIR)/$< $(LDFLAGS)
 
-Breakout.o: Breakout.c
+# TARGET: C_OBJFILES
+# ------------------
+#     This target specifies, how all the obj-files for the examples, will be 
+#     build.
+
+$(C_OBJFILES): %.o: $(C_SRCDIR)/%.c
 	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include Breakout.c $(CSTD)
+	@$(CC) -D$(PLATFORM) $(CFLAGS) -c -o $(OBJ_BUILDDIR)/$@ -I$(C_INCLUDE) $< 
 
-DrawLines: DrawLines.o
-	@gcc -D$(PLATFORM) -o DrawLines DrawLines.o $(FLAGS)
+# TARGET: directories
+# -------------------
+#     This target builds all the directories needed for building the Project
 
-DrawLines.o: DrawLines.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include DrawLines.c $(CSTD)
-
-DrawRectangles: DrawRectangles.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o DrawRectangles DrawRectangles.o $(FLAGS)
-
-DrawRectangles.o: DrawRectangles.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include DrawRectangles.c $(CSTD)
-
-GHelloWorld: GHelloWorld.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o GHelloWorld GHelloWorld.o $(FLAGS)
-
-GHelloWorld.o: GHelloWorld.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include GHelloWorld.c $(CSTD)
-
-PacMan: PacMan.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o PacMan PacMan.o $(FLAGS)
-
-PacMan.o: PacMan.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include PacMan.c $(CSTD)
-
-StopSign: StopSign.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o StopSign StopSign.o $(FLAGS)
-
-StopSign.o: StopSign.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include StopSign.c $(CSTD)
-
-TestGraphics: TestGraphics.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o TestGraphics TestGraphics.o $(FLAGS)
-
-TestGraphics.o: TestGraphics.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include TestGraphics.c $(CSTD)
-
-TestInteractors: TestInteractors.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o TestInteractors TestInteractors.o $(FLAGS)
-
-TestInteractors.o: TestInteractors.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include TestInteractors.c $(CSTD)
-
-USFlag: USFlag.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o USFlag USFlag.o $(FLAGS)
-
-USFlag.o: USFlag.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include USFlag.c $(CSTD)
-
-FlipImage.o: FlipImage.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include FlipImage.c $(CSTD)
-
-FlipImage: FlipImage.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o FlipImage FlipImage.o $(FLAGS)
-
-CarSimulator.o: CarSimulator.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include CarSimulator.c $(CSTD)
-
-CarSimulator: CarSimulator.o
-	@echo "Build $@"
-	@gcc -o CarSimulator CarSimulator.o $(FLAGS)
-
-BrickPyramid.o: BrickPyramid.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include BrickPyramid.c $(CSTD)
-
-BrickPyramid: BrickPyramid.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o BrickPyramid BrickPyramid.o $(FLAGS)
-
-DrawTarget.o: DrawTarget.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include DrawTarget.c $(CSTD)
-
-DrawTarget: DrawTarget.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o DrawTarget DrawTarget.o $(FLAGS)
-
-CarSimulatorStructs: CarSimulatorStructs.o
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -o CarSimulatorStructs CarSimulatorStructs.o $(FLAGS)
-
-CarSimulatorStructs.o: CarSimulatorStructs.c
-	@echo "Build $@"
-	@gcc -D$(PLATFORM) -c -I../include CarSimulatorStructs.c $(CSTD)
+.PHONY: directories
+directories:
+	@mkdir -p $(BUILDDIR) $(OBJ_BUILDDIR) $(BIN_BUILDDIR)
 
 # ***************************************************************
 # Standard entries to remove files from the directories
@@ -154,6 +147,7 @@ tidy:
 	@rm -f `find . -name ',*' -o -name '.,*' -o -name '*~'`
 	@rm -f `find . -name '*.tmp' -o -name '*.err'`
 	@rm -f `find . -name core -o -name a.out`
+	@rm -f *.o
 
 clean scratch: tidy
-	@rm -f *.o *.a $(PROGRAMS)
+	@rm -f *.o *.a $(C_BINFILES)

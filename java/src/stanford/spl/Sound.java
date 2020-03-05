@@ -1,8 +1,7 @@
 /*
  * File: Sound.java
  * ----------------
- * This program implements a Java-based graphics back end for the
- * StanfordCPPLib package.
+ * This file implements the Sound for the JBE.
  */
 
 /*************************************************************************/
@@ -25,10 +24,7 @@
 
 package stanford.spl;
 
-import acm.graphics.GObject;
 import acm.util.ErrorException;
-import acm.util.JTFTools;
-import acm.util.TokenScanner;
 
 import java.io.File;
 import java.io.FileInputStream;

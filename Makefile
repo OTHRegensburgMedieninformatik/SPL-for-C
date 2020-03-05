@@ -19,143 +19,218 @@
 ##
 # Filename: Makefile
 # Project : Makefile for building SPL
-# Version : 2020/03/03-R1
+# Version : 2020/03/05-R2
 #
 
+#############################################################################
+#                        SETTINGS, CONFIGURATIONS                           #
+#############################################################################
+
 # SETTINGS - OPERATING SYSTEM
-# Sets the target platform for SPL
-# Valid values for variable platform are unixlike and windows
+# ---------------------------
+#     Evaluates the target platform for SPL. Valid values for variable platform 
+#     are unixlike and windows
+
 ifeq ($(OS),Windows_NT)
-PLATFORM=windows
+PLATFORM = windows
 else
-PLATFORM=unixlike
+PLATFORM = unixlike
 endif
 
 # SETTINGS - C COMPILER
-# Additional compiler flags, add '-DPIPEDEBUG' for a debug build showing piped commands
+# ---------------------
+#     General settings for which C-Compiler to use and which flags should be 
+#     added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
+#     showing piped commands.
+
 CC       = gcc
 CFLAGS   = -g -std=gnu11
 
 # SETTINGS - C++ COMPILER
+# -----------------------
+#     General settings for which C++-Compiler to use and which flags should 
+#     be added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
+#     showing piped commands.
+
 CXX      = g++
 CXXFLAGS = -g -std=gnu++17
 
 # SETTINGS - LINKER, LIBRARIES
-LDLIBS   = -lpthread -lunwind -ldl
+# ----------------------------
+#     The variable LDLIBS is used to specify global C/C++-Libraries, which 
+#     have to be included, in order to get all dependencies.
+
+LDLIBS = -lpthread -lunwind -ldl
 ifeq ($(OS),Windows_NT)
-LDLIBS   += -lshlwapi
+LDLIBS += -lshlwapi
 endif
 
 # FILES - SOURCE
-SRCDIR     = c/src
-SRCFILES   = $(wildcard $(SRCDIR)/*.c)
-TESTSRCDIR = c/tests
+# --------------
+#     All the paths to the sourcefiles and their directories (C and Java) 
+#     will be stored in variables. The variable PROJECT_DIR is used to get
+#     the path the project is currently stored in.
 
-# FILES - BUILD
-BUILDDIR     = build/$(PLATFORM)
-OBJDIR       = $(BUILDDIR)/obj
-TESTDIR      = $(BUILDDIR)/tests
-LIBDIR       = $(BUILDDIR)/lib
-JAVABINDIR   = $(BUILDDIR)/classes
-OBJFILES     = $(SRCFILES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-DIRS         = \
-	build \
-	$(BUILDDIR) \
-	$(OBJDIR) \
-	$(TESTDIR) \
-	$(LIBDIR) \
-	$(JAVABINDIR)
+PROJECT_DIR    = $(shell pwd)
+C_SRCDIR       = c/src
+C_LIBDIR       = c/lib
+C_SRCFILES     = $(wildcard $(C_SRCDIR)/*.c)
+CTEST_SRCDIR   = c/tests
+CTEST_SRCFILES = $(wildcard $(CTEST_SRCDIR)/*.c)
 
-# SETTINGS - STATIC EXPORT
-LIBRARY      = $(LIBDIR)/libcs.a
-TESTS        = \
-	$(TESTDIR)/TestStanfordCSLib
-JARLIB       = spl.jar
-PROJECTBUILD = \
-	StarterProject \
-	StarterProjects
+# FILE BUILD - TARGETGROUPS
+# -------------------------
+#     In every specific group of files are the filenames (also targetnames)
+#     stored. Only the filenames are stored not the path to the files.
 
+C_OBJFILES         = $(C_SRCFILES:$(C_SRCDIR)/%.c=%.o)
+CTEST_OBJFILES     = $(CTEST_SRCFILES:$(CTEST_SRCDIR)/%.c=%.o)
+CTEST_BINFILES     = $(CTEST_SRCFILES:$(CTEST_SRCDIR)/%.c=%)
+C_STATIC_LIBRARIES = libcs.a
+JAVA_SPL           = spl.jar
 
-# ***************************************************************
-# Entry to bring the package up to date
-#    The "make all" entry should be the first real entry
+# DIRECTORIES - BUILD
+# -------------------
+#     The path in the variable BUILDDIR has to be relative. If the path is
+#     however an absolute one, the VARIABLE PROJECT_DIR has to be declared
+#     as empty manualy.
 
-all: directories $(OBJFILES) $(LIBRARY) $(TESTS) $(JARLIB) examples
+BUILDDIR          = $(PROJECT_DIR)/build/$(PLATFORM)
+CLASSES_BUILDDIR  = $(BUILDDIR)/classes
+EXAMPLES_BUILDDIR = $(BUILDDIR)/examples
+INCLUDE_BUILDDIR  = $(BUILDDIR)/include
+LIB_BUILDDIR      = $(BUILDDIR)/lib
+OBJ_BUILDDIR      = $(BUILDDIR)/obj
+TESTS_BUILDDIR    = $(BUILDDIR)/tests
 
+#############################################################################
+#                            DEFAULT - TARGET                               #
+#############################################################################
 
-# ***************************************************************
-# directories
+# TARGET: all
+# -----------
+#     This is the default target (will be called, if no target has been 
+#     specified). Specifies how the project should be build/rebuild. Calls 
+#     all targets, except the ones, which build the Starterprojects.
 
-.PHONY: directories
-directories:
-	@echo "Build Directories"
-	@mkdir -p $(DIRS)
+all: directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) \
+	$(JAVA_SPL) examples
 
+#############################################################################
+#                                C - TARGETS                                #
+#############################################################################
 
-# ***************************************************************
-# Library compilations
+# TARGET: libcs.a
+# ---------------
+#     This target specifies, how the static C-Library libcs.a is build. 
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+libcs.a: $(C_OBJFILES)
+	@echo "Build lics.a"
+	@-rm -f $(LIB_BUILDDIR)/libcs.a
+	@mkdir -p $(OBJ_BUILDDIR)/.libzmq
+	@(cd $(OBJ_BUILDDIR)/.libzmq; ar -x $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a)
+	@(cd $(OBJ_BUILDDIR); ar cr $(LIB_BUILDDIR)/libcs.a $(C_OBJFILES) $(OBJ_BUILDDIR)/.libzmq/*.o)
+	@ranlib $(LIB_BUILDDIR)/libcs.a
+	@rm -rf $(OBJ_BUILDDIR)/.libzmq
+	@cp -r c/include/* $(INCLUDE_BUILDDIR)
+
+# TARGET: C_OBJFILES
+# ------------------
+#     This traget specifies, how all obj-files of C_OBJFILES will be build.
+
+$(C_OBJFILES): %.o: $(C_SRCDIR)/%.c
 	@echo "Build $@"
-	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o $@ -Ic/include -Ic/include/private $^
+	@$(CC) $(CFLAGS) -D$(PLATFORM) -c -o $(OBJ_BUILDDIR)/$@ -Ic/include \
+		-Ic/include/private $<
 
-# ***************************************************************
-# Entry to reconstruct the library archive
+# TARGET: CTEST_BINFILES
+# ----------------------
+#     This target specifies, how the binaries (executables) for all tests, 
+#     will be build.
 
-$(LIBRARY): $(OBJFILES)
+$(CTEST_BINFILES): %: %.o $(C_STATIC_LIBRARIES)
 	@echo "Build $@"
-	@-rm -f $@
-	@(cd $(OBJDIR); ar -x ../../../c/lib/libzmq4.3.2-linux5.5.6.a)
-	@ar cr $@ $(OBJDIR)/*.o 
-	@ranlib $(LIBRARY)
-	@cp -r c/include $(BUILDDIR)/
+	@$(CC) $(CFLAGS) -o $(TESTS_BUILDDIR)/$@ $(OBJ_BUILDDIR)/$< \
+		-L$(LIB_BUILDDIR) -lcs -lm $(LDLIBS)
 
+# TARGET: CTEST_OBJFILES
+# ----------------------
+#     This target specifies, how all the obj-files for the tests, will be 
+#     build.
 
-# ***************************************************************
-# Test program
-
-$(TESTDIR)/TestStanfordCSLib: $(TESTSRCDIR)/TestStanfordCSLib.c $(LIBDIR)/libcs.a
-	@echo "Build $(OBJDIR)/TestStanfordCSLib.o"
-	@$(CC) $(CFLAGS) -c -o $(OBJDIR)/TestStanfordCSLib.o -Ic/include $(TESTSRCDIR)/TestStanfordCSLib.c
+$(CTEST_OBJFILES): %.o: $(CTEST_SRCDIR)/%.c
 	@echo "Build $@"
-	@$(CXX) $(CXXFLAGS) -o $@ $(OBJDIR)/TestStanfordCSLib.o -L$(LIBDIR) -lcs -lm $(LDLIBS)
+	@$(CC) $(CFLAGS) -c -o $(OBJ_BUILDDIR)/$@ -Ic/include -Ic/include/private $<
 
+# TARGET: examples
+# ----------------
+#     This target builds the example-files of the SPL. However this target
+#     does not specify, how to build the examples. Therefore an other Makefile
+#     inside $(PROJECT_DIR)/c/examples will be called.
 
-# ***************************************************************
-# Java Back End
+examples: $(C_STATIC_LIBRARIES) $(JAVA_SPL)
+	@echo "Build Examples"
+	@cp $(LIB_BUILDDIR)/spl.jar $(EXAMPLES_BUILDDIR)
+#	@make all -C c/examples
+	@make BUIDLDIR=$(BUILDDIR) BIN_BUILDDIR=$(EXAMPLES_BUILDDIR) \
+		OBJ_BUILDDIR=$(OBJ_BUILDDIR) -C c/examples
 
-$(JARLIB): stanford/spl/JavaBackEnd.class
+#############################################################################
+#                               JAVA - TARGETS                              #
+#############################################################################
+
+# TARGET: spl.jar
+# ---------------
+#     This target builds the executable .jar-file for the JavaBackEnd
+
+spl.jar: stanford/spl/JavaBackEnd.class
 	@echo "Build $@"
-	@mkdir -p $(LIBDIR)/.tmp
-	@(cd $(LIBDIR)/.tmp; unzip -uoqq "../../../../java/lib/*.jar")
-	@jar -cf $(LIBDIR)/spl.jar -C $(LIBDIR)/.tmp .
-	@rm -rf $(LIBDIR)/.tmp
-	@(cd $(BUILDDIR)/classes; jar ufm ../lib/spl.jar  ../../../java/include/JBEManifest.txt \
+	@mkdir -p $(LIB_BUILDDIR)/.tmp
+	@(cd $(LIB_BUILDDIR)/.tmp; unzip -uoqq "$(PROJECT_DIR)/java/lib/*.jar")
+	@jar -cf $(LIB_BUILDDIR)/spl.jar -C $(LIB_BUILDDIR)/.tmp .
+	@rm -rf $(LIB_BUILDDIR)/.tmp
+	@(cd $(CLASSES_BUILDDIR); jar ufm $(LIB_BUILDDIR)/spl.jar \
+		$(PROJECT_DIR)/java/include/JBEManifest.txt \
 		`find stanford -name '*.class'`)
-#	@echo jar cf $(LIBDIR)/spl.jar . . .
+
+# TARGET: stanford/spl/JavaBackEnd.class
+# --------------------------------------
+#     This target builds the binary .class-Javafile of the JavaBackEnd
 
 stanford/spl/JavaBackEnd.class: java/src/stanford/spl/*.java
 	@echo "Build $@"
-	@javac -g -d $(BUILDDIR)/classes -cp "java/lib/*" -sourcepath java/src \
-		java/src/stanford/spl/JavaBackEnd.java
+	@javac -g -d $(CLASSES_BUILDDIR) -cp "java/lib/*" -sourcepath \
+		java/src java/src/stanford/spl/JavaBackEnd.java
 
 
-# ***************************************************************
-# install
+#############################################################################
+#                          INSTALLATION - TARGETS                           #
+#############################################################################
 
-install: $(LIBDIR)/libcs.a $(JARLIB)
+# TARGET: install
+# ---------------
+#     This target installs all C- and Java-Libraries included in 
+#     $(C_STATIC_LIBRARIES) $(JAVA_SPL) globaly to your System, so that you 
+#     can import all .h-files globaly and don't rely on an local copy. 
+
+install: $(C_STATIC_LIBRARIES) $(JAVA_SPL)
 	rm -rf /usr/local/include/spl
-	cp -r $(BUILDDIR)/include /usr/local/include/spl
+	cp -r $(INCLUDE_BUILDDIR) /usr/local/include/spl
 	chmod -R a+rX /usr/local/include/spl
-	cp $(LIBDIR)/{libcs.a,spl.jar} /usr/local/lib/
+	cp $(LIB_BUILDDIR)/{libcs.a,spl.jar} /usr/local/lib/
 	chmod -R a+r /usr/local/lib/{libcs.a,spl.jar}
 
-examples: $(LIBDIR)/libcs.a $(JARLIB)
-	@echo "Build Examples"
-	@cp $(LIBDIR)/spl.jar c/examples/
-	@make -C c/examples
+#############################################################################
+#                        STARTERPROJECTS - TARGETS                          #
+#############################################################################
 
-starterprojects: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+# TARGET: starterprojects
+# -----------------------
+#     Builds all StarterProjects (clion_windows, clion_linux, ... ) into one 
+#     combined folder.
+
+# TODO: needs a cleanup
+starterprojects: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProjects"
 	@rm -rf StarterProjects
 	@mkdir StarterProjects
@@ -164,116 +239,144 @@ starterprojects: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
 	@cp -r ide/makefile StarterProjects/makefile
 	@echo "Build StarterProject for Clion on Windows"
 	@cp ide/src/HelloGraphics.c StarterProjects/clion/windows
-	@cp -r $(LIBDIR) StarterProjects/clion/windows/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/clion/windows/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/clion/windows/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/clion/windows/include
 	@echo "Build StarterProject for Clion on Linux"
 	@cp ide/src/HelloGraphics.c StarterProjects/clion/linux
-	@cp -r $(LIBDIR) StarterProjects/clion/linux/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/clion/linux/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/clion/linux/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/clion/linux/include
 	@echo "Build StarterProject for Clion on MacOS"
 	@cp ide/src/HelloGraphics.c StarterProjects/clion/macos
-	@cp -r $(LIBDIR) StarterProjects/clion/macos/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/clion/macos/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/clion/macos/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/clion/macos/include
 	@echo "Build StarterProject for CodeBlocks on Windows"
 	@cp ide/src/HelloGraphics.c StarterProjects/codeblocks/windows
-	@cp -r $(LIBDIR) StarterProjects/codeblocks/windows/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/codeblocks/windows/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/codeblocks/windows/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/codeblocks/windows/include
 	@echo "Build StarterProject for CodeBlocks on Linux"
 	@cp ide/src/HelloGraphics.c StarterProjects/codeblocks/linux
-	@cp -r $(LIBDIR) StarterProjects/codeblocks/linux/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/codeblocks/linux/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/codeblocks/linux/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/codeblocks/linux/include
 	@echo "Build StarterProject for CodeBlocks on MacOS"
 	@cp ide/src/HelloGraphics.c StarterProjects/codeblocks/macos
-	@cp -r $(LIBDIR) StarterProjects/codeblocks/macos/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/codeblocks/macos/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/codeblocks/macos/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/codeblocks/macos/include
 	@echo "Build StarterProject for Makefile Project"
 	@cp ide/src/HelloGraphics.c StarterProjects/makefile
-	@cp -r $(LIBDIR) StarterProjects/makefile/lib
-	@cp -r $(BUILDDIR)/include StarterProjects/makefile/include
+	@cp -r $(LIB_BUILDDIR) StarterProjects/makefile/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProjects/makefile/include
 	@echo "Check the StarterProjects folder"
 
-clion_windows: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+clion_windows: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for Clion on Windows"
 	@rm -rf StarterProject
 	@cp -r ide/clion/windows StarterProject
-	@cp -r $(LIBDIR) StarterProject
-	@cp -r $(BUILDDIR)/include StarterProject
+	@cp -r $(LIB_BUILDDIR) StarterProject
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-clion_linux: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+clion_linux: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for Clion on Linux";
 	@rm -rf StarterProject
 	@cp -r ide/clion/linux StarterProject
-	@cp -r $(LIBDIR) StarterProject
-	@cp -r $(BUILDDIR)/include StarterProject
+	@cp -r $(LIB_BUILDDIR) StarterProject
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-clion_macos: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+clion_macos: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for Clion on MaxOS";
 	@rm -rf StarterProject
 	@cp -r ide/clion/macos StarterProject
-	@cp -r $(LIBDIR) StarterProject
-	@cp -r $(BUILDDIR)/include StarterProject
+	@cp -r $(LIB_BUILDDIR) StarterProject
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-codeblocks_windows: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+codeblocks_windows: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for CodeBlocks on Windows";
 	@rm -rf StarterProject
 	@cp -r ide/codeblocks/windows StarterProject
-	@cp -r $(LIBDIR) StarterProject
-	@cp -r $(BUILDDIR)/include StarterProject
+	@cp -r $(LIB_BUILDDIR) StarterProject
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-codeblocks_linux: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+codeblocks_linux: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for CodeBlocks on Linux";
 	@rm -rf StarterProject
 	@cp -r ide/codeblocks/linux StarterProject
-	@cp -r $(LIBDIR) StarterProject/lib
-	@cp -r $(BUILDDIR)/include StarterProject/include
+	@cp -r $(LIB_BUILDDIR) StarterProject/lib
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject/include
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-codeblocks_macos: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+codeblocks_macos: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for CodeBlocks on MacOS";
 	@rm -rf StarterProject
 	@cp -r ide/codeblocks/macos StarterProject
-	@cp -r $(LIBDIR) StarterProject
-	@cp -r $(BUILDDIR)/include StarterProject
+	@cp -r $(LIB_BUILDDIR) StarterProject
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-makefile: clean $(BUILD) $(OBJECTS) $(LIBRARIES) $(TESTS) $(JARLIB)
+makefile: clean directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL)
 	@echo "Build StarterProject for Makefile Project";
 	@rm -rf StarterProject
 	@cp -r ide/makefile StarterProject
-	@cp -r $(LIBDIR) StarterProject
-	@cp -r $(BUILDDIR)/include StarterProject
+	@cp -r $(LIB_BUILDDIR) StarterProject
+	@cp -r $(INCLUDE_BUILDDIR) StarterProject
 	@cp ide/src/HelloGraphics.c StarterProject
 	@echo "Check the StarterProject folder"
 
-# ***************************************************************
-# Standard entries to remove files from the directories
-#    tidy    -- eliminate unwanted files
-#    scratch -- delete derived files in preparation for rebuild
+#############################################################################
+#                             .PHONY - TARGETS                              #
+#############################################################################
 
+# TARGET: directories
+# -------------------
+#     This target builds all the directories needed for building the Project
+
+.PHONY: directories
+directories:
+	@echo "Build Directories"
+	@mkdir -p build $(BUILDDIR) $(CLASSES_BUILDDIR) $(EXAMPLES_BUILDDIR) \
+		$(INCLUDE_BUILDDIR) $(LIB_BUILDDIR) $(OBJ_BUILDDIR) $(TESTS_BUILDDIR)
+
+# TARGET: tidy
+# ------------
+#     This target eliminates unwanted files.
+
+.PHONY: tidy
 tidy: examples-tidy
 	@echo "Clean Project Directory"
 	@rm -f `find . -name ',*' -o -name '.,*' -o -name '*~'`
 	@rm -f `find . -name '*.tmp' -o -name '*.err'`
 	@rm -f `find . -name core -o -name a.out`
-	@rm -rf build/classes
-	@rm -rf build/obj
-	@make tidy -C c/examples
+	@rm -rf $(CLASSES_BUILDDIR)
+	@rm -rf $(OBJ_BUILDDIR)
 
+# TARET: examples-tidy
+# ---------------------
+#     This target eliminates unwanted files in the c/examples directory.
+
+.PHONY: examples-tidy
 examples-tidy:
-	@rm -f c/examples/*.o
-	@rm -f c/examples/*.exe
+	@rm -f $(PROJECT_DIR)/c/examples/*.o
+	@rm -f $(PROJECT_DIR)/c/examples/*.exe
 
+# TARGET: scratch, clean
+# ----------------------
+#     This target deletes derived files in preparation for rebuild.
+
+.PHONY: scratch clean
 scratch clean: tidy
-	@rm -f -r $(DIRS) $(OBJFILES) $(LIBRARIES) $(TESTS) $(PROJECTBUILD)
+	@rm -f -r build $(BUILDDIR) $(CLASSES_BUILDDIR) $(EXAMPLES_BUILDDIR) \
+		$(INCLUDE_BUILDDIR) $(LIB_BUILDDIR) $(OBJ_BUILDDIR) $(TESTS_BUILDDIR) \
+		$(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL) $(PROJECTBUILD)
+	@make clean BUIDLDIR=$(BUILDDIR) BIN_BUILDDIR=$(EXAMPLES_BUILDDIR) \
+		OBJ_BUILDDIR=$(OBJ_BUILDDIR) -C c/examples
 	@make clean -C c/examples
+	@rm -f c/examples/spl.jar
 	@echo "Cleaning Done"
