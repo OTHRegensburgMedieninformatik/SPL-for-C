@@ -13,7 +13,7 @@ add_executable(StarterProject ${SOURCE_FILES})
 
 # Linked Libraries
 target_link_libraries(StarterProject ${CMAKE_CURRENT_SOURCE_DIR}/lib/libcs.a)
-target_link_libraries(StarterProject m)
+target_link_libraries(StarterProject m pthread dl unwind)
 
 # This file has  to be in output directory
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/lib/spl.jar DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
