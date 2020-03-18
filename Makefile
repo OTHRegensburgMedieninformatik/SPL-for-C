@@ -109,10 +109,17 @@ CXXFLAGS = -g -std=gnu++17
 #         Windows Visual Studio 15 (2017) x64: libzmq4.3.2-vs15.2017.dll
 #     } 
 
-CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a
-LDLIBS = -lpthread -lunwind -ldl
+LDLIBS = -lpthread -ldl
 ifeq ($(OS),Windows_NT)
 LDLIBS += -lshlwapi
+CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-vs15.2017.dll
+endif
+ifeq ($(shell uname -s),Linux)
+LDLIBS += -lunwind
+CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a
+endif
+ifeq ($(shell uname -s),Darwin)
+CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-darwin19.3.0.a
 endif
 
 #############################################################################

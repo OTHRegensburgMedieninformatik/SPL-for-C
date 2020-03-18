@@ -58,9 +58,12 @@ CXXFLAGS = -g -std=gnu++17
 #     The variable LDLIBS is used to specify global C/C++-Libraries, which 
 #     have to be included, in order to get all dependencies.
 
-LDFLAGS = -lcs -lm -lpthread -lunwind -ldl
+LDFLAGS = -lcs -lm -lpthread -ldl
 ifeq ($(OS),Windows_NT)
 LDFLAGS += -lshlwapi
+endif
+ifeq ($(shell uname -s),Linux)
+LDFLAGS += -lunwind
 endif
 
 # FILES - SOURCE

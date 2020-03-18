@@ -16,7 +16,7 @@ set_target_properties(${APPNAME} PROPERTIES LINKER_LANGUAGE "CXX")
 
 # Linked Libraries
 target_link_libraries(${APPNAME} ${CMAKE_CURRENT_SOURCE_DIR}/lib/libcs.a)
-target_link_libraries(${APPNAME} m pthread dl unwind)
+target_link_libraries(${APPNAME} m pthread dl)
 
 # This file has  to be in output directory
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/lib/spl.jar DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
