@@ -91,6 +91,9 @@ void setStartPointOp(GObject gobj, double x, double y);
 void setEndPointOp(GObject gobj, double x, double y);
 
 GDimension createGImageOp(GObject gobj, string filename);
+GDimension createGImageFromPixelArrayOp(GObject gobj, int **pixels, int width, int height);
+int **getPixelArrayOp(GImage image);
+void setPixelArrayOp(GImage image, int **pixels);
 
 void createGPolygonOp(GPolygon poly);
 void addVertexOp(GPolygon poly, double x, double y);
@@ -139,6 +142,8 @@ void pauseOp(double milliseconds);
 
 static void startJavaBackendProcess();
 void readMessageFromBuffer(char* message, int maxLength);
+
+void initZMQInterface(int port_recv, int port_send);
 
 #ifdef windows
 TCHAR* getApplicationPath(TCHAR* dest, size_t destSize);

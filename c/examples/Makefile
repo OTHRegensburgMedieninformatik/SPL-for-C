@@ -19,7 +19,7 @@
 ##
 # Filename: Makefile
 # Project : Makefile for building examples for SPL
-# Version : 2020/03/05-R1
+# Version : 2020/03/18-R1
 #
 
 #############################################################################
@@ -40,8 +40,7 @@ endif
 # SETTINGS - C COMPILER
 # ---------------------
 #     General settings for which C-Compiler to use and which flags should be 
-#     added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
-#     showing piped commands.
+#     added.
 
 CC       = gcc
 CFLAGS   = -std=c99
@@ -49,10 +48,8 @@ CFLAGS   = -std=c99
 # SETTINGS - C++ COMPILER
 # -----------------------
 #     General settings for which C++-Compiler to use and which flags should 
-#     be added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
-#     showing piped commands.
+#     be added. 
 
-# TODO: -I may cause Problems
 CXX      = g++
 CXXFLAGS = -g -std=gnu++17
 

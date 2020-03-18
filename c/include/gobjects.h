@@ -819,6 +819,84 @@ typedef GObject GImage;
 GImage newGImage(string filename);
 
 /**
+ * Function: newGImageFromPixelArray
+ * Usage: GImage image = newGImageFromPixelArray(pixels);
+ * ------------------------------------------------------
+ * Constructs a new image from a given PixelArray <code>pixels</code>.
+ * The upper left corner of the image is positioned at the origin.
+ */
+// TODO: Change to GDimension
+GImage newGImageFromPixelArray(int **pixels, int width, int height);
+
+/**
+ * Function: getPixelArray
+ * Usage: pixels = getPixelArray(image);
+ * -------------------------------------
+ * Returns a two-dimensional array of pixel values from the stored 
+ * image.
+ */
+int **getPixelArray(GImage image);
+
+/**
+ * Function: setPixelArray
+ * Usage: setPixelArray(image, pixels);
+ * ------------------------------------
+ * Sets the image to use the given two-dimensional array of pixel values.
+ */
+void setPixelArray(GImage image, int **pixels);
+
+/**
+ * Function: createRGBPixel
+ * Usage: pixel = createRGBPixel(red, green, blue);
+ * ------------------------------------------------
+ * Creates an opaque pixel value with the color components given by 
+ * <code>red</code>, <code>green</code> and <code>blue</code>.
+ */
+int createRGBPixel(int red, int green, int blue);
+
+/**
+ * Function: createRGBAPixel
+ * Usage: pixel = createRGBAPixel(red, green, blue, alpha);
+ * --------------------------------------------------------
+ * Creates a pixel value with the color components given by 
+ * <code>red</code>, <code>green</code> and <code>blue</code> and the 
+ * transparency value <code>alpha</code>.
+ */
+int createRGBAPixel(int red, int green, int blue, int alpha);
+
+/**
+ * Function: getRed
+ * Usage: green = getRed(pixel);
+ * -----------------------------
+ * Returns the red component from an RGB/RGBA value.
+ */
+int getRed(int pixel);
+
+/**
+ * Function: getGreen
+ * Usage: green = getGreen(pixel);
+ * -------------------------------
+ * Returns the green component from an RGB/RGBA value.
+ */
+int getGreen(int pixel);
+
+/**
+ * Function: getBlue
+ * Usage: blue = getBlue(pixel);
+ * -----------------------------
+ * Returns the blue component from an RGB/RGBA value.
+ */
+int getBlue(int pixel);
+
+/**
+ * Function: getAlpha
+ * Usage: alpha = getAlpha(pixel);
+ * -------------------------------
+ * Returns the blue component from an RGB/RGBA value.
+ */
+int getAlpha(int pixel);
+
+/**
  * Type: GPolygon
  * --------------
  * This subtype represents a polygon bounded by line segments.

@@ -19,7 +19,7 @@
 ##
 # Filename: Makefile
 # Project : Makefile for building SPL
-# Version : 2020/03/05-R2
+# Version : 2020/03/18-R1
 #
 
 #############################################################################
@@ -35,34 +35,6 @@ ifeq ($(OS),Windows_NT)
 PLATFORM = windows
 else
 PLATFORM = unixlike
-endif
-
-# SETTINGS - C COMPILER
-# ---------------------
-#     General settings for which C-Compiler to use and which flags should be 
-#     added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
-#     showing piped commands.
-
-CC       = gcc
-CFLAGS   = -g -std=gnu11
-
-# SETTINGS - C++ COMPILER
-# -----------------------
-#     General settings for which C++-Compiler to use and which flags should 
-#     be added. Additional compiler flags, add '-DPIPEDEBUG' for a debug build 
-#     showing piped commands.
-
-CXX      = g++
-CXXFLAGS = -g -std=gnu++17
-
-# SETTINGS - LINKER, LIBRARIES
-# ----------------------------
-#     The variable LDLIBS is used to specify global C/C++-Libraries, which 
-#     have to be included, in order to get all dependencies.
-
-LDLIBS = -lpthread -lunwind -ldl
-ifeq ($(OS),Windows_NT)
-LDLIBS += -lshlwapi
 endif
 
 # FILES - SOURCE
@@ -103,6 +75,46 @@ LIB_BUILDDIR      = $(BUILDDIR)/lib
 OBJ_BUILDDIR      = $(BUILDDIR)/obj
 TESTS_BUILDDIR    = $(BUILDDIR)/tests
 
+# SETTINGS - C COMPILER
+# ---------------------
+#     General settings for which C-Compiler to use and which flags should be 
+#     added. Additional compiler flags:
+#       ->  add '-DPIPEDEBUG' for a debug build showing piped commands
+#       ->  add '-DZMQDEBUG' for a debug build showing ZeroMQ commands
+
+CC       = gcc
+CFLAGS   = -g -std=gnu11
+
+# SETTINGS - C++ COMPILER
+# -----------------------
+#     General settings for which C++-Compiler to use and which flags should 
+#     be added. Additional compiler flags:
+#       ->  add '-DPIPEDEBUG' for a debug build showing piped commands
+#       ->  add '-DZMQDEBUG' for a debug build showing ZeroMQ commands
+
+CXX      = g++
+CXXFLAGS = -g -std=gnu++17
+
+# SETTINGS - LINKER, LIBRARIES
+# ----------------------------
+#     The variable LDLIBS is used to specify global C/C++-Libraries, which 
+#     have to be included, in order to get all dependencies. The variable
+#     CXX_LIBZMQ has to be changed depending on your Operating System. Inside
+#     this project are three different libraries included. But if you want,
+#     are able to include your own version of the libzmq.
+#
+#     included_libraries: {
+#         MacOS Catalina x64: libzmq4.3.2-darwin19.3.0.a, 
+#         Linux Kernerl 5.5.6 x64: libzmq4.3.2-linux5.5.6.a, 
+#         Windows Visual Studio 15 (2017) x64: libzmq4.3.2-vs15.2017.dll
+#     } 
+
+CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a
+LDLIBS = -lpthread -lunwind -ldl
+ifeq ($(OS),Windows_NT)
+LDLIBS += -lshlwapi
+endif
+
 #############################################################################
 #                            DEFAULT - TARGET                               #
 #############################################################################
@@ -128,7 +140,7 @@ libcs.a: $(C_OBJFILES)
 	@echo "Build lics.a"
 	@-rm -f $(LIB_BUILDDIR)/libcs.a
 	@mkdir -p $(OBJ_BUILDDIR)/.libzmq
-	@(cd $(OBJ_BUILDDIR)/.libzmq; ar -x $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a)
+	@(cd $(OBJ_BUILDDIR)/.libzmq; ar -x ${CXX_LIBZMQ})
 	@(cd $(OBJ_BUILDDIR); ar cr $(LIB_BUILDDIR)/libcs.a $(C_OBJFILES) $(OBJ_BUILDDIR)/.libzmq/*.o)
 	@ranlib $(LIB_BUILDDIR)/libcs.a
 	@rm -rf $(OBJ_BUILDDIR)/.libzmq
@@ -150,7 +162,7 @@ $(C_OBJFILES): %.o: $(C_SRCDIR)/%.c
 
 $(CTEST_BINFILES): %: %.o $(C_STATIC_LIBRARIES)
 	@echo "Build $@"
-	@$(CC) $(CFLAGS) -o $(TESTS_BUILDDIR)/$@ $(OBJ_BUILDDIR)/$< \
+	@$(CXX) $(CXXFLAGS) -o $(TESTS_BUILDDIR)/$@ $(OBJ_BUILDDIR)/$< \
 		-L$(LIB_BUILDDIR) -lcs -lm $(LDLIBS)
 
 # TARGET: CTEST_OBJFILES
@@ -171,6 +183,8 @@ $(CTEST_OBJFILES): %.o: $(CTEST_SRCDIR)/%.c
 examples: $(C_STATIC_LIBRARIES) $(JAVA_SPL)
 	@echo "Build Examples"
 	@cp $(LIB_BUILDDIR)/spl.jar $(EXAMPLES_BUILDDIR)
+	@cp -r c/examples/images $(EXAMPLES_BUILDDIR)
+	@cp -r c/examples/sounds $(EXAMPLES_BUILDDIR)
 #	@make all -C c/examples
 	@make BUIDLDIR=$(BUILDDIR) BIN_BUILDDIR=$(EXAMPLES_BUILDDIR) \
 		OBJ_BUILDDIR=$(OBJ_BUILDDIR) -C c/examples
@@ -374,7 +388,8 @@ examples-tidy:
 scratch clean: tidy
 	@rm -f -r build $(BUILDDIR) $(CLASSES_BUILDDIR) $(EXAMPLES_BUILDDIR) \
 		$(INCLUDE_BUILDDIR) $(LIB_BUILDDIR) $(OBJ_BUILDDIR) $(TESTS_BUILDDIR) \
-		$(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL) $(PROJECTBUILD)
+		$(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) $(JAVA_SPL) \
+		StarterProject StarterProjects
 	@make clean BUIDLDIR=$(BUILDDIR) BIN_BUILDDIR=$(EXAMPLES_BUILDDIR) \
 		OBJ_BUILDDIR=$(OBJ_BUILDDIR) -C c/examples
 	@make clean -C c/examples

@@ -50,7 +50,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -59,10 +58,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine.Info;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -700,6 +695,20 @@ public class JavaBackEnd implements
       return image;
    }
 
+/* Interprocess-communication */
+
+   protected ZMQInterface getZMQInterface() {
+      return iface;
+   }
+
+   protected void setZMQInterface(ZMQInterface iface) {
+      this.iface = iface;
+   }
+
+   protected boolean getDebug() {
+      return debug;
+   }
+
 /* Instance variables */
 
    private String appName;
@@ -724,5 +733,6 @@ public class JavaBackEnd implements
    private Object eventLock = new Object();
    private boolean eventAcknowledged;
    private boolean eventPending;
+   private ZMQInterface iface;
 
 }

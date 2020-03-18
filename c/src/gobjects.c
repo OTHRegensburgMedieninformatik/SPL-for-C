@@ -22,10 +22,10 @@
 /* along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 /*************************************************************************/
 
-#include <stdio.h>
-#include <math.h>
-#include "gmath.h"
 #include "gobjects.h"
+#include <math.h>
+#include <stdio.h>
+#include "gmath.h"
 #include "platform.h"
 #include "vector.h"
 
@@ -189,17 +189,11 @@ void freeGObject(GObject gobj) {
    freeBlock(gobj);
 }
 
-double getXGObject(GObject gobj) {
-   return gobj->x;
-}
+double getXGObject(GObject gobj) { return gobj->x; }
 
-double getYGObject(GObject gobj) {
-   return gobj->y;
-}
+double getYGObject(GObject gobj) { return gobj->y; }
 
-GPoint getLocation(GObject gobj) {
-   return createGPoint(gobj->x, gobj->y);
-}
+GPoint getLocation(GObject gobj) { return createGPoint(gobj->x, gobj->y); }
 
 void setLocation(GObject gobj, double x, double y) {
    gobj->x = x;
@@ -213,13 +207,9 @@ void move(GObject gobj, double dx, double dy) {
    setLocation(gobj, gobj->x, gobj->y);
 }
 
-double getWidthGObject(GObject gobj) {
-   return getBounds(gobj).width;
-}
+double getWidthGObject(GObject gobj) { return getBounds(gobj).width; }
 
-double getHeightGObject(GObject gobj) {
-   return getBounds(gobj).height;
-}
+double getHeightGObject(GObject gobj) { return getBounds(gobj).height; }
 
 GDimension getSize(GObject gobj) {
    GRectangle bounds;
@@ -242,71 +232,73 @@ void setColorGObject(GObject gobj, string color) {
    setColorOp(gobj, color);
 }
 
-string getColorGObject(GObject gobj) {
-   return gobj->color;
-}
+string getColorGObject(GObject gobj) { return gobj->color; }
 
 void setVisibleGObject(GObject gobj, bool flag) {
    gobj->visible = flag;
    setVisibleGObjectOp(gobj, flag);
 }
 
-bool isVisibleGObject(GObject gobj) {
-   return gobj->visible;
-}
+bool isVisibleGObject(GObject gobj) { return gobj->visible; }
 
-void sendForward(GObject gobj) {
-   sendForwardOp(gobj);
-}
+void sendForward(GObject gobj) { sendForwardOp(gobj); }
 
-void sendToFront(GObject gobj) {
-   sendToFrontOp(gobj);
-}
+void sendToFront(GObject gobj) { sendToFrontOp(gobj); }
 
-void sendBackward(GObject gobj) {
-   sendBackwardOp(gobj);
-}
+void sendBackward(GObject gobj) { sendBackwardOp(gobj); }
 
-void sendToBack(GObject gobj) {
-   sendToBackOp(gobj);
-}
+void sendToBack(GObject gobj) { sendToBackOp(gobj); }
 
 bool containsGObject(GObject gobj, double x, double y) {
    if (gobj->type == GOVAL) return containsGOval(gobj, x, y);
    if (gobj->type == GARC) return containsGArc(gobj, x, y);
    if (gobj->type == GPOLYGON) return containsGPolygon(gobj, x, y);
-   return x >= gobj->x && y >= gobj->y && x <= gobj->x + gobj->width
-                                       && y <= gobj->y + gobj->height;
+   return x >= gobj->x && y >= gobj->y && x <= gobj->x + gobj->width &&
+          y <= gobj->y + gobj->height;
 }
 
-extern void unhandledError(string msg) __attribute__ ((noreturn));
+extern void unhandledError(string msg) __attribute__((noreturn));
 string getType(GObject gobj) {
    switch (gobj->type) {
-    case GARC: return "GArc";
-    case GCOMPOUND: return "GCompound";
-    case GIMAGE: return "GImage";
-    case GLABEL: return "GLabel";
-    case GLINE: return "GLine";
-    case GOVAL: return "GOval";
-    case GPOLYGON: return "GPolygon";
-    case GRECT: return "GRect";
-    case G3DRECT: return "G3DRect";
-    case GROUNDRECT: return "GRoundRect";
-    case GBUTTON: return "GButton";
-    case GCHECKBOX: return "GCheckBox";
-    case GCHOOSER: return "GChooser";
-    case GSLIDER: return "GSlider";
-    case GTEXTFIELD: return "GTextField";
+      case GARC:
+         return "GArc";
+      case GCOMPOUND:
+         return "GCompound";
+      case GIMAGE:
+         return "GImage";
+      case GLABEL:
+         return "GLabel";
+      case GLINE:
+         return "GLine";
+      case GOVAL:
+         return "GOval";
+      case GPOLYGON:
+         return "GPolygon";
+      case GRECT:
+         return "GRect";
+      case G3DRECT:
+         return "G3DRect";
+      case GROUNDRECT:
+         return "GRoundRect";
+      case GBUTTON:
+         return "GButton";
+      case GCHECKBOX:
+         return "GCheckBox";
+      case GCHOOSER:
+         return "GChooser";
+      case GSLIDER:
+         return "GSlider";
+      case GTEXTFIELD:
+         return "GTextField";
 
-    // TODO: Better way?
-    default:
-        unhandledError("Attempting to call getType on an object with unexpected type");
+      // TODO: Better way?
+      default:
+         unhandledError(
+             "Attempting to call getType on an object with unexpected type");
    }
 }
 
-GObject getParent(GObject gobj) {
-   return gobj->parent;
-}
+GObject getParent(GObject gobj) { return gobj->parent; }
 
 void setSize(GObject gobj, double width, double height) {
    if ((gobj->type & (GRECT | GOVAL | GIMAGE | GINTERACTOR)) == 0) {
@@ -325,25 +317,21 @@ void setBounds(GObject gobj, double x, double y, double width, double height) {
 void setFilled(GObject gobj, bool flag) {
    // ensure gobj has valid type
    if ((gobj->type &
-       (G3DRECT | GARC | GOVAL | GPOLYGON | GRECT | GROUNDRECT)) == 0) {
+        (G3DRECT | GARC | GOVAL | GPOLYGON | GRECT | GROUNDRECT)) == 0) {
       error("setFilled: Illegal GObject type");
    }
    gobj->filled = flag;
    setFilledOp(gobj, flag);
 }
 
-bool isFilled(GObject gobj) {
-   return gobj->filled;
-}
+bool isFilled(GObject gobj) { return gobj->filled; }
 
 void setFillColor(GObject gobj, string color) {
    gobj->fillColor = color;
    setFillColorOp(gobj, color);
 }
 
-string getFillColor(GObject gobj) {
-   return gobj->fillColor;
-}
+string getFillColor(GObject gobj) { return gobj->fillColor; }
 
 /*
  * Implementation notes: GRect
@@ -365,7 +353,7 @@ GRect newGRect(double x, double y, double width, double height) {
 }
 
 GRoundRect newGRoundRect(double x, double y, double width, double height,
-                                             double corner) {
+                         double corner) {
    GObject rect;
 
    rect = newGObject(GROUNDRECT);
@@ -379,7 +367,7 @@ GRoundRect newGRoundRect(double x, double y, double width, double height,
 }
 
 G3DRect newG3DRect(double x, double y, double width, double height,
-                                       bool raised) {
+                   bool raised) {
    GObject rect;
 
    rect = newGObject(G3DRECT);
@@ -398,9 +386,7 @@ void setRaised(G3DRect rect, bool raised) {
    setRaisedOp(rect, raised);
 }
 
-bool isRaised(G3DRect rect) {
-   return rect->u.g3dRectRep.raised;
-}
+bool isRaised(G3DRect rect) { return rect->u.g3dRectRep.raised; }
 
 /*
  * Implementation notes: GOval
@@ -502,7 +488,7 @@ static bool containsGLine(GLine line, double x, double y) {
    if (x > fmax(x0, x1) + LINE_TOLERANCE) return false;
    if (y < fmin(y0, y1) - LINE_TOLERANCE) return false;
    if (y > fmax(y0, y1) + LINE_TOLERANCE) return false;
-   if ((float) (x0 - x1) == 0 && (float) (y0 - y1) == 0) return false;
+   if ((float)(x0 - x1) == 0 && (float)(y0 - y1) == 0) return false;
    u = ((x - x0) * (x1 - x0) + (y - y0) * (y1 - y0)) / dsq(x0, y0, x1, y1);
    return dsq(x, y, x0 + u * (x1 - x0), y0 + u * (y1 - y0)) < tsq;
 }
@@ -514,8 +500,8 @@ static bool containsGLine(GLine line, double x, double y) {
  * because the functions are often overloaded.
  */
 
-GArc newGArc(double x, double y, double width, double height,
-                                 double start, double sweep) {
+GArc newGArc(double x, double y, double width, double height, double start,
+             double sweep) {
    GObject arc;
 
    arc = newGObject(GARC);
@@ -535,21 +521,17 @@ void setStartAngle(GArc arc, double start) {
    setStartAngleOp(arc, start);
 }
 
-double getStartAngle(GArc arc) {
-   return arc->u.arcRep.start;
-}
+double getStartAngle(GArc arc) { return arc->u.arcRep.start; }
 
 void setSweepAngle(GArc arc, double sweep) {
    arc->u.arcRep.sweep = sweep;
    setSweepAngleOp(arc, sweep);
 }
 
-double getSweepAngle(GArc arc) {
-   return arc->u.arcRep.sweep;
-}
+double getSweepAngle(GArc arc) { return arc->u.arcRep.sweep; }
 
-void setFrameRectangle(GArc arc, double x, double y,
-                                 double width, double height) {
+void setFrameRectangle(GArc arc, double x, double y, double width,
+                       double height) {
    arc->x = x;
    arc->y = y;
    arc->width = width;
@@ -610,8 +592,7 @@ static bool containsGArc(GArc arc, double x, double y) {
 static bool containsAngle(GArc arc, double theta) {
    double start, sweep;
 
-   start = fmin(arc->u.arcRep.start,
-                arc->u.arcRep.start + arc->u.arcRep.sweep);
+   start = fmin(arc->u.arcRep.start, arc->u.arcRep.start + arc->u.arcRep.sweep);
    sweep = fabs(arc->u.arcRep.sweep);
    if (sweep >= 360) return true;
    theta = (theta < 0) ? 360 - fmod(-theta, 360) : fmod(theta, 360);
@@ -651,9 +632,7 @@ void setFont(GLabel label, string font) {
    label->height = size.height;
 }
 
-string getFont(GLabel label) {
-   return label->u.labelRep.font;
-}
+string getFont(GLabel label) { return label->u.labelRep.font; }
 
 void setLabel(GLabel label, string str) {
    GDimension size;
@@ -665,17 +644,11 @@ void setLabel(GLabel label, string str) {
    label->height = size.height;
 }
 
-string getLabel(GLabel label) {
-   return label->u.labelRep.str;
-}
+string getLabel(GLabel label) { return label->u.labelRep.str; }
 
-double getFontAscent(GLabel label) {
-   return label->u.labelRep.ascent;
-}
+double getFontAscent(GLabel label) { return label->u.labelRep.ascent; }
 
-double getFontDescent(GLabel label) {
-   return label->u.labelRep.descent;
-}
+double getFontDescent(GLabel label) { return label->u.labelRep.descent; }
 
 static GRectangle getBoundsGLabel(GLabel label) {
    return createGRectangle(label->x, label->y - label->u.labelRep.ascent,
@@ -692,6 +665,39 @@ GImage newGImage(string filename) {
    image->height = size.height;
    return image;
 }
+
+GImage newGImageFromPixelArray(int **pixels, int width, int height) {
+   GPolygon image;
+   GDimension size;
+
+   image = newGObject(GIMAGE);
+   size = createGImageFromPixelArrayOp(image, pixels, width, height);
+   image->width = size.width;
+   image->height = size.height;
+   return image;
+}
+
+int **getPixelArray(GImage image) { return getPixelArrayOp(image); }
+
+void setPixelArray(GImage image, int **pixels) {
+   setPixelArrayOp(image, pixels);
+}
+
+int createRGBPixel(int red, int green, int blue) {
+   return createRGBAPixel(red, green, blue, 0xFF);
+}
+
+int createRGBAPixel(int red, int green, int blue, int alpha) {
+   return (alpha << 24) | (red << 16) | (green << 8) | blue;
+}
+
+int getRed(int pixel) { return (pixel >> 16) & 0xFF; }
+
+int getGreen(int pixel) { return (pixel >> 8) & 0xFF; }
+
+int getBlue(int pixel) { return pixel & 0xFF; }
+
+int getAlpha(int pixel) { return (pixel >> 24) & 0xFF; }
 
 GPolygon newGPolygon(void) {
    GPolygon poly = newGObject(GPOLYGON);
@@ -720,9 +726,7 @@ void addPolarEdge(GPolygon poly, double r, double theta) {
    addEdge(poly, r * cosDegrees(theta), -r * sinDegrees(theta));
 }
 
-Vector getVertices(GPolygon poly) {
-   return poly->u.polygonRep.vertices;
-}
+Vector getVertices(GPolygon poly) { return poly->u.polygonRep.vertices; }
 
 static GRectangle getBoundsGPolygon(GPolygon poly) {
    Vector vertices;
@@ -736,8 +740,8 @@ static GRectangle getBoundsGPolygon(GPolygon poly) {
    vertices = poly->u.polygonRep.vertices;
    n = sizeVector(vertices);
    for (i = 0; i < n; i++) {
-      x = ((GPoint *) getVector(vertices, i))->x;
-      y = ((GPoint *) getVector(vertices, i))->y;
+      x = ((GPoint *)getVector(vertices, i))->x;
+      y = ((GPoint *)getVector(vertices, i))->y;
       if (i == 0 || x < xMin) xMin = x;
       if (i == 0 || y < yMin) yMin = y;
       if (i == 0 || x > xMax) xMax = x;
@@ -756,13 +760,13 @@ static bool containsGPolygon(GArc arc, double x, double y) {
    crossings = 0;
    n = sizeVector(vertices);
    if (n < 2) return false;
-   p0 = (GPoint *) getVector(vertices, 0);
+   p0 = (GPoint *)getVector(vertices, 0);
    x0 = p0->x;
    y0 = p0->y;
-   p1 = (GPoint *) getVector(vertices, n - 1);
+   p1 = (GPoint *)getVector(vertices, n - 1);
    if (p0->x == p1->x && p0->y == p1->y) n--;
    for (i = 1; i <= n; i++) {
-      p1 = (GPoint *) getVector(vertices, i % n);
+      p1 = (GPoint *)getVector(vertices, i % n);
       x1 = p1->x;
       y1 = p1->y;
       if ((y0 > y) != (y1 > y) && x - x0 < (x1 - x0) * (y - y0) / (y1 - y0)) {
@@ -859,7 +863,7 @@ GButton newGButton(string label) {
 
 /* GCheckBox operations */
 
-GCheckBox newGCheckBox(string label)  {
+GCheckBox newGCheckBox(string label) {
    GCheckBox chkbox = newGObject(GCHECKBOX);
    chkbox->u.interactorRep.label = label;
    createGCheckBoxOp(chkbox, label);
@@ -873,9 +877,7 @@ GCheckBox newGCheckBox(string label)  {
  * Sets the state of the check box.
  */
 
-void setSelected(GCheckBox chkbox, bool state) {
-   setSelectedOp(chkbox, state);
-}
+void setSelected(GCheckBox chkbox, bool state) { setSelectedOp(chkbox, state); }
 
 /*
  * Function: isSelected
@@ -884,9 +886,7 @@ void setSelected(GCheckBox chkbox, bool state) {
  * Returns <code>true</code> if the check box is selected.
  */
 
-bool isSelected(GCheckBox chkbox) {
-   return isSelectedOp(chkbox);
-}
+bool isSelected(GCheckBox chkbox) { return isSelectedOp(chkbox); }
 
 /* GSlider operations */
 
@@ -903,9 +903,7 @@ GSlider newGSlider(int min, int max, int value) {
  * Sets the current value of the slider.
  */
 
-void setValue(GSlider slider, int value) {
-   setValueOp(slider, value);
-}
+void setValue(GSlider slider, int value) { setValueOp(slider, value); }
 
 /*
  * Function: getValue
@@ -914,9 +912,7 @@ void setValue(GSlider slider, int value) {
  * Returns the current value of the slider.
  */
 
-int getValue(GSlider slider) {
-   return getValueOp(slider);
-}
+int getValue(GSlider slider) { return getValueOp(slider); }
 
 /* GTextField operations */
 
@@ -926,13 +922,9 @@ GTextField newGTextField(int nChars) {
    return field;
 }
 
-void setText(GTextField field, string str) {
-   setTextOp(field, str);
-}
+void setText(GTextField field, string str) { setTextOp(field, str); }
 
-string getText(GTextField field) {
-   return getTextOp(field);
-}
+string getText(GTextField field) { return getTextOp(field); }
 
 /* GChooser operations */
 
@@ -942,14 +934,10 @@ GChooser newGChooser(void) {
    return chooser;
 }
 
-void addItem(GChooser chooser, string item) {
-   addItemOp(chooser, item);
-}
+void addItem(GChooser chooser, string item) { addItemOp(chooser, item); }
 
 void setSelectedItem(GChooser chooser, string item) {
    setSelectedItemOp(chooser, item);
 }
 
-string getSelectedItem(GChooser chooser) {
-   return getSelectedItemOp(chooser);
-}
+string getSelectedItem(GChooser chooser) { return getSelectedItemOp(chooser); }

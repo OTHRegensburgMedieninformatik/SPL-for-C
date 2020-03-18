@@ -50,6 +50,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
@@ -65,8 +66,8 @@ import javax.swing.Timer;
 public abstract class JBECommand {
    public abstract void execute(TokenScanner scanner, JavaBackEnd jbe);
 
-   public static HashMap<String,JBECommand> createCommandTable() {
-      HashMap<String,JBECommand> cmdTable = new HashMap<String,JBECommand>();
+   public static HashMap<String, JBECommand> createCommandTable() {
+      HashMap<String, JBECommand> cmdTable = new HashMap<String, JBECommand>();
       cmdTable.put("File.openFileDialog", new File_openFileDialog());
       cmdTable.put("G3DRect.create", new G3DRect_create());
       cmdTable.put("G3DRect.setRaised", new G3DRect_setRaised());
@@ -83,8 +84,10 @@ public abstract class JBECommand {
       cmdTable.put("GEvent.getNextEvent", new GEvent_getNextEvent());
       cmdTable.put("GEvent.waitForEvent", new GEvent_waitForEvent());
       cmdTable.put("GImage.create", new GImage_create());
-      cmdTable.put("GInteractor.setActionCommand",
-                   new GInteractor_setActionCommand());
+      cmdTable.put("GImage.createFromPixelArray", new GImage_createFromPixelArray());
+      cmdTable.put("GImage.getPixelArray", new GImage_getPixelArray());
+      cmdTable.put("GImage.setPixelArray", new GImage_setPixelArray());
+      cmdTable.put("GInteractor.setActionCommand", new GInteractor_setActionCommand());
       cmdTable.put("GInteractor.getSize", new GInteractor_getSize());
       cmdTable.put("GLabel.create", new GLabel_create());
       cmdTable.put("GLabel.getFontAscent", new GLabel_getFontAscent());
@@ -133,8 +136,7 @@ public abstract class JBECommand {
       cmdTable.put("GTimer.startTimer", new GTimer_startTimer());
       cmdTable.put("GTimer.stopTimer", new GTimer_stopTimer());
       cmdTable.put("GWindow.addToRegion", new GWindow_addToRegion());
-      cmdTable.put("GWindow.setRegionAlignment",
-                   new GWindow_setRegionAlignment());
+      cmdTable.put("GWindow.setRegionAlignment", new GWindow_setRegionAlignment());
       cmdTable.put("GWindow.clear", new GWindow_clear());
       cmdTable.put("GWindow.close", new GWindow_close());
       cmdTable.put("GWindow.create", new GWindow_create());
@@ -158,6 +160,7 @@ public abstract class JBECommand {
       cmdTable.put("Sound.create", new Sound_create());
       cmdTable.put("Sound.delete", new Sound_delete());
       cmdTable.put("Sound.play", new Sound_play());
+      cmdTable.put("ZMQInterface.init", new ZMQInterface_init());
       return cmdTable;
    }
 
@@ -167,7 +170,8 @@ public abstract class JBECommand {
 
    public double nextDouble(TokenScanner scanner) {
       String token = scanner.nextToken();
-      if (token.equals("-")) token += scanner.nextToken();
+      if (token.equals("-"))
+         token += scanner.nextToken();
       return Double.parseDouble(token);
    }
 
@@ -211,7 +215,8 @@ class GWindow_close extends JBECommand {
       String id = nextString(scanner);
       JBEWindow jw = jbe.getWindow(id);
       scanner.verifyToken(")");
-      if (jw != null) jw.close();
+      if (jw != null)
+         jw.close();
    }
 }
 
@@ -238,7 +243,8 @@ class GWindow_clear extends JBECommand {
       String id = nextString(scanner);
       JBEWindow jw = jbe.getWindow(id);
       scanner.verifyToken(")");
-      if (jw != null) jw.clear();
+      if (jw != null)
+         jw.clear();
    }
 }
 
@@ -248,7 +254,8 @@ class GWindow_repaint extends JBECommand {
       String id = nextString(scanner);
       JBEWindow jw = jbe.getWindow(id);
       scanner.verifyToken(")");
-      if (jw != null) jw.getCanvas().repaint();
+      if (jw != null)
+         jw.getCanvas().repaint();
    }
 }
 
@@ -273,7 +280,8 @@ class GWindow_setResizable extends JBECommand {
       scanner.verifyToken(",");
       boolean flag = scanner.nextToken().equals("true");
       scanner.verifyToken(")");
-      if (jw != null) jw.setResizable(flag);
+      if (jw != null)
+         jw.setResizable(flag);
    }
 }
 
@@ -285,7 +293,8 @@ class GWindow_setTitle extends JBECommand {
       scanner.verifyToken(",");
       String title = nextString(scanner);
       scanner.verifyToken(")");
-      if (jw != null) jw.setTitle(title);
+      if (jw != null)
+         jw.setTitle(title);
    }
 }
 
@@ -297,7 +306,8 @@ class GWindow_setVisible extends JBECommand {
       scanner.verifyToken(",");
       boolean flag = scanner.nextToken().equals("true");
       scanner.verifyToken(")");
-      if (jw != null) jw.setVisible(flag);
+      if (jw != null)
+         jw.setVisible(flag);
    }
 }
 
@@ -544,7 +554,8 @@ class G3DRect_setRaised extends JBECommand {
       boolean raised = nextBoolean(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((G3DRect) gobj).setRaised(raised);
+      if (gobj != null)
+         ((G3DRect) gobj).setRaised(raised);
    }
 }
 
@@ -576,7 +587,8 @@ class GLine_setStartPoint extends JBECommand {
       double y = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GLine) gobj).setStartPoint(x, y);
+      if (gobj != null)
+         ((GLine) gobj).setStartPoint(x, y);
    }
 }
 
@@ -590,7 +602,8 @@ class GLine_setEndPoint extends JBECommand {
       double y = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GLine) gobj).setEndPoint(x, y);
+      if (gobj != null)
+         ((GLine) gobj).setEndPoint(x, y);
    }
 }
 
@@ -614,7 +627,8 @@ class GPolygon_addVertex extends JBECommand {
       double y = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GPolygon) gobj).addVertex(x, y);
+      if (gobj != null)
+         ((GPolygon) gobj).addVertex(x, y);
    }
 }
 
@@ -629,11 +643,69 @@ class GImage_create extends JBECommand {
          BufferedImage img = ImageIO.read(new File(filename));
          GImage gobj = new GImage(img);
          jbe.defineGObject(id, gobj);
-         System.out.println("result:GDimension(" + gobj.getWidth() +
-                            ", " + gobj.getHeight() + ")");
+         System.out.println("result:GDimension(" + gobj.getWidth() + ", " + gobj.getHeight() + ")");
          System.out.flush();
       } catch (Exception ex) {
          System.out.println("result:" + ex.getMessage());
+         System.out.flush();
+      }
+   }
+}
+
+class GImage_createFromPixelArray extends JBECommand {
+   public void execute(TokenScanner scanner, JavaBackEnd jbe) {
+      scanner.verifyToken("(");
+      String id = nextString(scanner);
+      scanner.verifyToken(",");
+      int width = nextInt(scanner);
+      scanner.verifyToken(",");
+      int height = nextInt(scanner);
+      scanner.verifyToken(")");
+      ZMQInterface iface = jbe.getZMQInterface();
+      int[][] pixels = new int[height][width];
+      for(int i = 0; i < height; i++)
+         pixels[i] = iface.recvIntArray();
+      GImage gobj = new GImage(pixels);
+      jbe.defineGObject(id, gobj);
+      System.out.println("result:GDimension(" + gobj.getWidth() + ", " + gobj.getHeight() + ")");
+      System.out.flush();
+   }
+}
+
+class GImage_getPixelArray extends JBECommand {
+   public void execute(TokenScanner scanner, JavaBackEnd jbe) {
+      scanner.verifyToken("(");
+      String id = nextString(scanner);
+      scanner.verifyToken(")");
+      GImage gobj = (GImage) jbe.getGObject(id);
+      if (gobj != null) {
+         int[][] pixels = gobj.getPixelArray();
+         ZMQInterface iface = jbe.getZMQInterface();
+         for (int i = 0; i < pixels.length; i++) {
+            if(i + 1 != pixels.length)
+               iface.sendIntArray(pixels[i], false);
+            else
+               iface.sendIntArray(pixels[i], true);
+         } 
+      }
+   }
+}
+
+class GImage_setPixelArray extends JBECommand {
+   public void execute(TokenScanner scanner, JavaBackEnd jbe) {
+      scanner.verifyToken("(");
+      String id = nextString(scanner);
+      scanner.verifyToken(")");
+      GImage gobj = (GImage) jbe.getGObject(id);
+      ZMQInterface iface = jbe.getZMQInterface();
+      if (gobj != null) {
+         int[][] pixels = new int[(int)gobj.getHeight()][(int)gobj.getWidth()];
+         for (int i = 0; i < pixels.length; i++)
+            pixels[i] = iface.recvIntArray();
+         gobj = new GImage(pixels);
+         jbe.deleteGObject(id);
+         jbe.defineGObject(id, gobj);
+         System.out.println("result:GDimension(" + gobj.getWidth() + ", " + gobj.getHeight() + ")");
          System.out.flush();
       }
    }
@@ -691,7 +763,8 @@ class GArc_setStartAngle extends JBECommand {
       double angle = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GArc) gobj).setStartAngle(angle);
+      if (gobj != null)
+         ((GArc) gobj).setStartAngle(angle);
    }
 }
 
@@ -703,7 +776,8 @@ class GArc_setSweepAngle extends JBECommand {
       double angle = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GArc) gobj).setSweepAngle(angle);
+      if (gobj != null)
+         ((GArc) gobj).setSweepAngle(angle);
    }
 }
 
@@ -800,9 +874,8 @@ class GObject_getBounds extends JBECommand {
          System.out.println("error: NULL object");
       } else {
          GRectangle bounds = gobj.getBounds();
-         System.out.println("result:GRectangle(" + bounds.getX() + ", "
-                            + bounds.getY() + ", " + bounds.getWidth() + ", "
-                            + bounds.getHeight() + ")");
+         System.out.println("result:GRectangle(" + bounds.getX() + ", " + bounds.getY() + ", " + bounds.getWidth()
+               + ", " + bounds.getHeight() + ")");
       }
       System.out.flush();
    }
@@ -816,7 +889,8 @@ class GObject_remove extends JBECommand {
       scanner.verifyToken(")");
       if (gobj != null) {
          GCompound parent = (GCompound) gobj.getParent();
-         if (parent != null) parent.remove(gobj);
+         if (parent != null)
+            parent.remove(gobj);
       }
    }
 }
@@ -829,7 +903,8 @@ class GObject_rotate extends JBECommand {
       scanner.verifyToken(",");
       double theta = nextDouble(scanner);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.rotate(theta);
+      if (gobj != null)
+         gobj.rotate(theta);
    }
 }
 
@@ -843,7 +918,8 @@ class GObject_scale extends JBECommand {
       scanner.verifyToken(",");
       double sy = nextDouble(scanner);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.scale(sx, sy);
+      if (gobj != null)
+         gobj.scale(sx, sy);
    }
 }
 
@@ -853,7 +929,8 @@ class GObject_sendForward extends JBECommand {
       String id = nextString(scanner);
       GObject gobj = jbe.getGObject(id);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.sendForward();
+      if (gobj != null)
+         gobj.sendForward();
    }
 }
 
@@ -863,7 +940,8 @@ class GObject_sendToFront extends JBECommand {
       String id = nextString(scanner);
       GObject gobj = jbe.getGObject(id);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.sendToFront();
+      if (gobj != null)
+         gobj.sendToFront();
    }
 }
 
@@ -873,7 +951,8 @@ class GObject_sendBackward extends JBECommand {
       String id = nextString(scanner);
       GObject gobj = jbe.getGObject(id);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.sendBackward();
+      if (gobj != null)
+         gobj.sendBackward();
    }
 }
 
@@ -883,7 +962,8 @@ class GObject_sendToBack extends JBECommand {
       String id = nextString(scanner);
       GObject gobj = jbe.getGObject(id);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.sendToBack();
+      if (gobj != null)
+         gobj.sendToBack();
    }
 }
 
@@ -895,7 +975,8 @@ class GObject_setLineWidth extends JBECommand {
       scanner.verifyToken(",");
       double lineWidth = nextDouble(scanner);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.setLineWidth(lineWidth);
+      if (gobj != null)
+         gobj.setLineWidth(lineWidth);
    }
 }
 
@@ -923,7 +1004,8 @@ class GObject_setLocation extends JBECommand {
       double y = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) gobj.setLocation(x, y);
+      if (gobj != null)
+         gobj.setLocation(x, y);
    }
 }
 
@@ -935,7 +1017,8 @@ class GObject_setVisible extends JBECommand {
       scanner.verifyToken(",");
       boolean flag = nextBoolean(scanner);
       scanner.verifyToken(")");
-      if (gobj != null) gobj.setVisible(flag);
+      if (gobj != null)
+         gobj.setVisible(flag);
    }
 }
 
@@ -968,7 +1051,8 @@ class GObject_setSize extends JBECommand {
       double height = nextDouble(scanner);
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GResizable) gobj).setSize(width, height);
+      if (gobj != null)
+         ((GResizable) gobj).setSize(width, height);
    }
 }
 
@@ -980,7 +1064,8 @@ class GObject_setFilled extends JBECommand {
       boolean flag = scanner.nextToken().equals("true");
       scanner.verifyToken(")");
       GObject gobj = jbe.getGObject(id);
-      if (gobj != null) ((GFillable) gobj).setFilled(flag);
+      if (gobj != null)
+         ((GFillable) gobj).setFilled(flag);
    }
 }
 
@@ -1007,7 +1092,8 @@ class GLabel_setFont extends JBECommand {
       String font = nextString(scanner);
       scanner.verifyToken(")");
       GLabel label = (GLabel) jbe.getGObject(id);
-      if (label != null) label.setFont(font);
+      if (label != null)
+         label.setFont(font);
    }
 }
 
@@ -1019,7 +1105,8 @@ class GLabel_setLabel extends JBECommand {
       String str = nextString(scanner);
       scanner.verifyToken(")");
       GLabel label = (GLabel) jbe.getGObject(id);
-      if (label != null) label.setLabel(str);
+      if (label != null)
+         label.setLabel(str);
    }
 }
 
@@ -1052,8 +1139,7 @@ class GLabel_getGLabelSize extends JBECommand {
       scanner.verifyToken(")");
       GLabel label = (GLabel) jbe.getGObject(id);
       GDimension size = label.getSize();
-      System.out.println("result:GDimension(" + size.getWidth()
-                       + ", " + size.getHeight() + ")");
+      System.out.println("result:GDimension(" + size.getWidth() + ", " + size.getHeight() + ")");
       System.out.flush();
    }
 }
@@ -1080,10 +1166,8 @@ class GInteractor_getSize extends JBECommand {
       GObject gobj = jbe.getGObject(id);
       if (gobj != null) {
          JComponent jcomp = ((GInteractor) gobj).getInteractor();
-         Dimension size = (jcomp.isShowing()) ? jcomp.getSize()
-                                              : jcomp.getPreferredSize();
-         System.out.println("result:GDimension(" + size.width + ", "
-                                                 + size.height + ")");
+         Dimension size = (jcomp.isShowing()) ? jcomp.getSize() : jcomp.getPreferredSize();
+         System.out.println("result:GDimension(" + size.width + ", " + size.height + ")");
          System.out.flush();
       } else {
          System.out.println("result:GDimension(0, 0)");
@@ -1257,13 +1341,12 @@ class GChooser_create extends JBECommand {
 }
 
 class GChooser_addItem extends JBECommand {
-/*
- * Implementation note
- * -------------------
- * This implementation uses reflection to call the addItem method to
- * avoid generating warnings in Java 7 (which added a type parameter
- * to the JComboBox class) while still allowing compilation in Java 6.
- */
+   /*
+    * Implementation note ------------------- This implementation uses reflection
+    * to call the addItem method to avoid generating warnings in Java 7 (which
+    * added a type parameter to the JComboBox class) while still allowing
+    * compilation in Java 6.
+    */
    public void execute(TokenScanner scanner, JavaBackEnd jbe) {
       scanner.verifyToken("(");
       String id = nextString(scanner);
@@ -1328,7 +1411,8 @@ class GWindow_setRegionAlignment extends JBECommand {
       String align = nextString(scanner);
       scanner.verifyToken(")");
       JBEWindow jw = jbe.getWindow(id);
-      if (jw != null) jw.setRegionAlignment(region, align);
+      if (jw != null)
+         jw.setRegionAlignment(region, align);
    }
 }
 
@@ -1351,5 +1435,17 @@ class File_openFileDialog extends JBECommand {
       scanner.verifyToken(")");
       System.out.println("result:" + jbe.openFileDialog(title, mode, path));
       System.out.flush();
+   }
+}
+
+class ZMQInterface_init extends JBECommand {
+   public void execute(TokenScanner scanner, JavaBackEnd jbe) {
+      scanner.verifyToken("(");
+      int port_recv = nextInt(scanner);
+      scanner.verifyToken(",");
+      int port_send = nextInt(scanner);
+      scanner.verifyToken(")");
+      ZMQInterface iface = new ZMQInterface(jbe.getDebug(), port_recv, port_send);
+      jbe.setZMQInterface(iface);
    }
 }
