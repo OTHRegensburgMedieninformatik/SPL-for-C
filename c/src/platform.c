@@ -1004,7 +1004,8 @@ GDimension createGImageOp(GObject gobj, string filename) {
    return getGDimension();
 }
 
-GDimension createGImageFromPixelArrayOp(GObject gobj, int **pixels, int width, int height) {
+GDimension createGImageFromPixelArrayOp(GObject gobj, int **pixels, int width,
+                                        int height) {
    if (iface == NULL) initZMQInterface(5555, 5556);
    putPipe("GImage.createFromPixelArray(\"0x%lX\", %d, %d)", (long)gobj, width,
            height);
@@ -1014,8 +1015,6 @@ GDimension createGImageFromPixelArrayOp(GObject gobj, int **pixels, int width, i
       else
          sendIntArray(iface, pixels[i], width, false);
    }
-   for (int i = 0; i < height; i++) freeBlock(pixels[i]);
-   freeBlock(pixels);
    return getGDimension();
 }
 
@@ -1029,6 +1028,7 @@ int **getPixelArrayOp(GImage image) {
    for (int i = 0; i < height; i++) {
       recvIntArray(iface, &(pixels[i]));
    }
+   sendConfirmationReply(iface);
    return pixels;
 }
 
@@ -1210,4 +1210,6 @@ static void registerSource(GInteractor interactor) {
 void initZMQInterface(int port_recv, int port_send) {
    iface = newZMQInterface(port_recv, port_send);
    putPipe("ZMQInterface.init(%d, %d)", port_send, port_recv);
+   int port_java = getInt();
+   if (port_java != port_send) updateClientPort(iface, port_java);
 }

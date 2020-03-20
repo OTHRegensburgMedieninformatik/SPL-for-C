@@ -61,9 +61,10 @@ CXXFLAGS = -g -std=gnu++17
 LDFLAGS = -lcs -lm -lpthread -ldl
 ifeq ($(OS),Windows_NT)
 LDFLAGS += -lshlwapi
-endif
+else
 ifeq ($(shell uname -s),Linux)
 LDFLAGS += -lunwind
+endif
 endif
 
 # FILES - SOURCE

@@ -106,20 +106,22 @@ CXXFLAGS = -g -std=gnu++17
 #     included_libraries: {
 #         MacOS Catalina x64: libzmq4.3.2-darwin19.3.0.a, 
 #         Linux Kernerl 5.5.6 x64: libzmq4.3.2-linux5.5.6.a, 
-#         Windows Visual Studio 15 (2017) x64: libzmq4.3.2-vs15.2017.dll
-#     } 
+#         Windows Visual Studio 15 (2017) x64: libzmq4.3.2-vs15.2017.lib
+#     }
 
 LDLIBS = -lpthread -ldl
 ifeq ($(OS),Windows_NT)
 LDLIBS += -lshlwapi
-CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-vs15.2017.dll
-endif
+CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-vs15.2017.lib
+# TODO: Test is still pending, if passes CMake is not needed
+else
 ifeq ($(shell uname -s),Linux)
 LDLIBS += -lunwind
 CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a
 endif
 ifeq ($(shell uname -s),Darwin)
 CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-darwin19.3.0.a
+endif
 endif
 
 #############################################################################

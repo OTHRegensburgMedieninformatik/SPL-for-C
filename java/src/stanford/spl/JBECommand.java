@@ -665,6 +665,7 @@ class GImage_createFromPixelArray extends JBECommand {
       int[][] pixels = new int[height][width];
       for(int i = 0; i < height; i++)
          pixels[i] = iface.recvIntArray();
+      iface.sendConfirmationReply();
       GImage gobj = new GImage(pixels);
       jbe.defineGObject(id, gobj);
       System.out.println("result:GDimension(" + gobj.getWidth() + ", " + gobj.getHeight() + ")");
@@ -686,7 +687,7 @@ class GImage_getPixelArray extends JBECommand {
                iface.sendIntArray(pixels[i], false);
             else
                iface.sendIntArray(pixels[i], true);
-         } 
+         }
       }
    }
 }
@@ -702,6 +703,7 @@ class GImage_setPixelArray extends JBECommand {
          int[][] pixels = new int[(int)gobj.getHeight()][(int)gobj.getWidth()];
          for (int i = 0; i < pixels.length; i++)
             pixels[i] = iface.recvIntArray();
+         iface.sendConfirmationReply();
          gobj = new GImage(pixels);
          jbe.deleteGObject(id);
          jbe.defineGObject(id, gobj);
@@ -1447,5 +1449,7 @@ class ZMQInterface_init extends JBECommand {
       scanner.verifyToken(")");
       ZMQInterface iface = new ZMQInterface(jbe.getDebug(), port_recv, port_send);
       jbe.setZMQInterface(iface);
+      System.out.println("result:" + iface.getServerPort());
+      System.out.flush();
    }
 }

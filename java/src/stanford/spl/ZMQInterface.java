@@ -1,8 +1,8 @@
 /*
- * File: ZMQInterface.java
- * -----------------------
- * This file implements the ZMQ-Interface for the JBE for binary transport
- * of data tp the C FrontEnd.
+ * File: ZMQInterface.java 
+ * ----------------------- 
+ * This file implements the ZMQ-Interface for the JBE for binary transport 
+ * of data to the C FrontEnd.
  */
 
 /*************************************************************************/
@@ -36,29 +36,40 @@ public class ZMQInterface {
    private ZContext context;
    private ZMQ.Socket server;
    private ZMQ.Socket client;
+   private int server_port;
 
    public ZMQInterface(boolean debug, int port_recv, int port_send) {
       this.debug = debug;
       context = new ZContext();
       server = context.createSocket(SocketType.REP);
       client = context.createSocket(SocketType.REQ);
+      boolean bound = false;
 
-      try {
-         server.bind("tcp://*:" + port_recv);
-         if (this.debug)
-            System.err.println("JavaBackEnd: ZMQInterface: Server listening at port " + port_recv + ".");
-      } catch (ZMQException ex) {
-         if (this.debug)
-            System.err.println("JavaBackEnd: ZMQInterface: Port " + port_recv + " is already occupied.");
+      while (!bound) {
+         try {
+            server.bind("tcp://*:" + port_recv);
+            bound = true;
+            server_port = port_recv;
+            if (this.debug)
+               System.err.println(
+                     "JavaBackEnd: ZMQInterface: Server listening at port " + port_recv + ".");
+         } catch (ZMQException ex) {
+            if (this.debug)
+               System.err.println("JavaBackEnd: ZMQInterface: Port " + port_recv
+                     + " is already occupied, trying port " + (port_recv + 1) + ".");
+            port_recv++;
+         }
       }
 
       try {
          client.connect("tcp://localhost:" + port_send);
          if (this.debug)
-            System.err.println("JavaBackEnd: ZMQInterface: Client now sends messages to port " + port_send + ".");
+            System.err.println("JavaBackEnd: ZMQInterface: Client now sends messages to port "
+                  + port_send + ".");
       } catch (ZMQException ex) {
          if (this.debug)
-            System.err.println("JavaBackEnd: ZMQInterface: Client could not connect to port " + port_send + ".");
+            System.err.println(
+                  "JavaBackEnd: ZMQInterface: Client could not connect to port " + port_send + ".");
       }
 
       if (this.debug)
@@ -66,13 +77,18 @@ public class ZMQInterface {
 
    }
 
-   public void sendString(String str) {
-      client.send(str.getBytes(ZMQ.CHARSET), 0);
+   public int getServerPort() {
+      return server_port;
    }
 
-   public String recvString() {
-      return server.recvStr();
-   }
+
+   // public void sendString(String str) {
+   // client.send(str.getBytes(ZMQ.CHARSET), 0);
+   // }
+
+   // public String recvString() {
+   // return server.recvStr();
+   // }
 
    public void sendIntArray(int[] arr, boolean last) {
       byte[] len_bin = new byte[4];
@@ -93,10 +109,28 @@ public class ZMQInterface {
          arr_bin[j++] = (byte) ((x >>> 16) & 0xff);
          arr_bin[j++] = (byte) ((x >>> 24) & 0xff);
       }
-      if (last)
+      if (last) {
          client.send(arr_bin, 0);
-      else
+         String reply = new String(client.recv(0), ZMQ.CHARSET);
+         if (this.debug) {
+            if(reply.equals("0")) {
+               System.err.println("JavaBackEnd: ZMQInterface: Successfully send data to Server.");
+            } else {
+               System.err.println("JavaBackEnd: ZMQInterface: Something went wrong, while sending data to " +
+                  "Server. Server returned ZMQinterface-Error #" + reply);
+            }
+         }
+      } else {
          client.send(arr_bin, ZMQ.SNDMORE);
+      }
+   }
+
+   public void sendConfirmationReply() {
+      String msg = "0";
+      server.send(msg.getBytes(ZMQ.CHARSET), 0);
+      if (this.debug)
+         System.err.println(
+               "JavaBackEnd: ZMQInterface: Successfully received data from Client. Sending confirmation to Client.");
    }
 
    public int[] recvIntArray() {
