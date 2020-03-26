@@ -1043,8 +1043,6 @@ void setPixelArrayOp(GImage image, int **pixels) {
       else
          sendIntArray(iface, pixels[i], width, false);
    }
-   for (int i = 0; i < height; i++) freeBlock(pixels[i]);
-   freeBlock(pixels);
 }
 
 /* GPolygon operations */

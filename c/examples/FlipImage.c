@@ -1,6 +1,6 @@
 /*
  * File: FlipImage.c
- * --------------
+ * -----------------
  * This program attempts to flip an image.
  *
  * Author: Hendrik Böck
