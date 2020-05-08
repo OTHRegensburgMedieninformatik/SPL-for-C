@@ -697,12 +697,12 @@ public class JavaBackEnd implements
 
 /* Interprocess-communication */
 
-   protected ZMQInterface getZMQInterface() {
-      return iface;
+   protected BinaryPipe getBinaryPipe() {
+      return binaryPipe;
    }
 
-   protected void setZMQInterface(ZMQInterface iface) {
-      this.iface = iface;
+   protected void setBinaryPipe(BinaryPipe binaryPipe) {
+      this.binaryPipe = binaryPipe;
    }
 
    protected boolean getDebug() {
@@ -713,7 +713,7 @@ public class JavaBackEnd implements
 
    private String appName;
    private String exec;
-   private boolean debug = false;
+   private boolean debug = true;
    private JBEConsole console;
    private JFrame consoleFrame;
    private int consoleX = DEFAULT_CONSOLE_X;
@@ -733,6 +733,6 @@ public class JavaBackEnd implements
    private Object eventLock = new Object();
    private boolean eventAcknowledged;
    private boolean eventPending;
-   private ZMQInterface iface;
+   private BinaryPipe binaryPipe;
 
 }

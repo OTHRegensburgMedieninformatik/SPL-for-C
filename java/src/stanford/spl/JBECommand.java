@@ -160,7 +160,7 @@ public abstract class JBECommand {
       cmdTable.put("Sound.create", new Sound_create());
       cmdTable.put("Sound.delete", new Sound_delete());
       cmdTable.put("Sound.play", new Sound_play());
-      cmdTable.put("ZMQInterface.init", new ZMQInterface_init());
+      cmdTable.put("BinaryPipe.init", new BinaryPipe_init());
       return cmdTable;
    }
 
@@ -661,11 +661,15 @@ class GImage_createFromPixelArray extends JBECommand {
       scanner.verifyToken(",");
       int height = nextInt(scanner);
       scanner.verifyToken(")");
-      ZMQInterface iface = jbe.getZMQInterface();
+      BinaryPipe binaryPipe = jbe.getBinaryPipe();
       int[][] pixels = new int[height][width];
-      for(int i = 0; i < height; i++)
-         pixels[i] = iface.recvIntArray();
-      iface.sendConfirmationReply();
+      for (int i = 0; i < height; i++) {
+         int arr[] = binaryPipe.readIntArr();
+         System.err.println("is long: " + arr.length + ", was expected: " + width);
+         pixels[i] = arr;
+
+      }
+      binaryPipe.closeFis();
       GImage gobj = new GImage(pixels);
       jbe.defineGObject(id, gobj);
       System.out.println("result:GDimension(" + gobj.getWidth() + ", " + gobj.getHeight() + ")");
@@ -681,13 +685,12 @@ class GImage_getPixelArray extends JBECommand {
       GImage gobj = (GImage) jbe.getGObject(id);
       if (gobj != null) {
          int[][] pixels = gobj.getPixelArray();
-         ZMQInterface iface = jbe.getZMQInterface();
-         for (int i = 0; i < pixels.length; i++) {
-            if(i + 1 != pixels.length)
-               iface.sendIntArray(pixels[i], false);
-            else
-               iface.sendIntArray(pixels[i], true);
-         }
+         BinaryPipe binaryPipe = jbe.getBinaryPipe();
+         for (int i = 0; i < pixels.length; i++)
+            binaryPipe.write(pixels[i]);
+         binaryPipe.flush();
+         System.out.println("result:ok");
+         System.out.flush();
       }
    }
 }
@@ -698,12 +701,12 @@ class GImage_setPixelArray extends JBECommand {
       String id = nextString(scanner);
       scanner.verifyToken(")");
       GImage gobj = (GImage) jbe.getGObject(id);
-      ZMQInterface iface = jbe.getZMQInterface();
+      BinaryPipe binaryPipe = jbe.getBinaryPipe();
       if (gobj != null) {
-         int[][] pixels = new int[(int)gobj.getHeight()][(int)gobj.getWidth()];
+         int[][] pixels = new int[(int) gobj.getHeight()][(int) gobj.getWidth()];
          for (int i = 0; i < pixels.length; i++)
-            pixels[i] = iface.recvIntArray();
-         iface.sendConfirmationReply();
+            pixels[i] = binaryPipe.readIntArr();
+         binaryPipe.closeFis();
          gobj = new GImage(pixels);
          jbe.deleteGObject(id);
          jbe.defineGObject(id, gobj);
@@ -1440,16 +1443,12 @@ class File_openFileDialog extends JBECommand {
    }
 }
 
-class ZMQInterface_init extends JBECommand {
+class BinaryPipe_init extends JBECommand {
    public void execute(TokenScanner scanner, JavaBackEnd jbe) {
       scanner.verifyToken("(");
-      int port_recv = nextInt(scanner);
-      scanner.verifyToken(",");
-      int port_send = nextInt(scanner);
+      String filepath = nextString(scanner);
       scanner.verifyToken(")");
-      ZMQInterface iface = new ZMQInterface(jbe.getDebug(), port_recv, port_send);
-      jbe.setZMQInterface(iface);
-      System.out.println("result:" + iface.getServerPort());
-      System.out.flush();
+      BinaryPipe binaryPipe = new BinaryPipe(filepath);
+      jbe.setBinaryPipe(binaryPipe);
    }
 }

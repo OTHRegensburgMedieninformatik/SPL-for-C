@@ -47,8 +47,10 @@
 #include <ctype.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
+#include "binarypipe.h"
 #include "cslib.h"
 #include "filelib.h"
 #include "gevents.h"
@@ -62,7 +64,6 @@
 #include "strbuf.h"
 #include "strlib.h"
 #include "tokenscanner.h"
-#include "zmqinterface.h"
 
 /* Constants */
 
@@ -79,7 +80,7 @@ static HashMap sourceTable;
 static HashMap timerTable;
 static HashMap windowTable;
 static StringBuffer psb;
-static ZMQInterface iface = NULL;
+static BinaryPipe binaryPipe = NULL;
 
 #ifdef windows
 static HANDLE g_hChildStd_IN_Rd = NULL;
@@ -995,6 +996,14 @@ GDimension getGLabelSizeOp(GLabel label) {
    return getGDimension();
 }
 
+/* BinaryPipe operations */
+
+void initBinaryPipe() {
+   binaryPipe = newBinaryPipe();
+   putPipe("BinaryPipe.init(%s)",
+           quotedString(getPathBinaryStream(binaryPipe)));
+}
+
 /* GImage operations */
 
 GDimension createGImageOp(GObject gobj, string filename) {
@@ -1006,43 +1015,40 @@ GDimension createGImageOp(GObject gobj, string filename) {
 
 GDimension createGImageFromPixelArrayOp(GObject gobj, int **pixels, int width,
                                         int height) {
-   if (iface == NULL) initZMQInterface(5555, 5556);
+   if (binaryPipe == NULL) initBinaryPipe();
+   for (int i = 0; i < height; i++)
+      writeBinaryPipe(binaryPipe, INT_ARR, pixels[i], width);
+   flushBinaryPipe(binaryPipe);
    putPipe("GImage.createFromPixelArray(\"0x%lX\", %d, %d)", (long)gobj, width,
            height);
-   for (int i = 0; i < height; i++) {
-      if (i == height - 1)
-         sendIntArray(iface, pixels[i], width, true);
-      else
-         sendIntArray(iface, pixels[i], width, false);
-   }
    return getGDimension();
 }
 
 int **getPixelArrayOp(GImage image) {
-   if (iface == NULL) initZMQInterface(5555, 5556);
+   if (binaryPipe == NULL) initBinaryPipe();
    int width = getWidth(image);
    int height = getHeight(image);
    int **pixels = newArray(height, int *);
    for (int i = 0; i < height; i++) pixels[i] = newArray(width, int);
    putPipe("GImage.getPixelArray(\"0x%lX\")", (long)image);
+   getStatus();
    for (int i = 0; i < height; i++) {
-      recvIntArray(iface, &(pixels[i]));
+      Map line = readBinaryPipe(binaryPipe, INT_ARR);
+      memcpy(pixels[i], (int *)getMap(line, "data"), width);
+      freeMap(line);
    }
-   sendConfirmationReply(iface);
+   closeBinaryStream(binaryPipe);
    return pixels;
 }
 
 void setPixelArrayOp(GImage image, int **pixels) {
-   if (iface == NULL) initZMQInterface(5555, 5556);
+   if (binaryPipe == NULL) initBinaryPipe();
    int width = getWidth(image);
    int height = getHeight(image);
+   for (int i = 0; i < height; i++)
+      writeBinaryPipe(binaryPipe, INT_ARR, pixels[i], width);
+   flushBinaryPipe(binaryPipe);
    putPipe("GImage.setPixelArray(\"0x%lX\")", (long)image);
-   for (int i = 0; i < height; i++) {
-      if (i == height - 1)
-         sendIntArray(iface, pixels[i], width, true);
-      else
-         sendIntArray(iface, pixels[i], width, false);
-   }
 }
 
 /* GPolygon operations */
@@ -1202,12 +1208,4 @@ static void registerSource(GInteractor interactor) {
    id = getId(interactor);
    putHashMap(sourceTable, id, interactor);
    freeBlock(id);
-}
-
-/* ZMQ-Interface */
-void initZMQInterface(int port_recv, int port_send) {
-   iface = newZMQInterface(port_recv, port_send);
-   putPipe("ZMQInterface.init(%d, %d)", port_send, port_recv);
-   int port_java = getInt();
-   if (port_java != port_send) updateClientPort(iface, port_java);
 }

@@ -83,7 +83,7 @@ TESTS_BUILDDIR    = $(BUILDDIR)/tests
 #       ->  add '-DZMQDEBUG' for a debug build showing ZeroMQ commands
 
 CC       = gcc
-CFLAGS   = -g -std=gnu11
+CFLAGS   = -g -std=gnu11 -DPIPEDEBUG
 
 # SETTINGS - C++ COMPILER
 # -----------------------
@@ -93,7 +93,7 @@ CFLAGS   = -g -std=gnu11
 #       ->  add '-DZMQDEBUG' for a debug build showing ZeroMQ commands
 
 CXX      = g++
-CXXFLAGS = -g -std=gnu++17
+CXXFLAGS = -g -std=gnu++17 -DPIPEDEBUG
 
 # SETTINGS - LINKER, LIBRARIES
 # ----------------------------
@@ -109,19 +109,9 @@ CXXFLAGS = -g -std=gnu++17
 #         Windows Visual Studio 15 (2017) x64: libzmq4.3.2-vs15.2017.lib
 #     }
 
-LDLIBS = -lpthread -ldl
+LDLIBS =
 ifeq ($(OS),Windows_NT)
 LDLIBS += -lshlwapi
-CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-vs15.2017.lib
-# TODO: Test is still pending, if passes CMake is not needed
-else
-ifeq ($(shell uname -s),Linux)
-LDLIBS += -lunwind
-CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-linux5.5.6.a
-endif
-ifeq ($(shell uname -s),Darwin)
-CXX_LIBZMQ = $(PROJECT_DIR)/c/lib/libzmq4.3.2-darwin19.3.0.a
-endif
 endif
 
 #############################################################################
@@ -148,11 +138,11 @@ all: directories $(C_OBJFILES) $(C_STATIC_LIBRARIES) $(CTEST_BINFILES) \
 libcs.a: $(C_OBJFILES)
 	@echo "Build lics.a"
 	@-rm -f $(LIB_BUILDDIR)/libcs.a
-	@mkdir -p $(OBJ_BUILDDIR)/.libzmq
-	@(cd $(OBJ_BUILDDIR)/.libzmq; ar -x ${CXX_LIBZMQ})
-	@(cd $(OBJ_BUILDDIR); ar cr $(LIB_BUILDDIR)/libcs.a $(C_OBJFILES) $(OBJ_BUILDDIR)/.libzmq/*.o)
+	#@mkdir -p $(OBJ_BUILDDIR)/.libzmq
+	# @(cd $(OBJ_BUILDDIR)/.libzmq; ar -x ${CXX_LIBZMQ})
+	@(cd $(OBJ_BUILDDIR); ar cr $(LIB_BUILDDIR)/libcs.a $(C_OBJFILES))
 	@ranlib $(LIB_BUILDDIR)/libcs.a
-	@rm -rf $(OBJ_BUILDDIR)/.libzmq
+	#@rm -rf $(OBJ_BUILDDIR)/.libzmq
 	@cp -r c/include/* $(INCLUDE_BUILDDIR)
 
 # TARGET: C_OBJFILES
