@@ -358,7 +358,7 @@ void add(void *arg, ...) {
    }
 }
 
-void remove(void *arg, ...) {
+void _remove(void *arg, ...) {
    GObject gobj;
    string type;
    void *key;

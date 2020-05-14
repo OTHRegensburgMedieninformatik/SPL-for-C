@@ -314,7 +314,7 @@ void testHashMapModule(void) {
    test(get(map, "Li"), NULL);
    trace(put(map, "Al", "Aluminium"));
    test(get(map, "Al"), "Aluminium");
-   trace(remove(map, "Al"));
+   trace(_remove(map, "Al"));
    test(containsKey(map, "Al"), false);
    test(get(map, "He"), "Helium");
    trace(put(map, "Li", "Lithium"));

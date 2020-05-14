@@ -143,7 +143,7 @@ void pauseOp(double milliseconds);
 static void startJavaBackendProcess();
 void readMessageFromBuffer(char* message, int maxLength);
 
-void initZMQInterface(int port_recv, int port_send);
+void initBinaryPipe();
 
 #ifdef windows
 TCHAR* getApplicationPath(TCHAR* dest, size_t destSize);

@@ -50,7 +50,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "binarypipe.h"
+#include "binpipe.h"
 #include "cslib.h"
 #include "filelib.h"
 #include "gevents.h"
@@ -80,7 +80,7 @@ static HashMap sourceTable;
 static HashMap timerTable;
 static HashMap windowTable;
 static StringBuffer psb;
-static BinaryPipe binaryPipe = NULL;
+// static BinaryPipe binaryPipe = NULL;
 
 #ifdef windows
 static HANDLE g_hChildStd_IN_Rd = NULL;
@@ -111,6 +111,7 @@ static bool scanBool(TokenScanner scanner);
 static string quotedString(string str);
 static string boolString(bool flag);
 static void registerSource(GInteractor interactor);
+static int binpipe = 0;
 
 void initPlatform(void) {
    if (!initialized) initPipe();
@@ -750,7 +751,7 @@ void deleteGWindowOp(GWindow gw) {
    string id;
 
    id = getId(gw);
-   remove(windowTable, id);
+   _remove(windowTable, id);
    freeBlock(id);
    putPipe("GWindow.delete(\"0x%lX\")", (long)gw);
 }
@@ -999,9 +1000,11 @@ GDimension getGLabelSizeOp(GLabel label) {
 /* BinaryPipe operations */
 
 void initBinaryPipe() {
-   binaryPipe = newBinaryPipe();
+   // binaryPipe = newBinaryPipe();
+   binpipe = 1;
    putPipe("BinaryPipe.init(%s)",
-           quotedString(getPathBinaryStream(binaryPipe)));
+           quotedString(
+               concat(getSystemTemporaryDirectory(), "splc_jbe_binarystream")));
 }
 
 /* GImage operations */
@@ -1015,39 +1018,32 @@ GDimension createGImageOp(GObject gobj, string filename) {
 
 GDimension createGImageFromPixelArrayOp(GObject gobj, int **pixels, int width,
                                         int height) {
-   if (binaryPipe == NULL) initBinaryPipe();
-   for (int i = 0; i < height; i++)
-      writeBinaryPipe(binaryPipe, INT_ARR, pixels[i], width);
-   flushBinaryPipe(binaryPipe);
+   // if (binaryPipe == NULL) initBinaryPipe();
+   if (binpipe == 0) initBinaryPipe();
+   writepixels(pixels, width, height);
    putPipe("GImage.createFromPixelArray(\"0x%lX\", %d, %d)", (long)gobj, width,
            height);
    return getGDimension();
 }
 
 int **getPixelArrayOp(GImage image) {
-   if (binaryPipe == NULL) initBinaryPipe();
+   // if (binaryPipe == NULL) initBinaryPipe();
+   if (binpipe == 0) initBinaryPipe();
    int width = getWidth(image);
    int height = getHeight(image);
-   int **pixels = newArray(height, int *);
-   for (int i = 0; i < height; i++) pixels[i] = newArray(width, int);
    putPipe("GImage.getPixelArray(\"0x%lX\")", (long)image);
    getStatus();
-   for (int i = 0; i < height; i++) {
-      Map line = readBinaryPipe(binaryPipe, INT_ARR);
-      memcpy(pixels[i], (int *)getMap(line, "data"), width);
-      freeMap(line);
-   }
-   closeBinaryStream(binaryPipe);
+   int **pixels = getpixels(width, height);
+   // closeBinaryStream(binaryPipe);
    return pixels;
 }
 
 void setPixelArrayOp(GImage image, int **pixels) {
-   if (binaryPipe == NULL) initBinaryPipe();
+   // if (binaryPipe == NULL) initBinaryPipe();
+   if (binpipe == 0) initBinaryPipe();
    int width = getWidth(image);
    int height = getHeight(image);
-   for (int i = 0; i < height; i++)
-      writeBinaryPipe(binaryPipe, INT_ARR, pixels[i], width);
-   flushBinaryPipe(binaryPipe);
+   writepixels(pixels, width, height);
    putPipe("GImage.setPixelArray(\"0x%lX\")", (long)image);
 }
 

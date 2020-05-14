@@ -713,7 +713,7 @@ public class JavaBackEnd implements
 
    private String appName;
    private String exec;
-   private boolean debug = true;
+   private boolean debug = false;
    private JBEConsole console;
    private JFrame consoleFrame;
    private int consoleX = DEFAULT_CONSOLE_X;

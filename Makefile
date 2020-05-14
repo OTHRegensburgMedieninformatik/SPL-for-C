@@ -83,7 +83,7 @@ TESTS_BUILDDIR    = $(BUILDDIR)/tests
 #       ->  add '-DZMQDEBUG' for a debug build showing ZeroMQ commands
 
 CC       = gcc
-CFLAGS   = -g -std=gnu11 -DPIPEDEBUG
+CFLAGS   = -g -std=gnu11
 
 # SETTINGS - C++ COMPILER
 # -----------------------
@@ -93,7 +93,7 @@ CFLAGS   = -g -std=gnu11 -DPIPEDEBUG
 #       ->  add '-DZMQDEBUG' for a debug build showing ZeroMQ commands
 
 CXX      = g++
-CXXFLAGS = -g -std=gnu++17 -DPIPEDEBUG
+CXXFLAGS = -g -std=gnu++17
 
 # SETTINGS - LINKER, LIBRARIES
 # ----------------------------

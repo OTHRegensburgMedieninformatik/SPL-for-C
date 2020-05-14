@@ -662,14 +662,7 @@ class GImage_createFromPixelArray extends JBECommand {
       int height = nextInt(scanner);
       scanner.verifyToken(")");
       BinaryPipe binaryPipe = jbe.getBinaryPipe();
-      int[][] pixels = new int[height][width];
-      for (int i = 0; i < height; i++) {
-         int arr[] = binaryPipe.readIntArr();
-         System.err.println("is long: " + arr.length + ", was expected: " + width);
-         pixels[i] = arr;
-
-      }
-      binaryPipe.closeFis();
+      int[][] pixels = binaryPipe.readIntArr(width, height);
       GImage gobj = new GImage(pixels);
       jbe.defineGObject(id, gobj);
       System.out.println("result:GDimension(" + gobj.getWidth() + ", " + gobj.getHeight() + ")");
@@ -703,10 +696,7 @@ class GImage_setPixelArray extends JBECommand {
       GImage gobj = (GImage) jbe.getGObject(id);
       BinaryPipe binaryPipe = jbe.getBinaryPipe();
       if (gobj != null) {
-         int[][] pixels = new int[(int) gobj.getHeight()][(int) gobj.getWidth()];
-         for (int i = 0; i < pixels.length; i++)
-            pixels[i] = binaryPipe.readIntArr();
-         binaryPipe.closeFis();
+         int[][] pixels = binaryPipe.readIntArr((int) gobj.getWidth(), (int) gobj.getHeight());
          gobj = new GImage(pixels);
          jbe.deleteGObject(id);
          jbe.defineGObject(id, gobj);

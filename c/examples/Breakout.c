@@ -175,7 +175,7 @@ void playGame(GWindow gw) {
                   vy = -vy;
                   setLocation(ball, getX(ball), getY(paddle) - 2 * r);
                } else {
-                  remove(gw, collider);
+                  _remove(gw, collider);
                   nBricksRemaining--;
                   vy = -vy;
                }

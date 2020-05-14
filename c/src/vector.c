@@ -259,7 +259,7 @@ void testVectorModule(void) {
    trace(vec2 = clone(vec));
    trace(set(vec, 0, "a"));
    test(get(vec, 0), "a");
-   trace(remove(vec, 0));
+   trace(_remove(vec, 0));
    test(size(vec), 3);
    trace(insert(vec, 0, "A"));
    test(get(vec, 0), "A");

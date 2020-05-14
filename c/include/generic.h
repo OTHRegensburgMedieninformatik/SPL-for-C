@@ -31,7 +31,7 @@
 
 /* Avoid various name conflicts */
 
-#define remove xremove
+#define _remove xremove
 
 #ifdef __macosx__
 #  define dequeue _dequeue
@@ -203,7 +203,7 @@ void add(void *arg, ...);
  * type for details.
  */
 
-void remove(void *arg, ...);
+void _remove(void *arg, ...);
 
 /**
  * Function: enqueue

@@ -285,7 +285,7 @@ void testCharSetModule(void) {
    test(equals(setDifference(lowercase, consonants), vowels), true);
    trace(set = clone(vowels));
    test(equals(set, vowels), true);
-   trace(remove(set, 'o'));
+   trace(_remove(set, 'o'));
    test(equals(vowels, createCharSet("aeiou")), true);
    test(equals(set, createCharSet("aeiu")), true);
 }
